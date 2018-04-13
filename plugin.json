@@ -1,6 +1,6 @@
 {
   "name":"HelloWorld",
-  "description":"My first plugin",
+  "description":"Plugin to render a list of top items",
   "namespace":"HelloWorld",
   "author":"Iways GmbH",
   "type":"template",
