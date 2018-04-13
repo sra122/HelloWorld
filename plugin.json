@@ -1,8 +1,8 @@
 {
-  "name"              :"HelloWorld",
-  "description"       :"My first plugin",
-  "namespace"         :"HelloWorld",
-  "author"            :"Iways GmbH",
-  "type"              :"template",
-  "serviceProvider"   :"HelloWorld\\Providers\\HelloWorldServiceProvider"
+  "name":"HelloWorld",
+  "description":"My first plugin",
+  "namespace":"HelloWorld",
+  "author":"Iways GmbH",
+  "type":"template",
+  "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider"
 }
