@@ -5,5 +5,34 @@
     "label": "Placeholder text",
     "type": "text",
     "default":"Please click here"
+  },
+  {
+    "tab"   : "Languages",
+    "key"   : "language.active_languages",
+    "label" : "Active languages",
+    "type"  : "multi_select",
+    "possibleValues" :
+    {
+      "de" : "German",
+      "en" : "English",
+      "bg" : "Bulgarian",
+      "fr" : "French",
+      "it" : "Italian",
+      "es" : "Spanish",
+      "tr" : "Turkish",
+      "nl" : "Dutch",
+      "pl" : "Polish",
+      "pt" : "Portuguese",
+      "nn" : "Norwegian",
+      "ro" : "Romanian",
+      "da" : "Danish",
+      "se" : "Swedish",
+      "cz" : "Czech",
+      "ru" : "Russian",
+      "sk" : "Slovak",
+      "cn" : "Chinese",
+      "vn" : "Vietnamese"
+    },
+    "default"   : "de"
   }
 ]
