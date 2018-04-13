@@ -4,6 +4,6 @@
     "key": "placeholder.text",
     "label": "Placeholder text",
     "type": "text",
-    "default":"This is a placeholder"
+    "default":"Please click here"
   }
 ]
