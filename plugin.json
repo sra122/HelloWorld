@@ -3,14 +3,14 @@
   "description":"Plugin to render a list of top items",
   "namespace":"HelloWorld",
   "author":"Iways GmbH",
-  "authorIcon":"author_icon.png",
+  "authorIcon":"icon_author_sm.png",
   "keywords": ["container", "placeholder", "template"],
   "type":"template",
   "require": [],
   "price" : 0.00,
   "version": "1.0.0",
   "license": "The license for the plugin",
-  "pluginIcon": "iways_icon.png",
+  "pluginIcon": "icon_plugin_sm.png",
   "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
   "dataProviders":
           [
