@@ -6,6 +6,6 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
 {
     public function map(Router $router)
     {
-        $router->get('hello', 'HelloWorld\CHelloWorld\Containers\HelloWorldContainer@call');
+        $router->get('hello', 'HelloWorld\Containers\HelloWorldContainer@call');
     }
 }
