@@ -1,8 +1,16 @@
-{% set placeholderText = config("HelloWorld.placeholder.text") %}
-{% extends "HelloWorld::PageDesign" %}
-<a href="https://i-ways-test.plentymarkets-cloud01.com/hello"><img src="{{ plugin_path("HelloWorld") }}/images/placeholder.png"></a>
-<h5>{{ placeholderText }}</h5>
-{% block PageBody %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags always come first -->
+
+    <title>Top items</title>
+
+    <!-- CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div id="page-body">
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
         SignIn
@@ -37,4 +45,6 @@
             </div>
         </div>
     </div>
-{% endblock %}
+</div>
+</body>
+</html>
