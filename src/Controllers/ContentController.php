@@ -5,11 +5,11 @@ namespace HelloWorld\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
-use Plenty\Modules\Item\DataLayer\Contracts\VariationSearchRepositoryContract;
+use Plenty\Modules\Item\Variation\Contracts\ItemDataLayerRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function showTopItems(Twig $twig, VariationSearchRepositoryContract $itemRepository):string
+    public function showTopItems(Twig $twig, ItemDataLayerRepositoryContract $itemRepository):string
     {
         $itemColumns = [
             'itemDescription' => [
