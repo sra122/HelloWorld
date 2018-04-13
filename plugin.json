@@ -9,7 +9,7 @@
   "price" : 0.00,
   "version": "1.0.0",
   "license": "The license for the plugin",
-  "pluginIcon": "HelloWorld\\placeholder.png",
+  "pluginIcon": "iways_icon.png",
   "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
   "dataProviders":
           [
