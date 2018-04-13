@@ -3,6 +3,7 @@
   "description":"Plugin to render a list of top items",
   "namespace":"HelloWorld",
   "author":"Iways GmbH",
+  "authorIcon":"author_icon.png",
   "keywords": ["container", "placeholder", "template"],
   "type":"template",
   "require": [],
