@@ -12,6 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 
 </head>
 <body>
@@ -32,24 +33,41 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="login_form">
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="user_email" v-model = "user_email">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="user_password" v-model = "user_password">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" @click="login_details">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+var vm = new Vue({
+    el: "#login_form",
+    data: {
+        user_email : '',
+        user_password : ''
+    },
+    methods: {
+        login_details : function(event) {
+            console.log(event);
+            console.log(this.user_email, this.user_password);
+            return true;
+        }
+    }
+
+});
+</script>
 </body>
 </html>
