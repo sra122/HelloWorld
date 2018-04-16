@@ -4,5 +4,5 @@
   "namespace": "MyFirstView",
   "author": "Your name",
   "type": "backend",
-  "serviceProvider": "MyFirstView\\Providers\\HelloWorldServiceProvider"
+  "serviceProvider": "HelloWorld\\Providers\\HelloWorldServiceProvider"
 }
