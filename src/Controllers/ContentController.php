@@ -14,7 +14,7 @@ class ContentController extends Controller
         return $twig->render('HelloWorld::hello');
     }
 
-    public function createTableDatabase(Contracts $contracts)
+    public function createTableDatabase(Contracts $contracts):string
     {
         if($contracts->createTable("Hello", 10, 20))
         {
