@@ -1,24 +1,8 @@
 {
-  "name":"HelloWorld",
-  "description":"Plugin to render a list of top items",
-  "namespace":"HelloWorld",
-  "author":"Iways GmbH",
-  "authorIcon":"icon_author_sm.png",
-  "keywords": ["container", "placeholder", "template"],
-  "type":"service",
-  "require": [],
-  "price" : 0.00,
-  "version": "1.0.0",
-  "categories": ["3600", "3527"],
-  "license": "The license for the plugin",
-  "pluginIcon": "icon_plugin_sm.png",
-  "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
-  "dataProviders":
-          [
-            {
-              "key": "HelloWorld\\Containers\\HelloWorldContainer",
-              "name": "HelloWorld",
-              "description": "Display a placeholder image and text"
-            }
-          ]
+  "name": "HelloWorld",
+  "description": "My first back end view",
+  "namespace": "MyFirstView",
+  "author": "Your name",
+  "type": "backend",
+  "serviceProvider": "MyFirstView\\Providers\\HelloWorldServiceProvider"
 }
