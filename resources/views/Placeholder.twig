@@ -25,7 +25,7 @@
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" id="login_form">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -33,7 +33,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="login_form">
+                    <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Email:</label>
                             <input type="email" class="form-control" id="user_email" v-model = "user_email">
@@ -60,10 +60,8 @@ var vm = new Vue({
         user_password : ''
     },
     methods: {
-        login_details : function(event) {
-            console.log(event);
+        login_details : function() {
             console.log(this.user_email, this.user_password);
-            return true;
         }
     }
 
