@@ -1,5 +1,5 @@
 {
-  "defaultEntryPoint" : "index.html",
+  "defaultEntryPoint" : "dist/index.html",
   "namespace"         : "HelloWorld",
   "icon": "icon-plugin",
   "menuEntries"       : [
@@ -7,7 +7,7 @@
       "label": "Hello World",
       "menu": "start",
       "urlKey": "hello-world",
-      "entryPoint": "index.html",
+      "entryPoint": "dist/index.html",
       "icon": "icon-add"
     }
   ]
