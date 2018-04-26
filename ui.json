@@ -5,7 +5,7 @@
   "menuEntries"       : [
     {
       "label": "Hello World",
-      "menu": "system/markets/iTools",
+      "menu": "start",
       "urlKey": "hello-world",
       "entryPoint": "index.html",
       "icon": "icon-add"
