@@ -4,7 +4,7 @@
   "menuEntries"       : [
     {
       "label": "Settings",
-      "menu": "system/market/iTools",
+      "menu": "system/markets/iTools",
       "urlKey": "hello-world",
       "entryPoint": "index.html"
     }
