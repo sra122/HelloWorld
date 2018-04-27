@@ -1,14 +1,12 @@
 {
   "defaultEntryPoint" : "index.html",
   "namespace"         : "HelloWorld",
-  "icon": "icon-plugin",
   "menuEntries"       : [
     {
-      "label": "Hello World",
-      "menu": "start",
+      "label": "Settings",
+      "menu": "system/market/iTools",
       "urlKey": "hello-world",
-      "entryPoint": "index.html",
-      "icon": "icon-add"
+      "entryPoint": "index.html"
     }
   ]
 }
