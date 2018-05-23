@@ -1,33 +1,37 @@
 <?php
+
 namespace HelloWorld\ResultField;
-use Plenty\Modules\Cloud\ElasticSearch\Lib\ElasticSearch;
+
 use Plenty\Modules\Cloud\ElasticSearch\Lib\Source\Mutator\BuiltIn\LanguageMutator;
 use Plenty\Modules\DataExchange\Contracts\ResultFields;
 use Plenty\Modules\Helper\Services\ArrayHelper;
 use Plenty\Modules\Item\Search\Mutators\BarcodeMutator;
 use Plenty\Modules\Item\Search\Mutators\ImageMutator;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
-use Plenty\Modules\Item\Search\Mutators\SkuMutator;
+use Plenty\Modules\Helper\Models\KeyValue;
+
 /**
- * Class HelloWorld
- * @package HelloWorld\ResultField
+ * Class ExportFormatResultFields
+ * @package PluginExportFormatTutorial\ResultField
  */
-class HelloWorld extends ResultFields
+class ExportFormatResultFields extends ResultFields
 {
-    const Hello_World = 66.00;
+    const DEFAULT_MARKET_REFERENCE = 100.00;
+
     /**
      * @var ArrayHelper
      */
     private $arrayHelper;
+
     /**
-     * HelloWorld constructor.
-     *
+     * ExportFormatResultFields constructor.
      * @param ArrayHelper $arrayHelper
      */
     public function __construct(ArrayHelper $arrayHelper)
     {
         $this->arrayHelper = $arrayHelper;
     }
+
     /**
      * Creates the fields set to be retrieved from ElasticSearch.
      *
@@ -36,19 +40,20 @@ class HelloWorld extends ResultFields
      */
     public function generateResultFields(array $formatSettings = []):array
     {
+        /** @var KeyValue $settings */
         $settings = $this->arrayHelper->buildMapFromObjectList($formatSettings, 'key', 'value');
-        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::Hello_World;
-        $this->setOrderByList([
-            'path' => 'variation.itemId',
-            'order' => ElasticSearch::SORTING_ORDER_ASC]);
+        $reference = $settings->get('referrerId') ? $settings->get('referrerId') : self::DEFAULT_MARKET_REFERENCE;
+
+        $this->setOrderByList(['variation.itemId', 'ASC']);
 
         $itemDescriptionFields = ['texts.urlPath'];
         $itemDescriptionFields[] = ($settings->get('nameId')) ? 'texts.name' . $settings->get('nameId') : 'texts.name1';
-        if($settings->get('descriptionType') == 'itemShortDescription'
-            || $settings->get('previewTextType') == 'itemShortDescription')
+
+        if($settings->get('descriptionType') == 'itemShortDescription' || $settings->get('previewTextType') == 'itemShortDescription')
         {
             $itemDescriptionFields[] = 'texts.shortDescription';
         }
+
         if($settings->get('descriptionType') == 'itemDescription'
             || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
             || $settings->get('previewTextType') == 'itemDescription'
@@ -56,6 +61,7 @@ class HelloWorld extends ResultFields
         {
             $itemDescriptionFields[] = 'texts.description';
         }
+
         if($settings->get('descriptionType') == 'technicalData'
             || $settings->get('descriptionType') == 'itemDescriptionAndTechnicalData'
             || $settings->get('previewTextType') == 'technicalData'
@@ -63,43 +69,43 @@ class HelloWorld extends ResultFields
         {
             $itemDescriptionFields[] = 'texts.technicalData';
         }
+
         $itemDescriptionFields[] = 'texts.lang';
+
         // Mutators
-        /**
-         * @var ImageMutator $imageMutator
-         */
+
+        /** @var ImageMutator $imageMutator */
         $imageMutator = pluginApp(ImageMutator::class);
         if($imageMutator instanceof ImageMutator)
         {
             $imageMutator->addMarket($reference);
         }
-        /**
-         * @var LanguageMutator $languageMutator
-         */
-        $languageMutator = pluginApp(LanguageMutator::class, ['languages' => [$settings->get('lang')]]);
-        /**
-         * @var BarcodeMutator $barcodeMutator
-         */
+
+        /** @var LanguageMutator $languageMutator */
+        $languageMutator = pluginApp(LanguageMutator::class, [[$settings->get('lang')]]);
+
+        /** @var BarcodeMutator $barcodeMutator */
         $barcodeMutator = pluginApp(BarcodeMutator::class);
         if($barcodeMutator instanceof BarcodeMutator)
         {
             $barcodeMutator->addMarket($reference);
         }
-        /**
-         * @var KeyMutator
-         */
+
+        /** @var KeyMutator */
         $keyMutator = pluginApp(KeyMutator::class);
         if($keyMutator instanceof KeyMutator)
         {
             $keyMutator->setKeyList($this->getKeyList());
             $keyMutator->setNestedKeyList($this->getNestedKeyList());
         }
+
         // Fields
         $fields = [
             [
                 //item
                 'item.id',
                 'item.manufacturer.id',
+
                 //variation
                 'id',
                 'variation.availability.id',
@@ -108,6 +114,7 @@ class HelloWorld extends ResultFields
                 'variation.model',
                 'variation.isMain',
                 'variation.number',
+
                 //images
                 'images.all.urlMiddle',
                 'images.all.urlPreview',
@@ -115,32 +122,40 @@ class HelloWorld extends ResultFields
                 'images.all.url',
                 'images.all.path',
                 'images.all.position',
+
                 'images.item.urlMiddle',
                 'images.item.urlPreview',
                 'images.item.urlSecondPreview',
                 'images.item.url',
                 'images.item.path',
                 'images.item.position',
+
                 'images.variation.urlMiddle',
                 'images.variation.urlPreview',
                 'images.variation.urlSecondPreview',
                 'images.variation.url',
                 'images.variation.path',
                 'images.variation.position',
+
                 //unit
                 'unit.content',
                 'unit.id',
+
                 //defaultCategories
                 'defaultCategories.id',
+
                 //allCategories
-                'ids.categories.branches',
+                'ids.categories.all',
+
                 //barcodes
                 'barcodes.code',
                 'barcodes.type',
+
                 //attributes
                 'attributes.attributeValueSetId',
                 'attributes.attributeId',
                 'attributes.valueId',
+
                 //properties
                 'properties.property.id',
                 'properties.property.valueType',
@@ -155,19 +170,25 @@ class HelloWorld extends ResultFields
                 $keyMutator
             ],
         ];
+
         // Get the associated images if reference is selected
         if($reference != -1)
         {
             $fields[1][] = $imageMutator;
         }
+
         foreach($itemDescriptionFields as $itemDescriptionField)
         {
             //texts
             $fields[0][] = $itemDescriptionField;
         }
+
         return $fields;
     }
+
     /**
+     * Returns predefined keys to make sure that they will be available in the feed.
+     *
      * @return array
      */
     private function getKeyList()
@@ -177,6 +198,7 @@ class HelloWorld extends ResultFields
             'item.id',
             'item.manufacturer.id',
             'item.conditionApi',
+
             // Variation
             'variation.availability.id',
             'variation.model',
@@ -184,13 +206,18 @@ class HelloWorld extends ResultFields
             'variation.stockLimitation',
             'variation.weightG',
             'variation.number',
+
             // Unit
             'unit.content',
             'unit.id',
+
             'ids.categories.all',
         ];
     }
+
     /**
+     * Returns the predefined nested keys to make sure that they will be available in the feed.
+     *
      * @return array
      */
     private function getNestedKeyList()
@@ -199,15 +226,19 @@ class HelloWorld extends ResultFields
             'keys' => [
                 // Attributes
                 'attributes',
+
                 // Barcodes
                 'barcodes',
+
                 // Default categories
                 'defaultCategories',
+
                 // Images
                 'images.all',
                 'images.item',
                 'images.variation',
             ],
+
             'nestedKeys' => [
                 // Attributes
                 'attributes' => [
@@ -215,15 +246,18 @@ class HelloWorld extends ResultFields
                     'attributeId',
                     'valueId'
                 ],
+
                 // Barcodes
                 'barcodes' => [
                     'code',
                     'type'
                 ],
+
                 // Default categories
                 'defaultCategories' => [
                     'id'
                 ],
+
                 // Images
                 'images.all' => [
                     'urlMiddle',
@@ -249,6 +283,7 @@ class HelloWorld extends ResultFields
                     'path',
                     'position',
                 ],
+
                 // texts
                 'texts' => [
                     'urlPath',

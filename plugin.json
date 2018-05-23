@@ -17,5 +17,5 @@
   },
   "require": ["ElasticExport"],
   "author": "Panda Black",
-  "serviceProvider": "HelloWorld\\ElasticExportHelloWorldServiceProvider"
+  "serviceProvider": "HelloWorld\\ExportFormatServiceProvider"
 }
