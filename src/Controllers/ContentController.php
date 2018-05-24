@@ -6,12 +6,12 @@ namespace HelloWorld\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
-use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
+use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository):string
     {
         $itemColumns = [
             'itemDescription' => [
