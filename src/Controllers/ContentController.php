@@ -36,11 +36,11 @@ class ContentController extends Controller
             ]
         ];
 
-        $itemParams = [
+        /*$itemParams = [
             'language' => 'en'
-        ];
+        ];*/
 
-        $resultItems = $attributeMapping->all($itemColumns, 50, 1, $itemFilter, $itemParams);
+        $resultItems = $attributeMapping->all($itemColumns, 50, 1, $itemFilter);
 
         $items = array();
 
