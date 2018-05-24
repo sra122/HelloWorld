@@ -40,7 +40,7 @@ class ContentController extends Controller
             'language' => 'en'
         ];
 
-        $resultItems = $attributeMapping->search($itemColumns, 50, 1, $itemFilter, $itemParams);
+        $resultItems = $attributeMapping->all($itemColumns, 50, 1, $itemFilter, $itemParams);
 
         $items = array();
 
