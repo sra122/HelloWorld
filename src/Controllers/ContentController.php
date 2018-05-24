@@ -49,9 +49,7 @@ class ContentController extends Controller
             $items[] = $item;
         }
 
-
         $templateData = array(
-            'resultCount' => $resultItems->count(),
             'currentItems' => $items
         );
 
