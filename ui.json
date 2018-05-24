@@ -5,13 +5,13 @@
     {
       "label": "Settings",
       "menu": "system/markets/iTools",
-      "urlKey": "hello-world",
+      "urlKey": "authentication",
       "entryPoint": "index.html"
     },
     {
       "label": "Category-linking",
       "menu": "system/markets/iTools",
-      "urlKey": "hello-world",
+      "urlKey": "category-linking",
       "entryPoint": "index.html"
     }
   ]
