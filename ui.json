@@ -12,7 +12,7 @@
       "label": "Category linking",
       "menu": "system/markets/iTools",
       "urlKey": "hello-world",
-      "entryPoint": "index.htm"
+      "entryPoint": "index.html"
     }
   ]
 }
