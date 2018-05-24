@@ -5,6 +5,9 @@
         <div class="col-xs-12 card-deck-wrapper" style="overflow: auto">
             <ul class="list-unstyled card-deck" style="height: 380px">
                 {% if currentItems is not null %}
+                    {% for itemImage in imageDetails%}
+                        <p>{{ itemImage }}</p>
+                    {% endfor %}
                     {% for item in currentItems %}
                         <li class="card" style="width: 280px">
                             <div class="card-block">

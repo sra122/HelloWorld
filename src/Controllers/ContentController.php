@@ -6,12 +6,12 @@ namespace HelloWorld\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
-use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
-
+use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
+use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, ItemImageRepositoryContract $itemImageRepository):string
     {
         $itemColumns = [
             'itemDescription' => [
@@ -49,9 +49,17 @@ class ContentController extends Controller
             $items[] = $item;
         }
 
+        $images = array();
+
+        foreach($items as $itemImage)
+        {
+            $images[] = $itemImageRepository->findByItemId($itemImage['variationBase']['id']);
+        }
+
         $templateData = array(
             'resultCount' => $resultItems->count(),
-            'currentItems' => $items
+            'currentItems' => $items,
+            'imageDetails' => $images
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
