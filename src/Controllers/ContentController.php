@@ -7,11 +7,11 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
-use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
+use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, ItemImageRepositoryContract $itemImageRepository):string
+    public function sayHello(Twig $twig, AttributeMapRepositoryContract $attributeMapping):string
     {
         $itemColumns = [
             'itemDescription' => [
@@ -40,7 +40,7 @@ class ContentController extends Controller
             'language' => 'en'
         ];
 
-        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
+        $resultItems = $attributeMapping->search($itemColumns, 50, 1, $itemFilter, $itemParams);
 
         $items = array();
 
@@ -49,17 +49,10 @@ class ContentController extends Controller
             $items[] = $item;
         }
 
-        $images = array();
-
-        foreach($items as $itemImage)
-        {
-            $images[] = $itemImageRepository->findByItemId($itemImage['variationBase']['id']);
-        }
 
         $templateData = array(
             'resultCount' => $resultItems->count(),
-            'currentItems' => $items,
-            'imageDetails' => $images
+            'currentItems' => $items
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
