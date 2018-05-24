@@ -9,7 +9,7 @@
       "entryPoint": "index.html"
     },
     {
-      "label": "Category linking",
+      "label": "Category-linking",
       "menu": "system/markets/iTools",
       "urlKey": "hello-world",
       "entryPoint": "index.html"
