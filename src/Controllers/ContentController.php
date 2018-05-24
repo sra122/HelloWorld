@@ -61,6 +61,7 @@ class ContentController extends Controller
             'currentItems' => $items,
             'imageDetails' => $images
         );
+        print_r($images);
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
