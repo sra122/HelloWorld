@@ -8,10 +8,11 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
+use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, AttributeMapRepositoryContract $attributeMapping):string
+    public function sayHello(Twig $twig, PropertyRepositoryContract $itemRepository):string
     {
         $itemColumns = [
             'itemDescription' => [
@@ -36,11 +37,11 @@ class ContentController extends Controller
             ]
         ];
 
-        /*$itemParams = [
+        $itemParams = [
             'language' => 'en'
-        ];*/
+        ];
 
-        $resultItems = $attributeMapping->all($itemColumns, 50, 1, $itemFilter);
+        $resultItems = $itemRepository->all($itemColumns, 50, 1);
 
         $items = array();
 
