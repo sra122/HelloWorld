@@ -37,12 +37,10 @@ class ContentController extends Controller
             ],
 
             'variationMarketStatus' => [
-                'fields' => [
                     'id',
                     'sku',
                     'marketStatus',
                     'additionalInformation',
-                ]
             ],
 
             'variationBase' => [
