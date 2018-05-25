@@ -28,14 +28,12 @@ class ContentController extends Controller
             ],
 
             'itemDescription' => [
-                'fields' => [
                     'name1',
                     'description',
                     'shortDescription',
                     'technicalData',
                     'keywords',
                     'lang',
-                ],
             ],
 
             'variationMarketStatus' => [
