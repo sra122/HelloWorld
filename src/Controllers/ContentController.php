@@ -9,10 +9,11 @@ use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
+use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, PropertyRepositoryContract $itemRepository):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository):string
     {
         $itemColumns = [
             'itemDescription' => [
@@ -41,7 +42,7 @@ class ContentController extends Controller
             'language' => 'en'
         ];
 
-        $resultItems = $itemRepository->all($itemColumns, 50, 1);
+        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
 
         $items = array();
 
@@ -54,6 +55,34 @@ class ContentController extends Controller
             'currentItems' => $items
         );
 
+        $keyMutator = pluginApp(KeyMutator::class);
+
+        if($keyMutator instanceof KeyMutator)
+        {
+            $keyMutator->setKeyList($this->getKeyList());
+        }
+
+
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
+
+    private function getKeyList()
+    {
+        return [
+            // Item
+            'item.id',
+            'item.manufacturer.id',
+            'item.conditionApi',
+            // Variation
+            'variation.availability.id',
+            'variation.model',
+            'variation.releasedAt',
+            'variation.stockLimitation',
+            'variation.weightG',
+            // Unit
+            'unit.content',
+            'unit.id',
+        ];
+    }
+
 }
