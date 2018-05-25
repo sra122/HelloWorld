@@ -10,6 +10,7 @@ use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
+use Plenty\Plugin\Application;
 
 class ContentController extends Controller
 {
