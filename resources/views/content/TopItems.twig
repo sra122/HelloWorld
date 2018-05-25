@@ -14,10 +14,16 @@
                             {% set image = item.variationImageList | first %}
                             <img class="col-lg-12" src="{{ image.fields.path }}" alt="{{ image.cleanImageName }}">
                             <div class="card-block">
-                                <p class="card-text">Description: {{ item.itemDescription.description }}</p>
+                                <p class="card-text">Description: {{ item.itemDescription.shortDescription }}</p>
                             </div>
                             <div class="card-block">
                                 <p class="card-text">Weight: {{ item.variationBase.weightG }}</p>
+                                <p class="card-text">limitOrderByStockSelect: {{ item.variationBase.limitOrderByStockSelect }}</p>
+                                <p class="card-text">lengthMm: {{ item.variationBase.lengthMm }}</p>
+                                <p class="card-text">widthMm: {{ item.variationBase.widthMm }}</p>
+                                <p class="card-text">heightMm: {{ item.variationBase.heightMm }}</p>
+                                <p class="card-text">attributeValueSetId: {{ item.variationBase.attributeValueSetId }}</p>
+                                <p class="card-text">id: {{ item.variationBase.id }}</p>
                             </div>
                             <div class="card-block">
                                 <p class="card-text">SKU: {{ item.variationMarketStatus.sku }}</p>
