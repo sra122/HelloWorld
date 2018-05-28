@@ -12,10 +12,11 @@ use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
+use Plenty\Modules\Item\VariationCategory\Contracts\VariationCategoryRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, VariationCategoryRepositoryContract $variationCat):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -145,6 +146,7 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
+        $var_cat = $variationCat->findById(1001);
 
         foreach($resultItems as $item)
         {
@@ -153,7 +155,8 @@ class ContentController extends Controller
 
         $templateData = array(
             'currentItems' => $items,
-            'variations' => $variation
+            'variations' => $variation->variationMarkets,
+            'categories' => $var_cat
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
