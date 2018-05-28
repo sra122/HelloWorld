@@ -6,7 +6,8 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 
 /**
- * Class CreateOrderReferrer
+ * Class GetOrderReferrer
+ * @package HelloWorld\Migrations
  */
 class GetOrderReferrer
 {
@@ -16,8 +17,7 @@ class GetOrderReferrer
     private $settingsHelper;
 
     /**
-     * CreateOrderReferrer constructor.
-     *
+     * GetOrderReferrer constructor.
      * @param SettingsHelper $settingsHelper
      */
     public function __construct(SettingsHelper $settingsHelper)
@@ -30,7 +30,13 @@ class GetOrderReferrer
      */
     public function run(OrderReferrerRepositoryContract $orderReferrerRepo)
     {
-        $orderReferrer = $orderReferrerRepo->getReferrerById(66.0);
+        $orderReferrer = $orderReferrerRepo->create([
+                                                    'isEditable'    => false,
+                                                    'backendName' => 'PandaBlack',
+                                                    'name'        => 'PandaBlack',
+                                                    'origin'      => 'plenty',
+                                                    'isFilterable' => true
+                                                ], 66.00);
         $retries = 0;
 
         do
