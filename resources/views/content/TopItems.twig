@@ -11,6 +11,13 @@
                     <li>No items found</li>
                 {% endif %}
 
+                {% if categories is not null %}
+                    <br><br><br><li>Variation data</li><br><br><br>
+                    {{ categories | json_encode }}
+                {% else %}
+                    <li>No categories</li>
+                {% endif %}
+
                 {% if currentItems is not null %}
                     <br><br><br><li>Current Items</li> <br><br><br>
                     {{currentItems | json_encode}}
