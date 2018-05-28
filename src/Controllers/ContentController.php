@@ -66,20 +66,16 @@ class ContentController extends Controller
                     'stockNet'
                 ]
             ],
+            'variationCategories',
+            'variationSuppliers',
 
             'variationStandardCategory' => [
-                [
-                    'params' => [
-                        'plentyId' => pluginApp(Application::class)->getPlentyId(),
-                    ]
+                'params' => [
+                    'plentyId' => pluginApp(Application::class)->getPlentyId(),
                 ],
-                [
-                    'params' => [
-                        'fields' => [
-                            'categoryId'
-                        ]
-                    ],
-                ]
+                'fields' => [
+                    'categoryId'
+                ],
             ],
 
             'itemCharacterList' => [
