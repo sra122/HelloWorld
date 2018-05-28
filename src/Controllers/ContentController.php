@@ -58,7 +58,14 @@ class ContentController extends Controller
                 'currency',
             ],
 
-            'variationStock' => ['*'],
+            'variationStock' => [
+                'params' => [
+                    'type' => 'virtual'
+                ],
+                'fields' => [
+                    'stockNet'
+                ]
+            ],
 
             'variationStandardCategory' => [
                 'params' => [
