@@ -173,10 +173,8 @@ class ContentController extends Controller
         }
 
         $authRepo->authenticateWithPlentyId(38447, '737eae3a');
+        $varSalesPrices = $varSalesPrice->findByVariationId(1001);
 
-        if($afterAuth->isSuccessful()) {
-            $varSalesPrices = $varSalesPrice->findByVariationId(1001);
-        }
 
 
 
