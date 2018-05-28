@@ -6,6 +6,8 @@
             <ul class="list-unstyled card-deck" style="height: 380px">
                 {% if variations is not null %}
                     {{ variations | json_encode }}
+                {% else %}
+                    <li>No items found</li>
                 {% endif %}
                 {% if currentItems is not null %}
                     {{currentItems | json_encode}}
