@@ -128,9 +128,7 @@ class ContentController extends Controller
             'variationBase.isActive?'                     => [],
             'variationVisibility.isVisibleForMarketplace' => [
                 'mandatoryOneMarketplace' => [],
-                'mandatoryAllMarketplace' => [
-                    66.0
-                ]
+                'mandatoryAllMarketplace' => []
             ],
             'variationStock.netPositive'                  => [
                 'warehouse' => 'virtual',
