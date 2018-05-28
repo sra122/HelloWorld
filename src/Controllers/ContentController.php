@@ -13,7 +13,6 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
-use Plenty\Modules\DataExchange\Contracts\ExportRepositoryContract;
 class ContentController extends Controller
 {
     public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat):string
@@ -164,10 +163,9 @@ class ContentController extends Controller
             while($category->parentCategoryId !== null)
             {
                 $parentCat = $variationCat->get($category->parentCategoryId, $lang = "de");
-                $parentCats[] = $parentCat->details['name'];
+                $parentCats[] = $parentCat;
             }
-
-            array_push($parentCats, $category->details['name']);
+            array_push($parentCats, $category);
         }
 
         $templateData = array(
