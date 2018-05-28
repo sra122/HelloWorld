@@ -128,7 +128,7 @@ class ContentController extends Controller
         ];
 
         $itemParams = [
-            'language' => 'de'
+            'referrerId' => 66.0,
         ];
 
         $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
