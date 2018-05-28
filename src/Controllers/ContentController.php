@@ -13,9 +13,10 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
+use Plenty\Modules\Item\VariationSalesPrice\Contracts\VariationSalesPriceRepositoryContract;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, VariationSalesPriceRepositoryContract $varSalesPrice):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -169,11 +170,14 @@ class ContentController extends Controller
             $parentCat[] = $variationCat->get($category->parentCategoryId, $lang = "de");
         }
 
+        $varSalesPrices = $varSalesPrice->findByVariationId(1001);
+
         $templateData = array(
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
             'categories' => $categories,
-            'parent_categories' => $parentCat
+            'parent_categories' => $parentCat,
+            'var_sales_prices' => $varSalesPrices
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
