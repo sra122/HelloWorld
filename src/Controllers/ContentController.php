@@ -13,9 +13,10 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
+use Plenty\Modules\DataExchange\Contracts\ExportRepositoryContract;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, ExportRepositoryContract $export):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -140,7 +141,7 @@ class ContentController extends Controller
             'referrerId' => 66.0,
         ];
 
-        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
+        $resultItems = $export->search($itemColumns, $itemFilter, $itemParams);
 
         $items = array();
 
