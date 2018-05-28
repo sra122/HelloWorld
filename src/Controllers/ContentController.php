@@ -125,6 +125,16 @@ class ContentController extends Controller
         ];
 
         $itemFilter = [
+            'variationBase.isActive?'                     => [],
+            'variationVisibility.isVisibleForMarketplace' => [
+                'mandatoryOneMarketplace' => [],
+                'mandatoryAllMarketplace' => [
+                    66.0
+                ]
+            ],
+            'variationStock.netPositive'                  => [
+                'warehouse' => 'virtual',
+            ],
         ];
 
         $itemParams = [
@@ -144,34 +154,7 @@ class ContentController extends Controller
             'currentItems' => $items
         );
 
-        $keyMutator = pluginApp(KeyMutator::class);
-
-        if($keyMutator instanceof KeyMutator)
-        {
-            $keyMutator->setKeyList($this->getKeyList());
-        }
-
-
         return $twig->render('HelloWorld::content.TopItems', $templateData);
-    }
-
-    private function getKeyList()
-    {
-        return [
-            // Item
-            'item.id',
-            'item.manufacturer.id',
-            'item.conditionApi',
-            // Variation
-            'variation.availability.id',
-            'variation.model',
-            'variation.releasedAt',
-            'variation.stockLimitation',
-            'variation.weightG',
-            // Unit
-            'unit.content',
-            'unit.id',
-        ];
     }
 
 }
