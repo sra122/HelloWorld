@@ -146,7 +146,6 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
-        $var_cat = $variationCat->findByVariationId(1001);
 
         foreach($resultItems as $item)
         {
@@ -155,8 +154,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'currentItems' => $items,
-            'variations' => $variation->variationMarkets,
-            'categories' => $var_cat
+            'variations' => $variation->variationMarkets
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
