@@ -12,11 +12,19 @@
                 {% endif %}
 
                 {% if categories is not null %}
-                    <br><br><br><li>Variation data</li><br><br><br>
+                    <br><br><br><li>Categories data</li><br><br><br>
                     {{ categories | json_encode }}
                 {% else %}
                     <li>No categories</li>
                 {% endif %}
+
+                {% if parent_categories is not null %}
+                    <br><br><br><li>Parent Category data</li><br><br><br>
+                    {{ parent_categories | json_encode }}
+                {% else %}
+                    <li>No Parent categories</li>
+                {% endif %}
+
 
                 {% if currentItems is not null %}
                     <br><br><br><li>Current Items</li> <br><br><br>

@@ -161,10 +161,18 @@ class ContentController extends Controller
             $categories[] = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
         }
 
+        $parentCats = array();
+
+        foreach($categories as $category)
+        {
+            $parentCats[] = $variationCat->get($category->parentCategoryId, $lang = "de");
+        }
+
         $templateData = array(
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
-            'categories' => $categories
+            'categories' => $categories,
+            'parent_categories' => $parentCats
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
