@@ -11,10 +11,11 @@ use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
+use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -143,13 +144,16 @@ class ContentController extends Controller
 
         $items = array();
 
+        $variation = $variationRepo->findById(1000);
+
         foreach($resultItems as $item)
         {
             $items[] = $item;
         }
 
         $templateData = array(
-            'currentItems' => $items
+            'currentItems' => $items,
+            'variations' => $variation
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
