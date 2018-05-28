@@ -66,8 +66,6 @@ class ContentController extends Controller
                     'stockNet'
                 ]
             ],
-            'variationCategories',
-            'variationSuppliers',
 
             'variationStandardCategory' => [
                 'params' => [
