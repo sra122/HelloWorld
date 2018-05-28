@@ -16,7 +16,7 @@ use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\DataExchange\Contracts\ExportRepositoryContract;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, ExportRepositoryContract $export):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -141,7 +141,7 @@ class ContentController extends Controller
             'referrerId' => 66.0,
         ];
 
-        $resultItems = $export->search($itemColumns, $itemFilter, $itemParams);
+        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
 
         $items = array();
 
@@ -159,21 +159,21 @@ class ContentController extends Controller
 
         foreach ($items as $item)
         {
-            $categories[] = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
-        }
+            $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
+            $parentCats = array();
+            while($category->parentCategoryId !== null)
+            {
+                $parentCat = $variationCat->get($category->parentCategoryId, $lang = "de");
+                $parentCats[] = $parentCat->details['name'];
+            }
 
-        $parentCats = array();
-
-        foreach($categories as $category)
-        {
-            $parentCats[] = $variationCat->get($category->parentCategoryId, $lang = "de");
+            array_push($parentCats, $category->details['name']);
         }
 
         $templateData = array(
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
-            'categories' => $categories,
-            'parent_categories' => $parentCats
+            'categories' => $categories
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
