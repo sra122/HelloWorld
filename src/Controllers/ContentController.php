@@ -125,6 +125,14 @@ class ContentController extends Controller
         ];
 
         $itemFilter = [
+            'variationBase.isActive?'                     => [],
+            'variationVisibility.isVisibleForMarketplace' => [
+                'mandatoryOneMarketplace' => [],
+                'mandatoryAllMarketplace' => []
+            ],
+            'variationStock.netPositive'                  => [
+                'warehouse' => 'virtual',
+            ],
         ];
 
         $itemParams = [
