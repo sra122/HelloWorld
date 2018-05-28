@@ -29,7 +29,13 @@ class GetOrderReferrer
      */
     public function run(OrderReferrerRepositoryContract $orderReferrerRepo)
     {
-        $orderReferrer = $orderReferrerRepo->getReferrerById(66.0);
+        $orderReferrer = $orderReferrerRepo->create([
+                                                    'isEditable'    => false,
+                                                    'backendName' => 'PandaBlack',
+                                                    'name'        => 'PandaBlack',
+                                                    'origin'      => 'plenty',
+                                                    'isFilterable' => true
+                                                  ], 66.00);
         $retries = 0;
 
         do
