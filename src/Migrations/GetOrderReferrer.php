@@ -8,7 +8,7 @@ use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 /**
  * Class CreateOrderReferrer
  */
-class CreateOrderReferrer
+class GetOrderReferrer
 {
     /**
      * @var SettingsHelper
