@@ -146,7 +146,7 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
-        $var_cat = $variationCat->findById(1001);
+        $var_cat = $variationCat->findByVariationId(1001);
 
         foreach($resultItems as $item)
         {
