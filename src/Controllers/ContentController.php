@@ -15,10 +15,9 @@ use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\Item\VariationSalesPrice\Contracts\VariationSalesPriceRepositoryContract;
 use Plenty\Modules\Authentication\Contracts\ContactAuthenticationRepositoryContract;
-use Plenty\Modules\Authentication\Events\AfterAccountAuthentication;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, VariationSalesPriceRepositoryContract $varSalesPrice, ContactAuthenticationRepositoryContract $authRepo, AfterAccountAuthentication $afterAuth):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, VariationSalesPriceRepositoryContract $varSalesPrice, ContactAuthenticationRepositoryContract $authRepo):string
     {
         $itemColumns = [
             'itemBase' => [
