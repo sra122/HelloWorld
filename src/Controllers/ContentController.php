@@ -13,10 +13,13 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
-use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
+
+use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
+use Plenty\Plugin\Http\Request;
+
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, ItemImageRepositoryContract $imageRepo):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -194,7 +197,13 @@ class ContentController extends Controller
             'var_sales_prices' => $varSales
         );
 
-        return $twig->render('HelloWorld::content.TopItems', $templateData);
+        $packagistResult =
+            $libCall->call(
+                'HelloWorld::guzzle_connector',
+                ['packagist_query' => $request->get('search')]
+            );
+
+        return $twig->render('HelloWorld::content.TopItems', $packagistResult);
     }
 
 }

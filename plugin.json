@@ -4,5 +4,8 @@
   "namespace":"HelloWorld",
   "author":"Iways GmbH",
   "type":"template",
-  "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider"
+  "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
+  "dependencies" : {
+    "guzzlehttp/guzzle": "6.2.*"
+  }
 }
