@@ -199,8 +199,7 @@ class ContentController extends Controller
 
         $packagistResult =
             $libCall->call(
-                'HelloWorld::guzzle_connector',
-                ['packagist_query' => $request->get('search')]
+                'HelloWorld::guzzle_connector'
             );
 
         return $twig->render('HelloWorld::content.TopItems', $packagistResult);
