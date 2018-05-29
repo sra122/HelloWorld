@@ -6,6 +6,6 @@
   "type":"template",
   "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
   "dependencies" : {
-    "guzzlehttp/guzzle": "6.2.*"
+    "guzzlehttp/guzzle": "6.3.*"
   }
 }
