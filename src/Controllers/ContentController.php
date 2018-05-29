@@ -160,7 +160,7 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
-        $varSales = $variationRepo->show(1001, ['variationSalesPrices'], $lang = "de");
+        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true], $lang = "de");
 
 
 
