@@ -179,8 +179,8 @@ class ContentController extends Controller
 
         $templateData = array(
             'currentItems' => $items,
-            'categories' => $categories,
-            'parent_categories' => $parentCat->details,
+            'categories' => $categories->details[0]->name,
+            'parent_categories' => $parentCat->details[0]->name,
             'var_sales_prices' => $varSales
         );
 
