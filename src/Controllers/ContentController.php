@@ -175,7 +175,7 @@ class ContentController extends Controller
 
             $parentCat = '';
 
-            while($category->parentCategoryId != null) {
+            if($category->parentCategoryId != null) {
                 $parentCat = $variationCat->get($category->parentCategoryId, $lang = "de");
             }
 
