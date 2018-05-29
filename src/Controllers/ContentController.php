@@ -171,16 +171,22 @@ class ContentController extends Controller
 
         foreach ($items as $item)
         {
-            $categories[] = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
+            $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
+            $parentCat = '';
+
+            while($category->parentCategoryId != null) {
+                $parentCat = $variationCat->get($category->parentCategoryId, $lang = "de");
+            }
+
+            $categories[] = $parentCat->details[0]->name.'<<'.$category->details[0]->name;
         }
 
-        $parentCat = $variationCat->get(16, $lang = "de");
+
 
         $templateData = array(
             'currentItems' => $items,
-            'categories' => $categories->details[0]->name,
-            'parent_categories' => $parentCat->details[0]->name,
+            'categories' => $categories,
             'var_sales_prices' => $varSales
         );
 
