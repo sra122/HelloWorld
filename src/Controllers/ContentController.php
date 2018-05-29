@@ -95,7 +95,7 @@ class ContentController extends Controller
                 'attributeValueId'
             ],
 
-            'itemProperty' => [
+            /*'itemProperty' => [
                 'itemPropertyId',
                 'propertyId',
                 'propertyValue',
@@ -104,7 +104,7 @@ class ContentController extends Controller
             'variationAttributeValue' => [
                 'attributeId',
                 'attributeValueId'
-            ],
+            ],*/
 
             'variationImageList' => [
                 'params' => [
@@ -160,6 +160,7 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
+        $varSales = $variationRepo->show(1001, ['variationSalesPrices'], $lang = "de");
 
 
 
@@ -194,7 +195,9 @@ class ContentController extends Controller
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
             'categories' => $categories,
-            'parent_categories' => $parentCat
+            'parent_categories' => $parentCat,
+            'var_sales_prices' => $varSales
+
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
