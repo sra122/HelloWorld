@@ -160,14 +160,14 @@ class ContentController extends Controller
 
         $items = array();
 
-        $variation = $variationRepo->findById(1001);
-        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true, 'variationImageList' => true, 'images' => true], $lang = "de");
+        $variation = $variationRepo->findById(1002);
 
 
-
+        $varSales = array();
         foreach($resultItems as $item)
         {
             $items[] = $item;
+            $varSales[] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
         }
 
         $categories = array();
@@ -187,7 +187,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'currentItems' => $items,
-            'variations' => $variation->variationMarkets,
+            'variations' => $variation,
             'categories' => $categories,
             'parent_categories' => $parentCat,
             'var_sales_prices' => $varSales
