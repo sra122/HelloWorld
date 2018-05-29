@@ -159,8 +159,8 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
-        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true, 'variationImageList' => true], $lang = "de");
-        $imageData = $imageRepo->findByItemId(102);
+        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true], $lang = "de");
+        $imageData = $variationRepo->show(1001, ['itemImages' => true], $lang = "de");
 
 
 
@@ -186,9 +186,6 @@ class ContentController extends Controller
 
         //$authRepo->authenticateWithPlentyId(38447, '737eae3a');
         //$varSalesPrices = $varSalesPrice->findByVariationId(1001);
-
-
-
 
         $templateData = array(
             'currentItems' => $items,
