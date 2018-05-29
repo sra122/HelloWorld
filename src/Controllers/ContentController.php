@@ -95,6 +95,17 @@ class ContentController extends Controller
                 'attributeValueId'
             ],
 
+            'itemProperty' => [
+                'itemPropertyId',
+                'propertyId',
+                'propertyValue',
+            ],
+
+            'variationAttributeValue' => [
+                'attributeId',
+                'attributeValueId'
+            ],
+
             'variationImageList' => [
                 'params' => [
                     'all_images'                                       => [
