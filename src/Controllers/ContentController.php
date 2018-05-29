@@ -54,6 +54,8 @@ class ContentController extends Controller
                 'widthMm',
                 'heightMm',
                 'attributeValueSetId',
+                'customNumber',
+                'purchasePrice'
             ],
 
             'variationRetailPrice' => [
@@ -171,8 +173,8 @@ class ContentController extends Controller
             $parentCat[] = $variationCat->get($category->parentCategoryId, $lang = "de");
         }
 
-        $authRepo->authenticateWithPlentyId(38447, '737eae3a');
-        $varSalesPrices = $varSalesPrice->findByVariationId(1001);
+        //$authRepo->authenticateWithPlentyId(38447, '737eae3a');
+        //$varSalesPrices = $varSalesPrice->findByVariationId(1001);
 
 
 
@@ -181,8 +183,7 @@ class ContentController extends Controller
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
             'categories' => $categories,
-            'parent_categories' => $parentCat,
-            'var_sales_prices' => $varSalesPrices
+            'parent_categories' => $parentCat
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
