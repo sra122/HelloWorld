@@ -203,6 +203,11 @@ class ContentController extends Controller
                 ['packagist_query' => $request->get('search')]
             );
 
+        if(is_null($packagistResult) || (isset($packagistResult['exception']) && $packagistResult['exception'] == true))
+        {
+            throw new \Exception($packagistResult['message']);
+        }
+
         return $twig->render('HelloWorld::content.TopItems', $packagistResult);
     }
 
