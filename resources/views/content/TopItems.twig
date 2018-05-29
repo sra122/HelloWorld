@@ -5,13 +5,33 @@
         <div class="col-xs-12 card-deck-wrapper" style="overflow: auto">
             <ul class="list-unstyled card-deck" style="height: 380px">
 
-                <p>Data: {{ packagistResult | json_encode }}</p>
-
-                {% for packagistItem in packagistResult.results %}
-                    <li>{{ packagistItem.name }} : {{ packagistItem.repository }}</li>
+                {% if variations is not null %}
+                    <br><br><br><li>Variation data</li><br><br><br>
+                    {{ variations | json_encode }}
                 {% else %}
-                    <li>No entries</li>
-                {% endfor %}
+                    <li>No items found</li>
+                {% endif %}
+
+                {% if categories is not null %}
+                    <br><br><br><li>Categories data</li><br><br><br>
+                    {{ categories | json_encode }}
+                {% else %}
+                    <li>No categories</li>
+                {% endif %}
+
+                {% if var_sales_prices is not null %}
+                    <br><br><br><li>Sale Price data</li><br><br><br>
+                    {{ var_sales_prices | json_encode }}
+                {% else %}
+                    <li>No Sales Prices</li>
+                {% endif %}
+
+                {% if currentItems is not null %}
+                    <br><br><br><li>Current Items</li> <br><br><br>
+                    {{currentItems | json_encode}}
+                {% else %}
+                    <li>No items found!</li>
+                {% endif %}
             </ul>
         </div>
     {% endblock %}

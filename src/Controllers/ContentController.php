@@ -161,7 +161,7 @@ class ContentController extends Controller
         $items = array();
 
         $variation = $variationRepo->findById(1001);
-        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true, 'variationImageList' => true], $lang = "de");
+        $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true, 'variationImageList' => true, 'images' => true], $lang = "de");
 
 
 
@@ -185,9 +185,6 @@ class ContentController extends Controller
             $parentCat[] = $variationCat->get($category->parentCategoryId, $lang = "de");
         }
 
-        //$authRepo->authenticateWithPlentyId(38447, '737eae3a');
-        //$varSalesPrices = $varSalesPrice->findByVariationId(1001);
-
         $templateData = array(
             'currentItems' => $items,
             'variations' => $variation->variationMarkets,
@@ -207,7 +204,7 @@ class ContentController extends Controller
             throw new \Exception($packagistResult['message']);
         }
 
-        return $twig->render('HelloWorld::content.TopItems', $packagistResult);
+        return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
 
 }
