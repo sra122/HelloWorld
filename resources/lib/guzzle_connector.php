@@ -1,6 +1,6 @@
 <?php
 
-$client = new \GuzzleHttp\Client();
+$client = new GuzzleHttp\Client();
 
 $res = $client->request(
     'POST',
