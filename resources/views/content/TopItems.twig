@@ -4,12 +4,11 @@
         <h1 style="text-align: center"> top items found!</h1>
         <div class="col-xs-12 card-deck-wrapper" style="overflow: auto">
             <ul class="list-unstyled card-deck" style="height: 380px">
-                {% if packagistResult is not null %}
-                    <br><br><br><li>Variation data</li><br><br><br>
-                    {{ packagistResult.message }}
+                {% for packagistItem in packagistResult.results %}
+                    <li>{{ packagistItem.name }} : {{ packagistItem.repository }}</li>
                 {% else %}
-                    <li>No Message</li>
-                {% endif %}
+                    <li>No entries</li>
+                {% endfor %}
             </ul>
         </div>
     {% endblock %}

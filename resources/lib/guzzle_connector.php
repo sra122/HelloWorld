@@ -3,9 +3,12 @@
 $client = new \GuzzleHttp\Client();
 
 $res = $client->request(
-    'POST',
-    'https://templates.i-ways.net/login'
+    'GET',
+    'https://packagist.org/search.json',
+    [
+        'query' => ['q' => SdkRestApi::getParam('packagist_query')]
+    ]
 );
 
 /** @return array */
-return $res->getStatusCode();
+return json_decode($res->getBody(), true);
