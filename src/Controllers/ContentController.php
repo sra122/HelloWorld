@@ -160,9 +160,6 @@ class ContentController extends Controller
 
         $items = array();
 
-        $variation = $variationRepo->findById(1002);
-
-
         $varSales = array();
         foreach($resultItems as $item)
         {
@@ -178,18 +175,12 @@ class ContentController extends Controller
 
         }
 
-        $parentCat =array();
-
-        foreach($categories as $category)
-        {
-            $parentCat[] = $variationCat->get($category->parentCategoryId, $lang = "de");
-        }
+        $parentCat = $variationCat->get(16, $lang = "de");
 
         $templateData = array(
             'currentItems' => $items,
-            'variations' => $variation,
             'categories' => $categories,
-            'parent_categories' => $parentCat,
+            'parent_categories' => $parentCat->details,
             'var_sales_prices' => $varSales
         );
 
