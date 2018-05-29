@@ -13,11 +13,10 @@ use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
-use Plenty\Modules\Item\VariationSalesPrice\Contracts\VariationSalesPriceRepositoryContract;
-use Plenty\Modules\Authentication\Contracts\ContactAuthenticationRepositoryContract;
+use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, VariationSalesPriceRepositoryContract $varSalesPrice, ContactAuthenticationRepositoryContract $authRepo):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, ItemImageRepositoryContract $imageRepo):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -134,9 +133,6 @@ class ContentController extends Controller
                     'type',
                     'fileType',
                     'path',
-                    'url',
-                    'urlMiddle',
-                    'urlSecondPreview',
                     'position',
                     'attributeValueId',
                 ],
@@ -164,7 +160,7 @@ class ContentController extends Controller
 
         $variation = $variationRepo->findById(1001);
         $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true, 'variationImageList' => true], $lang = "de");
-
+        $imageData = $imageRepo->findByItemId(102);
 
 
 
@@ -199,8 +195,8 @@ class ContentController extends Controller
             'variations' => $variation->variationMarkets,
             'categories' => $categories,
             'parent_categories' => $parentCat,
-            'var_sales_prices' => $varSales
-
+            'var_sales_prices' => $varSales,
+            'image_data' => $imageData
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
