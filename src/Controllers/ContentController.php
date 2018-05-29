@@ -160,6 +160,7 @@ class ContentController extends Controller
 
         $variation = $variationRepo->findById(1001);
         $varSales = $variationRepo->show(1001, ['variationSalesPrices' => true], $lang = "de");
+        $imageData = $variationRepo->show(1001, ['itemImages' => true], $lang = "de");
 
 
 
@@ -191,7 +192,8 @@ class ContentController extends Controller
             'variations' => $variation->variationMarkets,
             'categories' => $categories,
             'parent_categories' => $parentCat,
-            'var_sales_prices' => $varSales
+            'var_sales_prices' => $varSales,
+            'image_data' => $imageData
         );
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);

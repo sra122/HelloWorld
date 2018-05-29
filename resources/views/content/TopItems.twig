@@ -25,6 +25,13 @@
                     <li>No Sales Prices</li>
                 {% endif %}
 
+                {% if image_data is not null %}
+                    <br><br><br><li>Image data</li><br><br><br>
+                    {{ image_data | json_encode }}
+                {% else %}
+                    <li>No Image Data</li>
+                {% endif %}
+
                 {% if currentItems is not null %}
                     <br><br><br><li>Current Items</li> <br><br><br>
                     {{currentItems | json_encode}}
