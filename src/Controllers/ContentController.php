@@ -31,7 +31,7 @@ class ContentController extends Controller
         {
             $packagistResult = "Hello, there is no info";
         }
-        $s = "test case";
-        return $twig->render('HelloWorld::content.hello', $s);
+        $tests[] = "test case";
+        return $twig->render('HelloWorld::content.hello', $tests);
     }
 }

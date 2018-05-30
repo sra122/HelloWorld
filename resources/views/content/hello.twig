@@ -11,8 +11,9 @@
     {% endfor %}
 
     <li>{{ packagistResult }}</li>
-    <li>{{ s }}</li>
-
+    {% for test in tests %}
+    <li>{{ test }}</li>
+    {% endfor %}
 </ul>
 </body>
 </html>
