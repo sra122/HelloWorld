@@ -10,9 +10,9 @@
         <li>No entries</li>
     {% endfor %}
 
-    <li>{{ packagistResult }}</li>
-
     <li>{{ results }}</li>
+    <li>{{ results | json_encode }}</li>
+    <li>{{ no_data }}</li>
 </ul>
 </body>
 </html>

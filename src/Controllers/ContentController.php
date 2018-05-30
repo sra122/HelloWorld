@@ -29,9 +29,9 @@ class ContentController extends Controller
             );
         if($packagistResult == null)
         {
-            $packagistResult = "Hello, there is no info";
+            $packagistResult['no_data'] = "Hello, there is no info";
         }
         $tests['results'] = "test case";
-        return $twig->render('HelloWorld::content.hello', $tests);
+        return $twig->render('HelloWorld::content.hello', $packagistResult);
     }
 }
