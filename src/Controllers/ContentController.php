@@ -183,7 +183,7 @@ class ContentController extends Controller
             $parentCatSet = '';
             foreach($parentCategoryArray as $key => $parentCategory)
             {
-                $parentCatSet .= $parentCategory->details[0]->name;
+                $parentCatSet .= $parentCategory;
                 if ($key != count($parentCategoryArray) - 1) {
                     $parentCatSet .= '<<';
                 }
@@ -194,12 +194,9 @@ class ContentController extends Controller
         }
 
 
-        $testCat = $variationCat->get(19,$lang = "de");
-
         $templateData = array(
-            'completeData' => $testCat,
+            'completeData' => $completeData,
         );
-
 
 
         /*$packagistResult = array(
