@@ -158,43 +158,48 @@ class ContentController extends Controller
 
         $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
 
-        $items = array();
 
-        $varSales = array();
+        $completeData = array();
         foreach($resultItems as $item)
         {
-            $items[] = $item;
-            $varSales[] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
-        }
+            $items = array();
+            $items['variation_data'] = $item;
+            $items['sales_price'] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
-        $categories = array();
-
-        foreach ($items as $item)
-        {
+            // category
             $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
-            $parentCat = '';
-
-            if($category->parentCategoryId != null) {
-                $parentCat = $variationCat->get($category->parentCategoryId, $lang = "de");
+            $parentCategoryArray = array();
+            for($i = 0; $i < 5; $i++)
+            {
+                if($category->parentCategoryId != null) {
+                    $parentCategoryArray[] = $variationCat->get($category->parentCategoryId, $lang = "de");
+                }
             }
 
-            $categories[] = $parentCat->details[0]->name.'<<'.$category->details[0]->name;
-        }
+            $parentCatSet = '';
+            foreach($parentCategoryArray as $key => $parentCategory)
+            {
+                $parentCatSet .= $parentCategory;
+                if ($key != count($parentCategoryArray) - 1) {
+                    $parentCatSet .= '<<';
+                }
+            }
+            $items['categories'] = $parentCatSet.'<<'.$category->details[0]->name;
 
+            $completeData[] = $items;
+        }
 
 
         $templateData = array(
-            'currentItems' => $items,
-            'categories' => $categories,
-            'var_sales_prices' => $varSales
+            'completeData' => $completeData,
         );
 
-        $packagistResult = array(
+        /*$packagistResult = array(
             'results' =>   $libCall->call('HelloWorld::guzzle_connector', ['title' => 'Berlin'])
-        );
+        );*/
 
-        return $twig->render('HelloWorld::content.TopItems', $packagistResult);
+        return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
 
 }
