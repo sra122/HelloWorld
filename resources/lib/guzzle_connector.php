@@ -2,7 +2,6 @@
 
 $client = new \GuzzleHttp\Client();
 
-//$client->setDefaultOption('headers', array('Content-type' => 'application/json; charset=UTF-8'));
 
 $res = $client->request(
     'POST',
