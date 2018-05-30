@@ -173,7 +173,7 @@ class ContentController extends Controller
             $parentCategoryArray = array();
             for($i = 0; $i < 5; $i++)
             {
-                if($category->parentCategoryId != null) {
+                if($category->parentCategoryId != NULL) {
                     $parentCategoryArray[] = $variationCat->get($category->parentCategoryId, $lang = "de");
                 }
             }
@@ -188,7 +188,7 @@ class ContentController extends Controller
             }
             $items['categories'] = $parentCatSet.'<<'.$category->details[0]->name;
 
-            $completeData[] = $items;
+            array_push($completeData, $items);
         }
 
 
