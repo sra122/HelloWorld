@@ -161,6 +161,7 @@ class ContentController extends Controller
 
 
         $completeData = array();
+        $parentCategoryArray = array();
         foreach($resultItems as $item)
         {
             $multiDim = array();
@@ -168,10 +169,10 @@ class ContentController extends Controller
             $items['variation_data'] = $item;
             $items['sales_price'] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
-            // category
+
             $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
-            $parentCategoryArray = array();
+            //$parentCategoryArray = array();
             $childCategoryData = '';
             if($category->parentCategoryId != null) {
                 $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
@@ -195,7 +196,7 @@ class ContentController extends Controller
 
 
         $templateData = array(
-            'completeData' => $completeData,
+            'completeData' => $parentCategoryArray,
         );
 
 
