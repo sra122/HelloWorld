@@ -3,11 +3,8 @@
 $client = new \GuzzleHttp\Client();
 
 $res = $client->request(
-    'GET',
-    'https://packagist.org/search.json',
-    [
-        'query' => ['q' => SdkRestApi::getParam('packagist_query')]
-    ]
+    'POST',
+    'https://jsonplaceholder.typicode.com/posts'
 );
 
 /** @return array */

@@ -190,18 +190,11 @@ class ContentController extends Controller
             'var_sales_prices' => $varSales
         );
 
-        $packagistResult =
-            $libCall->call(
-                'HelloWorld::guzzle_connector',
-                ['packagist_query' => $request->get('search')]
-            );
+        $packagistResult = array(
+            'results' =>   $libCall->call('HelloWorld::guzzle_connector')
+        );
 
-        if(is_null($packagistResult) || (isset($packagistResult['exception']) && $packagistResult['exception'] == true))
-        {
-            throw new \Exception($packagistResult['message']);
-        }
-
-        return $twig->render('HelloWorld::content.TopItems', $templateData);
+        return $twig->render('HelloWorld::content.TopItems', $packagistResult);
     }
 
 }
