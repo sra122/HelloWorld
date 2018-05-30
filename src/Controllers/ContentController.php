@@ -161,7 +161,7 @@ class ContentController extends Controller
 
 
         $completeData = array();
-        $parentCatCheck = array();
+
         foreach($resultItems as $item)
         {
             $multiDim = array();
@@ -170,14 +170,14 @@ class ContentController extends Controller
             $items['sales_price'] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
 
-            $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
+            $childCategory = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
             $parentCategoryArray = array();
-            $childCategoryData = '';
-            if($category->parentCategoryId != null) {
-                $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
-                if($childCategoryData->parentCategoryId != null) {
-                    $parentCategoryArray = $this->parentCategory($childCategoryData, $variationCat);
+            $parentCategoryData = '';
+            if($childCategory->parentCategoryId != null) {
+                $parentCategoryData = $variationCat->get($childCategory->parentCategoryId, $lang = "de");
+                if($parentCategoryData->parentCategoryId != null) {
+                    $parentCategoryArray = $this->parentCategory($parentCategoryData, $variationCat);
                 }
             }
             $parentCatSet = '';
@@ -188,15 +188,20 @@ class ContentController extends Controller
                     $parentCatSet .= '<<';
                 }
             }
-            $items['categories'] = $parentCatSet .' << ' . $childCategoryData->details[0]->name;
+
+            if(empty($parentCatSet)) {
+                $items['categories'] = $parentCategoryData->details[0]->name .'<<' .$childCategory->details[0]->name;
+            } else {
+                $items['categories'] = $parentCatSet .' << ' . $parentCategoryData->details[0]->name .'<<' .$childCategory->details[0]->name;
+            }
+
             array_push($multiDim, $items);
             array_push($completeData, $multiDim);
-            array_push($parentCatCheck, $parentCategoryArray);
         }
 
 
         $templateData = array(
-            'completeData' => $parentCatCheck,
+            'completeData' => $completeData,
         );
 
 
