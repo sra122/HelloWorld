@@ -24,14 +24,9 @@ class ContentController extends Controller
     {
         $packagistResult =
             $libCall->call(
-                'HelloWorld::guzzle_connector',
-                ['packagist_query' => $request->get('search')]
+                'HelloWorld::guzzle_connector'
             );
-        if($packagistResult == null)
-        {
-            $packagistResult['no_data'] = "Hello, there is no info";
-        }
-        $tests['results'] = "test case";
+
         return $twig->render('HelloWorld::content.hello', $packagistResult);
     }
 }
