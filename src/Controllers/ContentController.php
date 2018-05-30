@@ -176,7 +176,7 @@ class ContentController extends Controller
             if($category->parentCategoryId != null) {
                 $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
                 if($childCategoryData->parentCategoryId != null) {
-                    $parentCategoryArray[] = $this->parentCategory($parentCategoryArray, $variationCat);
+                    $parentCategoryArray = $this->parentCategory($parentCategoryArray, $variationCat);
                 }
             }
 
@@ -210,11 +210,11 @@ class ContentController extends Controller
     {
         $parentCategoryData = $variationCat->get($parentCategoryArray->parentCategoryId, $lang = "de");
         if($parentCategoryArray->parentCategoryId != null) {
-            $parentCategoryArray[] = $parentCategoryData;
+            $parentCategoryInfo[] = $parentCategoryData;
             $this->parentCategory($parentCategoryArray, $variationCat);
         } else {
-            $parentCategoryArray[] = $parentCategoryData;
-            return $parentCategoryArray;
+            $parentCategoryInfo[] = $parentCategoryData;
+            return $parentCategoryInfo;
         }
     }
 
