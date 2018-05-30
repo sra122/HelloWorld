@@ -8,7 +8,7 @@ $res = $client->request(
     'https://jsonplaceholder.typicode.com/posts',
     [
         'headers' => ['Content-type' => 'application/json; charset=UTF-8'],
-        'body' => ['title' => SdkRestApi::getParam('title')]
+        'form_params' => ['title' => SdkRestApi::getParam('title')]
     ]
 
 );
