@@ -22,10 +22,11 @@ class ContentController extends Controller
         Request $request
     )
     {
-        $packagistResult =
-            $libCall->call(
-                'HelloWorld::guzzle_connector'
-            );
+        $packagistResult = array(
+          'results' =>  $libCall->call('HelloWorld::guzzle_connector')
+        );
+
+
 
         return $twig->render('HelloWorld::content.hello', $packagistResult);
     }
