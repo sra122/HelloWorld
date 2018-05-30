@@ -161,7 +161,7 @@ class ContentController extends Controller
 
 
         $completeData = array();
-        $parentCategoryArray = array();
+        $parentCatCheck = array();
         foreach($resultItems as $item)
         {
             $multiDim = array();
@@ -172,7 +172,7 @@ class ContentController extends Controller
 
             $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
-            //$parentCategoryArray = array();
+            $parentCategoryArray = array();
             $childCategoryData = '';
             if($category->parentCategoryId != null) {
                 $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
@@ -180,7 +180,6 @@ class ContentController extends Controller
                     $parentCategoryArray = $this->parentCategory($parentCategoryArray, $variationCat);
                 }
             }
-
             $parentCatSet = '';
             foreach($parentCategoryArray as $key => $parentCategory)
             {
@@ -192,11 +191,12 @@ class ContentController extends Controller
             $items['categories'] = $parentCatSet .' << ' . $childCategoryData->details[0]->name;
             array_push($multiDim, $items);
             array_push($completeData, $multiDim);
+            array_push($parentCatCheck, $parentCategoryArray);
         }
 
 
         $templateData = array(
-            'completeData' => $parentCategoryArray,
+            'completeData' => $parentCatCheck,
         );
 
 
