@@ -18,6 +18,7 @@ use Plenty\Plugin\Http\Request;
 
 class ContentController extends Controller
 {
+    private $parentCategoryArray = [];
     public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request):string
     {
         $itemColumns = [
@@ -171,24 +172,23 @@ class ContentController extends Controller
             $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
             $parentCategoryArray = array();
-            for($i = 0; $i < 1; $i++)
-            {
-                if($category->parentCategoryId != null) {
-                    $parentCategoryArray[] = $variationCat->get($category->parentCategoryId, $lang = "de");
-                } else {
-                    break;
+            $childCategoryData = '';
+            if($category->parentCategoryId != null) {
+                $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
+                if($childCategoryData->parentCategoryId != null) {
+                    $parentCategoryArray = $this->parentCategory($parentCategoryArray, $variationCat);
                 }
             }
 
             $parentCatSet = '';
             foreach($parentCategoryArray as $key => $parentCategory)
             {
-                $parentCatSet .= $parentCategory->parentCategoryId;
+                $parentCatSet .= $parentCategory->details[0]->name;
                 if ($key != count($parentCategoryArray) - 1) {
                     $parentCatSet .= '<<';
                 }
             }
-            $items['categories'] = $parentCatSet.'<<'.$category->details[0]->name;
+            $items['categories'] = $parentCatSet .' << ' . $childCategoryData->details[0]->name;
             array_push($multiDim, $items);
             array_push($completeData, $multiDim);
         }
@@ -204,6 +204,18 @@ class ContentController extends Controller
         );*/
 
         return $twig->render('HelloWorld::content.TopItems', $templateData);
+    }
+
+    public function parentCategory($parentCategoryArray, $variationCat)
+    {
+        $parentCategoryData = $variationCat->get($parentCategoryArray->parentCategoryId, $lang = "de");
+        if($parentCategoryArray->parentCategoryId != null) {
+            $parentCategoryArray[] = $parentCategoryData;
+            $this->parentCategory($parentCategoryArray, $variationCat);
+        } else {
+            $parentCategoryArray[] = $parentCategoryData;
+            return $parentCategoryArray;
+        }
     }
 
 }
