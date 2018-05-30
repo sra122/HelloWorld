@@ -191,7 +191,7 @@ class ContentController extends Controller
         );
 
         $packagistResult = array(
-            'results' =>   $libCall->call('HelloWorld::guzzle_connector')
+            'results' =>   $libCall->call('HelloWorld::guzzle_connector', ['title' => 'Berlin'])
         );
 
         return $twig->render('HelloWorld::content.TopItems', $packagistResult);
