@@ -162,7 +162,8 @@ class ContentController extends Controller
         $completeData = array();
         foreach($resultItems as $item)
         {
-            $items = array();
+            $multiDim = array();
+            $items = [];
             $items['variation_data'] = $item;
             $items['sales_price'] = $variationRepo->show($item->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
@@ -187,8 +188,8 @@ class ContentController extends Controller
                 }
             }
             $items['categories'] = $parentCatSet.'<<'.$category->details[0]->name;
-
-            array_push($completeData, $items);
+            array_push($multiDim, $items);
+            array_push($completeData, $multiDim);
         }
 
 
