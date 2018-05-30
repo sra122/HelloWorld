@@ -173,17 +173,15 @@ class ContentController extends Controller
             $parentCategoryArray = array();
             for($i = 0; $i < 5; $i++)
             {
-                if(!empty($category->parentCategoryId)) {
+                if($category->parentCategoryId !== null) {
                     $parentCategoryArray[] = $variationCat->get($category->parentCategoryId, $lang = "de");
-                } else {
-                    break;
                 }
             }
 
             $parentCatSet = '';
             foreach($parentCategoryArray as $key => $parentCategory)
             {
-                $parentCatSet .= $parentCategory;
+                $parentCatSet .= $parentCategory->parentCategoryId;
                 if ($key != count($parentCategoryArray) - 1) {
                     $parentCatSet .= '<<';
                 }
