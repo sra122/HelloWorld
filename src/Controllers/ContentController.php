@@ -176,7 +176,7 @@ class ContentController extends Controller
             if($category->parentCategoryId != null) {
                 $childCategoryData = $variationCat->get($category->parentCategoryId, $lang = "de");
                 if($childCategoryData->parentCategoryId != null) {
-                    $parentCategoryArray = $this->parentCategory($parentCategoryArray, $variationCat);
+                    $parentCategoryArray[] = $this->parentCategory($parentCategoryArray, $variationCat);
                 }
             }
 
