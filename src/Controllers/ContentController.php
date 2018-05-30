@@ -170,12 +170,13 @@ class ContentController extends Controller
             // category
             $category = $variationCat->get($item->variationStandardCategory->categoryId, $lang = "de");
 
-
             $parentCategoryArray = array();
             for($i = 0; $i < 5; $i++)
             {
                 if(!empty($category->parentCategoryId)) {
                     $parentCategoryArray[] = $variationCat->get($category->parentCategoryId, $lang = "de");
+                } else {
+                    break;
                 }
             }
 
@@ -193,9 +194,13 @@ class ContentController extends Controller
         }
 
 
+        $testCat = $variationCat->get(19,$lang = "de");
+
         $templateData = array(
-            'completeData' => $completeData,
+            'completeData' => $testCat,
         );
+
+
 
         /*$packagistResult = array(
             'results' =>   $libCall->call('HelloWorld::guzzle_connector', ['title' => 'Berlin'])
