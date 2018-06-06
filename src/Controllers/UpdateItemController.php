@@ -33,7 +33,7 @@ class UpdateItemController extends Controller
 
             'variationMarketStatus' => [
                 'params' => [
-                    'marketId' => $this->orderHelper->getReferrerId()
+                    'marketId' => 66.0
                 ],
                 'fields' => [
                     'id',
