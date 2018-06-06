@@ -19,17 +19,68 @@ use Plenty\Plugin\Http\Request;
 
 class UpdateItemController extends Controller
 {
-    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo):string
+    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository):string
     {
-        $filter = [
+        $resultFields = [
+            'itemBase' => [
+                'id',
+                'producer',
+            ],
+
+            'variationRetailPrice' => [
+                'price',
+            ],
+
+            'variationMarketStatus' => [
+                'params' => [
+                    'marketId' => $this->orderHelper->getReferrerId()
+                ],
+                'fields' => [
+                    'id',
+                    'sku',
+                    'marketStatus',
+                    'additionalInformation',
+                ]
+            ],
+
+            'variationBase' => [
+                'id',
+                'limitOrderByStockSelect',
+                'active'
+            ],
+
+            'variationStock' => [
+                'params' => [
+                    'type' => 'virtual'
+                ],
+                'fields' => [
+                    'stockNet'
+                ]
+            ],
+
+            'variationLinkMarketplace' => [
+                'marketplaceId'
+            ],
         ];
 
-        $variationSkuList = $skuRepo->search($filter);
 
-        $updatedData = array(
-            'variationSKU' => $variationSkuList,
+        $filter = [
+            'variationMarketStatus.hasMarketStatus?' => [
+                'marketplace' => 66.0
+            ]
+        ];
+
+        $params = [
+            'referrerId' => 66.0
+        ];
+
+        $resultItems = $itemRepository->search($resultFields, $filter, $params);
+
+        $templateData = array(
+            'completeData' => $resultItems,
         );
 
-        return $twig->render('HelloWorld::content.UpdateItems', $updatedData);
+        return $twig->render('HelloWorld::content.UpdateItems', $templateData);
     }
+
 }
