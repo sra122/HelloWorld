@@ -19,7 +19,7 @@ use Plenty\Plugin\Http\Request;
 
 class UpdateItemController extends Controller
 {
-    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository):string
+    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepository):string
     {
         $resultFields = [
             'itemBase' => [
@@ -60,11 +60,16 @@ class UpdateItemController extends Controller
 
             'variationLinkMarketplace' => [
                 'marketplaceId'
-            ],
+            ]
         ];
 
 
+        $variRepo = $variationRepository->show(1002, ['variationRetailPrice' => true], $lang = "de");
+
         $filter = [
+            'variationLinkMarketplace' => [
+                'marketplace' => 66.0
+            ]
         ];
 
         $params = [
@@ -74,7 +79,8 @@ class UpdateItemController extends Controller
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
         $templateData = array(
-            'completeData' => $resultItems
+            'completeData' => $resultItems,
+            'variRepo' => $variRepo
         );
 
         return $twig->render('HelloWorld::content.UpdateItems', $templateData);
