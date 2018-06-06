@@ -77,7 +77,7 @@ class UpdateItemController extends Controller
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
         $templateData = array(
-            'completeData' => $resultItems,
+            'completeData' => $resultItems
         );
 
         return $twig->render('HelloWorld::content.UpdateItems', $templateData);
