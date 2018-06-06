@@ -4,7 +4,7 @@
         <h1 style="text-align: center"> top items found!</h1>
         <div class="col-xs-12 card-deck-wrapper" style="overflow: auto">
             <ul class="list-unstyled card-deck" style="height: 380px">
-                {{ updatedData | json_encode }}
+                {{ variationSKU | json_encode }}
             </ul>
         </div>
     {% endblock %}
