@@ -65,9 +65,6 @@ class UpdateItemController extends Controller
 
 
         $filter = [
-            'variationMarketStatus.hasMarketStatus?' => [
-                'marketplace' => 66.0
-            ]
         ];
 
         $params = [
