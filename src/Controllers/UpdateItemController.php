@@ -22,7 +22,6 @@ class UpdateItemController extends Controller
     public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo):string
     {
         $filter = [
-            'marketId' => 66.0,
         ];
 
         $variationSkuList = $skuRepo->search($filter);
