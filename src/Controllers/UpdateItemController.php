@@ -67,7 +67,7 @@ class UpdateItemController extends Controller
         $variRepo = $variationRepository->show(1002, ['variationRetailPrice' => true], $lang = "de");
 
         $filter = [
-            'variationLinkMarketplace' => [
+            'variationMarketStatus.hasMarketStatus?' => [
                 'marketplace' => 66.0
             ]
         ];
