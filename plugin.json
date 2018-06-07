@@ -3,7 +3,7 @@
   "description":"My first plugin",
   "namespace":"HelloWorld",
   "author":"Iways GmbH",
-  "type":"backend",
+  "type":"template",
   "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
   "dependencies" : {
     "guzzlehttp/guzzle": "6.2.*"
