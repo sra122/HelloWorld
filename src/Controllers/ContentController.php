@@ -13,6 +13,7 @@ use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\System\Contracts\SystemInformationRepositoryContract;
+use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
 
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Plugin\Http\Request;
@@ -20,7 +21,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -200,7 +201,7 @@ class ContentController extends Controller
             array_push($completeData, $multiDim);
         }
 
-        $systemDetails = $sys->loadValue('plentyId');
+        $systemDetails = $web->findByPlentyId($sys->loadValue('plentyId'));
 
 
         $templateData = array(
