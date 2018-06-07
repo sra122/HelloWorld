@@ -47,6 +47,7 @@ class CategoryController extends Controller
      *
      * @param Request $request
      *
+     * @param Twig $twig
      * @return Category[]
      */
     public function all(Request $request, Twig $twig)

@@ -1,0 +1,18 @@
+{
+  "defaultEntryPoint" : "index.html",
+  "namespace"         : "HelloWorld",
+  "menuEntries"       : [
+    {
+      "label": "Settings",
+      "menu": "system/markets/iTools",
+      "urlKey": "authentication",
+      "entryPoint": "index.html"
+    },
+    {
+      "label": "Category-linking",
+      "menu": "system/markets/iTools",
+      "urlKey": "category-linking",
+      "entryPoint": "index.html"
+    }
+  ]
+}
