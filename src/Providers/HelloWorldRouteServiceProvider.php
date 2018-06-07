@@ -13,6 +13,6 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
     {
         $router->get('hello', 'HelloWorld\Controllers\ContentController@sayHello');
         $router->get('update', 'HelloWorld\Controllers\UpdateItemController@updateItems');
-        $router->get('category', 'HelloWorld\Controllers\CategoryList@all');
+        $router->get('category', 'HelloWorld\Controllers\CategoryController@all');
     }
 }
