@@ -202,7 +202,7 @@ class ContentController extends Controller
         }
 
         $systemDetails = $web->findByPlentyId($sys->loadValue('plentyId'));
-        $categories = $variationCat->getLinklistTree('item', $lang, $systemDetails->id);
+        $categories = $variationCat->getLinklistTree('item', $lang = "de", $systemDetails->id);
 
 
         $templateData = array(
