@@ -65,6 +65,6 @@ class CategoryController extends Controller
             'categoryDetails' => $categoryRepo->all(['lang' => $request->get('lang', 'de')], $with)
         );
 
-        return $twig->render('HelloWorld::content.CategoryList', $categoryInfo);
+        return $categoryInfo;
     }
 }
