@@ -203,8 +203,10 @@ class ContentController extends Controller
 
         $systemDetails = $web->findByPlentyId($sys->loadValue('plentyId'));
         $categories = $variationCat->getLinklistTree('item', $lang = "de", $systemDetails->id);
-        $children = $variationCat->getChildren($variationCat->id, $lang);
 
+        $plentyCategoryRepo = pluginApp(CategoryRepositoryContract::class);
+
+        $children = $plentyCategoryRepo->getChildren($plentyCategoryRepo->id, $lang);
 
 
 
