@@ -204,7 +204,8 @@ class CategoryRepository implements CategoryRepositoryContract
                 $category->children = $this->buildCategoriesTree([], $children, $lang, $with);
             }
 
-            $list[] = $category;
+            //$list[] = $category;
+            $list[] = $children;
         }
 
         return $list;
