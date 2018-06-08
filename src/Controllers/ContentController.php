@@ -205,13 +205,11 @@ class ContentController extends Controller
         $categories = $variationCat->getLinklistTree('item', $lang = "de", $systemDetails->id);
 
 
-        $with = $request->get('with', []);
 
 
         $templateData = array(
             'completeData' => $completeData,
-            'systemInfo' => $categories,
-            'with' => $with
+            'systemInfo' => $categories
         );
 
 

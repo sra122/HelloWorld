@@ -74,13 +74,16 @@ class CategoryRepository implements CategoryRepositoryContract
         $sysInfoRepo = pluginApp(SystemInformationRepositoryContract::class);
 
         /** @var Webstore $webstore */
-        $webstore = $webstoreRepo->findByPlentyId($sysInfoRepo->loadValue('plentyId'));
+        //$webstore = $webstoreRepo->findByPlentyId($sysInfoRepo->loadValue('plentyId'));
 
-        $categories = $plentyCategoryRepo->getLinklistTree('item', $lang, $webstore->id);
+        //$categories = $plentyCategoryRepo->getLinklistTree('item', $lang, $webstore->id);
 
-        $list = $this->buildCategoriesTree([], $categories, $lang, $with);
+        //$list = $this->buildCategoriesTree([], $categories, $lang, $with);
 
-        return $list;
+        $systemDetails = $webstoreRepo->findByPlentyId($sysInfoRepo->loadValue('plentyId'));
+        $categories = $plentyCategoryRepo->getLinklistTree('item', $lang = "de", $systemDetails->id);
+
+        return $categories;
     }
 
     /**
