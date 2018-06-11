@@ -14,6 +14,7 @@ use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\System\Contracts\SystemInformationRepositoryContract;
 use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
+use Plenty\Modules\Market\Settings\Factories;
 
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Plugin\Http\Request;
@@ -207,14 +208,18 @@ class ContentController extends Controller
         $plentyCategoryRepo = pluginApp(CategoryRepositoryContract::class);
 
         //$children = $plentyCategoryRepo->getChildren($plentyCategoryRepo->id, $lang);
-        $info = $request->get('correlations', []);
+        //$info = $request->get('correlations', []);
+
+        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
+        $correlations = $settingsCorrelationFactory->type(SettingsCorrelationFactory::TYPE_CATEGORY);
+
 
 
         $templateData = array(
             'completeData' => $completeData,
             'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
-            'info' => $info
+            'info' => $correlations
         );
 
 
