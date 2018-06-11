@@ -207,13 +207,14 @@ class ContentController extends Controller
         $plentyCategoryRepo = pluginApp(CategoryRepositoryContract::class);
 
         //$children = $plentyCategoryRepo->getChildren($plentyCategoryRepo->id, $lang);
-
+        $info = $request->get('correlations', []);
 
 
         $templateData = array(
             'completeData' => $completeData,
             'systemInfo' => $categories,
-            'children' => $plentyCategoryRepo
+            'children' => $plentyCategoryRepo,
+            'info' => $info
         );
 
 
