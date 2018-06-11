@@ -22,7 +22,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, CategoryRepositoryContract $correlation):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -210,8 +210,7 @@ class ContentController extends Controller
         //$children = $plentyCategoryRepo->getChildren($plentyCategoryRepo->id, $lang);
         //$info = $request->get('correlations', []);
 
-        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
-        $correlations = $settingsCorrelationFactory->type(SettingsCorrelationFactory::TYPE_CATEGORY);
+        $correlations = $correlation->type('category');
 
 
 
