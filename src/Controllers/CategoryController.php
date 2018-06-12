@@ -40,4 +40,21 @@ class CategoryController extends Controller
 
         return $categoryInfo;
     }
+
+
+    public function get(Request $request, Response $response, int $id)
+    {
+        $with = $request->get('with', []);
+
+        if (!is_array($with) && strlen($with)) {
+            $with = explode(',', $with);
+        }
+
+        /** @var CategoryRepositoryContract $categoryRepo */
+        $categoryRepo = pluginApp(CategoryRepositoryContract::class);
+
+        $category = $categoryRepo->get($id, $request->get('lang', 'de'), $with);
+
+        return $response->json($category);
+    }
 }

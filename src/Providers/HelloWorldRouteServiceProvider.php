@@ -17,6 +17,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
+            $router->get('markets/panda-black/parent-categories/{id}', 'HelloWorld\Controllers\CategoryController@get');
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\JdCategoriesController@listOfCategories');
         });
     }
