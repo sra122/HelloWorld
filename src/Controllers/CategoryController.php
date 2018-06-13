@@ -62,7 +62,8 @@ class CategoryController extends Controller
     {
         $data = $request->get('correlations', []);
         $templateData = array(
-            'completeData' => $data
+            'completeData' => $data,
+            'name' => 'Test'
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
