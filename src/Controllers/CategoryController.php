@@ -57,4 +57,14 @@ class CategoryController extends Controller
 
         return $response->json($category);
     }
+
+    public function saveCorrelation(Request $request, Response $response, Twig $twig)
+    {
+        $data = $request->get('correlations', []);
+        $templateData = array(
+            'completeData' => $data
+        );
+
+        return $twig->render('HelloWorld::content.TopItems', $templateData);
+    }
 }
