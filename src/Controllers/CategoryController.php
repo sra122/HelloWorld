@@ -65,6 +65,6 @@ class CategoryController extends Controller
             'completeData' => $data
         );
 
-        return $twig->render('HelloWorld::content.TopItems', $templateData);
+        return $twig->render('HelloWorld::content.CategoryList', $templateData);
     }
 }
