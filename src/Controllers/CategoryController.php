@@ -67,7 +67,7 @@ class CategoryController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $settings = $settingsRepo->create('HelloWorld', 'category', [
+        /*$settings = $settingsRepo->create('HelloWorld', 'category', [
             'id'       => 40,
             'parentId' => 39,
             'name'     => 'Aufnäher',
@@ -78,14 +78,13 @@ class CategoryController extends Controller
         ]);
 
         $settingsCorrelationFactory->type('category')
-                                    ->createRelation($settings->id, 20);
+                                    ->createRelation($settings->id, 20);*/
 
         $data = $settingsCorrelationFactory->type('category')
                                             ->all('HelloWorld');
         $templateData = array(
             'completeData' => $data,
-            'name' => 'Test',
-            'settings' => $settings
+            'name' => 'Test'
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);

@@ -210,7 +210,8 @@ class ContentController extends Controller
         //$children = $plentyCategoryRepo->getChildren($plentyCategoryRepo->id, $lang);
         //$info = $request->get('correlations', []);
 
-        $correlations = $correlation->type('category');
+        $correlations = $correlation->type('category')
+                            ->all('HelloWorld');
 
 
 
