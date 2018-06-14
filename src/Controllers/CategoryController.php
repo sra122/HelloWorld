@@ -80,10 +80,12 @@ class CategoryController extends Controller
         $settingsCorrelationFactory->type('category')
                                     ->createRelation($settings->id, 20);
 
-        $data = $settingsCorrelationFactory->all(66.0);
+        $data = $settingsCorrelationFactory->type('category')
+                                            ->all('HelloWorld');
         $templateData = array(
             'completeData' => $data,
-            'name' => 'Test'
+            'name' => 'Test',
+            'settings' => $settings
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
