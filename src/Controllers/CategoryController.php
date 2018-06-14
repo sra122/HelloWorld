@@ -8,6 +8,8 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Templates\Twig;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
+use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
 
 /**
  * Class CategoryController
@@ -60,11 +62,28 @@ class CategoryController extends Controller
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
-        $data = $request->get('correlations', []);
+        //$data = $request->get('correlations', []);
+
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
+
+        $settings = $settingsRepo->create(SettingsHelper::PLUGIN_NAME, SettingsCorrelationFactory::TYPE_CATEGORY, [
+            'id'       => 40,
+            'parentId' => 39,
+            'name'     => 'Aufnäher',
+            'children' => [],
+            'isLeaf'   => false,
+            'level'    => 2,
+            'path'     => 'accessories.patches_and_pins.patches'
+        ]);
+
+        $settingsCorrelationFactory->type('category')
+                                    ->createRelation($settings->id, 20);
+
+        $data = $settingsCorrelationFactory->all(66.0);
         $templateData = array(
             'completeData' => $data,
-            'name' => 'Test',
-            'post_data' => $_POST
+            'name' => 'Test'
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
