@@ -67,7 +67,7 @@ class CategoryController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $settings = $settingsRepo->create(SettingsHelper::PLUGIN_NAME, SettingsCorrelationFactory::TYPE_CATEGORY, [
+        $settings = $settingsRepo->create('HelloWorld', 'category', [
             'id'       => 40,
             'parentId' => 39,
             'name'     => 'Aufnäher',
