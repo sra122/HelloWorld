@@ -6,14 +6,21 @@
             <ul class="list-unstyled card-deck" style="height: 380px">
                 {{ completeData | json_encode }}
             </ul>
+        </div>
+        <br><br>
+        <p>Category Link Tree</p>
             <div>
                 {{ systemInfo | json_encode }}
             </div>
+            <br><br>
+            <p>Category Repository</p>
             <div>
                 {{ children | json_encode }}
             </div>
+            <br><br>
+                <p>Correlation</p>
             <div>
                 {{ info | json_encode }}
             </div>
-        </div>
+
     {% endblock %}
