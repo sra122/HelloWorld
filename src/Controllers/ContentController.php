@@ -6,7 +6,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
-use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
+use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
 use Plenty\Plugin\Application;
@@ -23,7 +23,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeMapRepositoryContract $attributeMap):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeValueRepositoryContract $attributeMap):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -223,7 +223,7 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $attributeMap->all($itemColumns, 50, 1, $itemFilter, $itemParams);
+        $attributes = $attributeMap->all($itemColumns, 50);
 
 
         $templateData = array(
