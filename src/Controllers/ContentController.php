@@ -224,7 +224,7 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $oauth->processUnguarded($attributeMap->all($itemColumns, 50));
+        $attributes = $attributeMap->all([], 50);
 
 
         $templateData = array(
