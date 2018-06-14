@@ -62,7 +62,10 @@ class ContentController extends Controller
                 'heightMm',
                 'attributeValueSetId',
                 'customNumber',
-                'purchasePrice'
+                'purchasePrice',
+                'availableUntil',
+                'availability',
+                'content',
             ],
 
             'variationRetailPrice' => [
@@ -224,7 +227,7 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $attributeMap->all([], 50);
+        //$attributes = $attributeMap->all([], 50);
 
 
         $templateData = array(
@@ -232,8 +235,7 @@ class ContentController extends Controller
             'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
             'info' => $correlations,
-            'settingInfo' => $settingInfo,
-            'attributes' => $attributes
+            'settingInfo' => $settingInfo
         );
 
 
