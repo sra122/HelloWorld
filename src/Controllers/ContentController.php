@@ -214,14 +214,14 @@ class ContentController extends Controller
         $correlations = $correlation->type('category')
                             ->all('HelloWorld');
 
-        /*$settingInfo = [];
+        $settingInfo = [];
         foreach ($correlations as $correlation)
         {
             $settingDetails = $settingRepo->get($correlation->settingsId);
-            $settingInfo[] = $settingDetails;
-        }*/
+            array_push($settingInfo, $settingDetails->settings);
+        }
 
-        $settingInfo = $settingRepo->get(78);
+        //$settingInfo = $settingRepo->get(78);
 
 
         $templateData = array(
