@@ -232,7 +232,7 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $attributeMap->all([], $perPage = 50);
+        $attributes = $attributeMap->all([]);
 
 
         $templateData = array(
