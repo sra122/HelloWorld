@@ -217,8 +217,7 @@ class ContentController extends Controller
         $settingInfo = [];
         foreach ($correlations as $correlation)
         {
-            $settingDetails = $settingRepo->get($correlation->settingsId);
-            array_push($settingInfo, $settingDetails->settings);
+            array_push($settingInfo, $correlation);
         }
 
         //$settingInfo = $settingRepo->get(78);
