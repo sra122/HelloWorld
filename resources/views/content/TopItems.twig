@@ -21,9 +21,12 @@
                 <p>Correlation</p>
             <div>
                 {{ info | json_encode }}
-            </div>
+            </div><br><br>
             <div>
                 {{ settingInfo | json_encode }}
+            </div><br><br>
+            <div>
+                {{ attributes | json_encode }}
             </div>
 
     {% endblock %}

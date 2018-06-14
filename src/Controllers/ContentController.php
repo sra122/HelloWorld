@@ -23,7 +23,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeMapRepositoryContract $attributeMap):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -217,11 +217,13 @@ class ContentController extends Controller
         $settingInfo = [];
         foreach ($correlations as $correlation)
         {
-            $settingDetails = $settingRepo->get($correlation['settingsId']);
-            array_push($settingInfo, $settingDetails);
+            $settingDetails = $settingRepo->get((int)$correlation['settingsId']);
+            array_push($settingInfo, $settingDetails->settings);
         }
 
         //$settingInfo = $settingRepo->get(78);
+
+        $attributes = $attributeMap->all($itemColumns, 50, 1, $itemFilter, $itemParams);
 
 
         $templateData = array(
@@ -229,7 +231,8 @@ class ContentController extends Controller
             'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
             'info' => $correlations,
-            'settingInfo' => $settingInfo
+            'settingInfo' => $settingInfo,
+            'attributes' => $attributes
         );
 
 
