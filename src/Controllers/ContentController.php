@@ -71,6 +71,11 @@ class ContentController extends Controller
             'variationRetailPrice' => [
                 'price',
                 'currency',
+                'retailPriceNet',
+                'unitPrice',
+                'vatId',
+                'unitPriceNet',
+                'vatValue'
             ],
 
             'variationStock' => [
