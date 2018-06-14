@@ -15,6 +15,7 @@ use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\System\Contracts\SystemInformationRepositoryContract;
 use Plenty\Modules\System\Contracts\WebstoreRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Plugin\Http\Request;
@@ -22,7 +23,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation):string
+    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -213,13 +214,20 @@ class ContentController extends Controller
         $correlations = $correlation->type('category')
                             ->all('HelloWorld');
 
+        $settingInfo = [];
+        foreach ($correlations as $correlation)
+        {
+            $settingDetails = $settingRepo->get($correlation->settingsId);
+            $settingInfo[] = $settingDetails;
+        }
 
 
         $templateData = array(
             'completeData' => $completeData,
             'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
-            'info' => $correlations
+            'info' => $correlations,
+            'settingInfo' => $settingInfo
         );
 
 
