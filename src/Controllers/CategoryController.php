@@ -62,6 +62,7 @@ class CategoryController extends Controller
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
+        $data = $request->get('correlations', []);
         //$data = $request->get('correlations', []);
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
@@ -80,8 +81,8 @@ class CategoryController extends Controller
         $settingsCorrelationFactory->type('category')
                                     ->createRelation($settings->id, 20);*/
 
-        $data = $settingsCorrelationFactory->type('category')
-                                            ->all('HelloWorld');
+        //$data = $settingsCorrelationFactory->type('category')
+                                            //->all('HelloWorld');
         $templateData = array(
             'completeData' => $data,
             'name' => 'Test'
