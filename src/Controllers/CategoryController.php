@@ -64,7 +64,7 @@ class CategoryController extends Controller
     {
         $data = $request->get('correlations', []);
 
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        /*$settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
         /*$settings = $settingsRepo->create('HelloWorld', 'category', [

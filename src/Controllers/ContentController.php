@@ -232,7 +232,7 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $attributeMap->all([]);
+        //$attributes = $attributeMap->all([]);
 
 
         $templateData = array(
@@ -240,8 +240,7 @@ class ContentController extends Controller
             'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
             'info' => $correlations,
-            'settingInfo' => $settingInfo,
-            'attributes' => $attributes
+            'settingInfo' => $settingInfo
         );
 
 
