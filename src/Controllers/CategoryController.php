@@ -62,8 +62,7 @@ class CategoryController extends Controller
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
-        $data = $request->get();
-        //$data = $request->get('correlations', []);
+        $data = $request->get('correlations', []);
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
