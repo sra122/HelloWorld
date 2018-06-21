@@ -203,9 +203,9 @@ class ContentController extends Controller
             }
 
             if(empty($parentCatSet)) {
-                $items['categories'] = $parentCategoryData->details[0]->name .'<<' .$childCategory->details[0]->name;
+                $items['categories'] = $parentCategoryData->details[0]->name .' << ' .$childCategory->details[0]->name;
             } else {
-                $items['categories'] = $parentCatSet .' << ' . $parentCategoryData->details[0]->name .'<<' .$childCategory->details[0]->name;
+                $items['categories'] = $parentCatSet .' << ' . $parentCategoryData->details[0]->name .' << ' .$childCategory->details[0]->name;
             }
 
             array_push($multiDim, $items);

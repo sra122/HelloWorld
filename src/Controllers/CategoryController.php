@@ -10,6 +10,7 @@ use Plenty\Plugin\Http\Response;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
+use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 
 /**
  * Class CategoryController
@@ -64,6 +65,10 @@ class CategoryController extends Controller
     {
         $data = $request->get('correlations', []);
 
+        $credentials = pluginApp(CredentialsRepositoryContract::class);
+
+        $credentialsInfo = $credentials->all();
+
         /*$settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
@@ -84,7 +89,7 @@ class CategoryController extends Controller
                                             //->all('HelloWorld');
         $templateData = array(
             'completeData' => $data,
-            'name' => 'Test'
+            'name' => $credentialsInfo
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
