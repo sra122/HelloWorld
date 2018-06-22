@@ -60,34 +60,4 @@ class CategoryController extends Controller
 
         return $response->json($category);
     }
-
-    public function saveCorrelation(Request $request, Response $response, Twig $twig)
-    {
-        $data = $request->get('correlations', []);
-
-        /*$settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
-
-        /*$settings = $settingsRepo->create('HelloWorld', 'category', [
-            'id'       => 40,
-            'parentId' => 39,
-            'name'     => 'Aufnäher',
-            'children' => [],
-            'isLeaf'   => false,
-            'level'    => 2,
-            'path'     => 'accessories.patches_and_pins.patches'
-        ]);
-
-        $settingsCorrelationFactory->type('category')
-                                    ->createRelation($settings->id, 20);*/
-
-        //$data = $settingsCorrelationFactory->type('category')
-                                            //->all('HelloWorld');
-        $templateData = array(
-            'completeData' => $data,
-            'name' => 'test'
-        );
-
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);
-    }
 }
