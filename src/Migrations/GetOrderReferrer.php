@@ -5,6 +5,7 @@ use HelloWorld\Helper\SettingsHelper;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 use HelloWorld\Models\OrderReferrer;
+use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 
 /**
  * Class CreateOrderReferrer
@@ -45,6 +46,14 @@ class GetOrderReferrer
             //$status = $this->settingsHelper->save(SettingsHelper::SETTINGS_ORDER_REFERRER, $orderReferrer->id);
 
             $status = $migrate->createTable(OrderReferrer::class);
+
+            $database = pluginApp(DataBase::class);
+
+            $orderRef = pluginApp(OrderReferrer::class);
+
+            $orderRef->id = $orderReferrer->id;
+
+            $database->save($orderRef);
 
             if($status === false)
             {
