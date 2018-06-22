@@ -4,6 +4,7 @@ namespace HelloWorld\Migrations;
 use HelloWorld\Helper\SettingsHelper;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
+use HelloWorld\Models\OrderReferrer;
 
 /**
  * Class CreateOrderReferrer
@@ -27,7 +28,7 @@ class GetOrderReferrer
     /**
      * @param OrderReferrerRepositoryContract $orderReferrerRepo
      */
-    public function run(OrderReferrerRepositoryContract $orderReferrerRepo)
+    public function run(OrderReferrerRepositoryContract $orderReferrerRepo, Migrate $migrate)
     {
         $orderReferrer = $orderReferrerRepo->create([
                                                     'isEditable'    => false,
@@ -41,7 +42,9 @@ class GetOrderReferrer
         do
         {
             // due to the fact that CreateSettingsTable migration just run, it could be that DynamoDB needs some time to create the table, so we try again
-            $status = $this->settingsHelper->save(SettingsHelper::SETTINGS_ORDER_REFERRER, $orderReferrer->id);
+            //$status = $this->settingsHelper->save(SettingsHelper::SETTINGS_ORDER_REFERRER, $orderReferrer->id);
+
+            $status = $migrate->createTable(OrderReferrer::class);
 
             if($status === false)
             {
