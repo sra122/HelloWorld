@@ -65,10 +65,6 @@ class CategoryController extends Controller
     {
         $data = $request->get('correlations', []);
 
-        $credentials = pluginApp(CredentialsRepositoryContract::class);
-
-        $credentialsInfo = $credentials->all();
-
         /*$settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
@@ -89,7 +85,7 @@ class CategoryController extends Controller
                                             //->all('HelloWorld');
         $templateData = array(
             'completeData' => $data,
-            'name' => $credentialsInfo
+            'name' => 'test'
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
