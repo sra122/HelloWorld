@@ -238,7 +238,7 @@ class ContentController extends Controller
         $authHelper = pluginApp(AuthHelper::class);
 
         $attributes = $authHelper->processUnguarded(function () use ($attributeValueRepository) {
-            return $attributeValueRepository->findById(4, 93);
+            return $attributeValueRepository->findById(2, 66);
         });
 
         //$attributes = $attributeMap->show(2);
