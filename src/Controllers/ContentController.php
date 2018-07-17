@@ -232,7 +232,15 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributes = $attributeMap->show(2);
+        $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+
+        $authHelper = pluginApp(AuthHelper::class);
+
+        $attributes = $authHelper->processUnguarded(function () use ($attributeValueRepository) {
+            return $attributeValueRepository->findById(4, 93);
+        });
+
+        //$attributes = $attributeMap->show(2);
 
 
         $templateData = array(
