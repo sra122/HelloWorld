@@ -233,12 +233,21 @@ class ContentController extends Controller
 
         //$settingInfo = $settingRepo->get(78);
 
-        $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+        //$attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+        $attributeMap = pluginApp(AttributeRepositoryContract::class);
 
         $authHelper = pluginApp(AuthHelper::class);
 
-        $attributes = $authHelper->processUnguarded(function () use ($attributeValueRepository) {
-            return $attributeValueRepository->findById(2, 66);
+        $attributes = $authHelper->processUnguarded(function () use ($attributeMap) {
+            try {
+                $attributeData = $attributeMap->findById(2);
+                if($attributeData) {
+                    return $attributeData;
+                }
+            } catch(\Exception $e) {
+                return $e->getMessage();
+            }
+
         });
 
         //$attributes = $attributeMap->show(2);
