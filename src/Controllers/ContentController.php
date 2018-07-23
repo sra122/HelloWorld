@@ -90,7 +90,7 @@ class ContentController extends Controller
 
             'variationStandardCategory' => [
                 'params' => [
-                    'plentyId' => pluginApp(Application::class)->getPlentyId(),
+                    /*'plentyId' => pluginApp(Application::class)->getPlentyId(),*/
                 ],
                 'fields' => [
                     'categoryId'

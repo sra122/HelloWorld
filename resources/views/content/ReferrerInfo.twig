@@ -1,0 +1,5 @@
+{% extends "HelloWorld::hello" %}
+
+{% block PageBody %}
+    <p>{{ orderRef|json_encode }}</p>
+{% endblock %}

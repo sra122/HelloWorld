@@ -6,6 +6,7 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 use HelloWorld\Models\OrderReferrer;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
+use Plenty\Plugin\Templates\Twig;
 
 /**
  * Class CreateOrderReferrer
@@ -29,15 +30,22 @@ class GetOrderReferrer
     /**
      * @param OrderReferrerRepositoryContract $orderReferrerRepo
      */
-    public function run(OrderReferrerRepositoryContract $orderReferrerRepo, Migrate $migrate)
+    public function run(OrderReferrerRepositoryContract $orderReferrerRepo, Migrate $migrate, Twig $twig)
     {
+
         $orderReferrer = $orderReferrerRepo->create([
                                                     'isEditable'    => false,
                                                     'backendName' => 'PandaBlack',
                                                     'name'        => 'PandaBlack',
                                                     'origin'      => 'plenty',
                                                     'isFilterable' => true
-                                                  ], 66.00);
+                                                  ]);
+
+        $orderReferr = array(
+            'orderRef' => $orderReferrer,
+        );
+
+
         $retries = 0;
 
         do
@@ -61,5 +69,7 @@ class GetOrderReferrer
             }
         }
         while($status === false && ++$retries < 3);
+
+        return $twig->render('HelloWorld::content.ReferrerInfo', $orderReferr);
     }
 }
