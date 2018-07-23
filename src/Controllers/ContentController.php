@@ -23,7 +23,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeRepositoryContract $attributeMap, AuthHelper $oauth):string
+    public function sayHello(Twig $twig, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeRepositoryContract $attributeMap, AuthHelper $oauth):string
     {
         $itemColumns = [
             'itemBase' => [
