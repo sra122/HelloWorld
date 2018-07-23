@@ -9,7 +9,6 @@ use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
-use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\System\Contracts\SystemInformationRepositoryContract;
@@ -171,12 +170,12 @@ class ContentController extends Controller
             'referrerId' => 66.0,
         ];
 
-        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
+        //$resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
 
 
         $completeData = array();
 
-        foreach($resultItems as $item)
+        /*foreach($resultItems as $item)
         {
             $multiDim = array();
             $items = [];
@@ -250,16 +249,16 @@ class ContentController extends Controller
 
         });
 
-        //$attributes = $attributeMap->show(2);
+        //$attributes = $attributeMap->show(2);*/
 
 
         $templateData = array(
             'completeData' => $completeData,
-            'systemInfo' => $categories,
+            /*'systemInfo' => $categories,
             'children' => $plentyCategoryRepo,
             'info' => $correlations,
             'settingInfo' => $settingInfo,
-            'attributes' => $attributes
+            'attributes' => $attributes*/
         );
 
 
