@@ -5,7 +5,6 @@ namespace HelloWorld\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
-use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
@@ -169,8 +168,6 @@ class ContentController extends Controller
         $itemParams = [
             'referrerId' => 66.0,
         ];
-
-        //$resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
 
 
         $completeData = array();
