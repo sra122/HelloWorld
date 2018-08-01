@@ -4,6 +4,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\DataLayer\Contracts\ItemDataLayerRepositoryContract;
+use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
@@ -21,7 +22,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeRepositoryContract $attributeMap, AuthHelper $oauth):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, VariationRepositoryContract $variationRepo, CategoryRepositoryContract $variationCat, LibraryCallContract $libCall, Request $request, SystemInformationRepositoryContract $sys, WebstoreRepositoryContract $web, SettingsCorrelationFactory $correlation, SettingsRepositoryContract $settingRepo, AttributeRepositoryContract $attributeMap, AuthHelper $oauth):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -155,9 +156,12 @@ class ContentController extends Controller
             'referrerId' => 9.0,
         ];
 
+        $itemRepository->setSearchParams($itemParams);
+        $itemRepository->setFilters($itemFilter);
+        $resultItems = $itemRepository->search();
 
-        $resultItems = $itemRepository->search($itemColumns, $itemFilter, $itemParams);
-        $completeData = array();
+        $completeData = $resultItems->getResult();
+        /*$completeData = array();
         foreach($resultItems as $item)
         {
             $multiDim = array();
@@ -208,14 +212,9 @@ class ContentController extends Controller
         $attributes = $authHelper->processUnguarded(function () use ($attributeValueRepository) {
             return $attributeValueRepository->findById(4, 93);
         });
-        //$attributes = $attributeMap->show(2);
+        //$attributes = $attributeMap->show(2);*/
         $templateData = array(
-            'completeData' => $completeData,
-            'systemInfo' => $categories,
-            'children' => $plentyCategoryRepo,
-            'info' => $correlations,
-            'settingInfo' => $settingInfo,
-            'attributes' => $attributes
+            'completeData' => $completeData
         );
         /*$packagistResult = array(
             'results' =>   $libCall->call('HelloWorld::guzzle_connector', ['title' => 'Berlin'])

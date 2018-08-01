@@ -7,26 +7,4 @@
                 {{ completeData | json_encode }}
             </ul>
         </div>
-        <br><br>
-        <p>Category Link Tree</p>
-            <div>
-                {{ systemInfo | json_encode }}
-            </div>
-            <br><br>
-            <p>Category Repository</p>
-            <div>
-                {{ children | json_encode }}
-            </div>
-            <br><br>
-                <p>Correlation</p>
-            <div>
-                {{ info | json_encode }}
-            </div><br><br>
-            <div>
-                {{ settingInfo | json_encode }}
-            </div><br><br>
-            <div>
-                {{ attributes | json_encode }}
-            </div>
-
     {% endblock %}
