@@ -8,9 +8,9 @@
             </ul>
         </div>
         <div>
-            {{ name | json }}
+            {{ name | json_encode }}
         </div>
         <div>
-            {{ request | json }}
+            {{ request | json_encode }}
         </div>
     {% endblock %}
