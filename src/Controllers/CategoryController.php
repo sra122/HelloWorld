@@ -27,7 +27,6 @@ class CategoryController extends Controller
      * @return Category[]
      */
 
-    private $testArray = [];
     public function all(Request $request, Twig $twig)
     {
         $with = $request->get('with', []);
@@ -68,6 +67,7 @@ class CategoryController extends Controller
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
+        $testArray = [];
         $data = $request->get('correlations', []);
 
         array_push($testArray, $data);
