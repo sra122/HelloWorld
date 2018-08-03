@@ -66,7 +66,7 @@ class CategoryController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $settingsCorrelationFactory->all(SettingsHelper::PLUGIN_NAME);
+        $settingsCorrelationFactory->all('HelloWorld');
 
         $templateData = array(
             'relation' => $settingsCorrelationFactory
@@ -81,7 +81,7 @@ class CategoryController extends Controller
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $settings = $settingsRepo->create(SettingsHelper::PLUGIN_NAME, SettingsCorrelationFactory::TYPE_CATEGORY, $data);
+        $settings = $settingsRepo->create('HelloWorld', 'category', $data);
 
         $templateData = array(
             'completeData' => $data,
