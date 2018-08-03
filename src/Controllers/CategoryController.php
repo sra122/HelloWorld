@@ -42,9 +42,9 @@ class CategoryController extends Controller
         );
 
 
-        return $twig->render('HelloWorld::content.CategoryList', $categoryInfo);
+        //return $twig->render('HelloWorld::content.CategoryList', $categoryInfo);
 
-        //return $categoryInfo;
+        return $categoryInfo;
     }
 
 
