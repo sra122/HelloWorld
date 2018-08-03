@@ -26,7 +26,7 @@ class CategoryController extends Controller
      *
      * @return Category[]
      */
-    public function all(Request $request)
+    public function all(Request $request, Twig $twig)
     {
         $with = $request->get('with', []);
 
@@ -41,7 +41,10 @@ class CategoryController extends Controller
             'categoryDetails' => $categoryRepo->all(['lang' => $request->get('lang', 'de')], $with)
         );
 
-        return $categoryInfo;
+
+        return $twig->render('HelloWorld::content.CategoryList', $categoryInfo);
+
+        //return $categoryInfo;
     }
 
 
