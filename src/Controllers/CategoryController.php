@@ -72,6 +72,6 @@ class CategoryController extends Controller
             'name' => 'Test'
         );
 
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);
+        return $templateData;
     }
 }
