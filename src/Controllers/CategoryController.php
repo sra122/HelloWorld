@@ -62,9 +62,26 @@ class CategoryController extends Controller
         return $response->json($category);
     }
 
+    public function getCorrelation(Twig $twig)
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
+
+        $settingsCorrelationFactory->all(SettingsHelper::PLUGIN_NAME);
+
+        $templateData = array(
+            'relation' => $settingsCorrelationFactory
+        );
+
+        return $twig->render('HelloWorld::content.CategoryList', $templateData);
+    }
+
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
         $data = $request->get('correlations', []);
+
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $settings = $settingsRepo->create(SettingsHelper::PLUGIN_NAME, SettingsCorrelationFactory::TYPE_CATEGORY, $data);
 
         $templateData = array(
             'completeData' => $data,
@@ -72,6 +89,6 @@ class CategoryController extends Controller
             'request' => $request
         );
 
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);;
+        return $twig->render('HelloWorld::content.CategoryList', $templateData);
     }
 }
