@@ -4,13 +4,7 @@
         <h1 style="text-align: center"> Categories</h1>
         <div class="col-xs-12 card-deck-wrapper" style="overflow: auto">
             <ul class="list-unstyled card-deck" style="height: 380px">
-                {{ completeData | json_encode }}
+                {{ relation | json_encode }}
             </ul>
-        </div>
-        <div>
-            {{ name | json_encode }}
-        </div>
-        <div>
-            {{ request | json_encode }}
         </div>
     {% endblock %}

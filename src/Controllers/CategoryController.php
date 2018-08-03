@@ -66,29 +66,23 @@ class CategoryController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $settingsCorrelationFactory->all('HelloWorld');
+        $testValues = $settingsCorrelationFactory->all('HelloWorld');
 
         $templateData = array(
-            'relation' => $settingsCorrelationFactory
+            'relation' => $testValues
         );
 
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
     }
 
-    public function saveCorrelation(Request $request, Response $response, Twig $twig)
+    public function saveCorrelation(Request $request, Response $response)
     {
         $data = $request->get('correlations', []);
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $settings = $settingsRepo->create('HelloWorld', 'category', $data);
+        $settingsRepo->create('HelloWorld', 'category', $data);
 
-        $templateData = array(
-            'completeData' => $data,
-            'name' => 'Test',
-            'request' => $request
-        );
-
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);
+        return $response->make('', 204);
     }
 }
