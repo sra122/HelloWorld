@@ -26,6 +26,8 @@ class CategoryController extends Controller
      *
      * @return Category[]
      */
+
+    private $testArray = [];
     public function all(Request $request, Twig $twig)
     {
         $with = $request->get('with', []);
@@ -67,11 +69,15 @@ class CategoryController extends Controller
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
         $data = $request->get('correlations', []);
+
+        array_push($testArray, $data);
+
         $templateData = array(
-            'completeData' => $data,
-            'name' => 'Test'
+            'completeData' => $testArray,
+            'name' => 'Test',
+            'request' => $request
         );
 
-        return $templateData;
+        return $twig->render('HelloWorld::content.CategoryList', $templateData);;
     }
 }
