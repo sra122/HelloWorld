@@ -66,7 +66,7 @@ class CategoryController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $testValues = $settingsCorrelationFactory->all('HelloWorld');
+        $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
 
         $templateData = array(
             'relation' => $testValues
@@ -83,14 +83,6 @@ class CategoryController extends Controller
 
         $settingsRepo->create('HelloWorld', 'category', $data);
 
-        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
-
-        $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
-
-        $templateData = array(
-            'relation' => $testValues
-        );
-
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);
+        return $response->make('', 204);
     }
 }
