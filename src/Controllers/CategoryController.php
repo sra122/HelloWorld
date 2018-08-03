@@ -75,7 +75,7 @@ class CategoryController extends Controller
         return $twig->render('HelloWorld::content.CategoryList', $templateData);
     }
 
-    public function saveCorrelation(Request $request, Response $response)
+    public function saveCorrelation(Request $request, Response $response, Twig $twig)
     {
         $data = $request->get('correlations', []);
 
@@ -83,6 +83,14 @@ class CategoryController extends Controller
 
         $settingsRepo->create('HelloWorld', 'category', $data);
 
-        return $response->make('', 204);
+        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
+
+        $testValues = $settingsCorrelationFactory->all('HelloWorld');
+
+        $templateData = array(
+            'relation' => $testValues
+        );
+
+        return $twig->render('HelloWorld::content.CategoryList', $templateData);
     }
 }
