@@ -85,7 +85,7 @@ class CategoryController extends Controller
 
         $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
-        $testValues = $settingsCorrelationFactory->all('HelloWorld');
+        $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
 
         $templateData = array(
             'relation' => $testValues
