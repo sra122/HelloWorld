@@ -81,8 +81,8 @@ class CategoryController extends Controller
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $settingsRepo->create('HelloWorld', 'category', $data);
+        $test = $settingsRepo->create('HelloWorld', 'category', $data);
 
-        return $response->make('', 204);
+        return $test;
     }
 }
