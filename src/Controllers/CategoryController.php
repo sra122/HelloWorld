@@ -64,13 +64,17 @@ class CategoryController extends Controller
 
     public function getCorrelation(Twig $twig)
     {
-        $settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
+        /*$settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
 
         $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
 
         /*$templateData = array(
             'relation' => $testValues
         );*/
+
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $testValues = $settingsCorrelationFactory->search([], 1, 20);
 
         return $testValues;
     }
