@@ -68,11 +68,11 @@ class CategoryController extends Controller
 
         $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
 
-        $templateData = array(
+        /*$templateData = array(
             'relation' => $testValues
-        );
+        );*/
 
-        return $twig->render('HelloWorld::content.CategoryList', $templateData);
+        return $testValues;
     }
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
