@@ -72,9 +72,13 @@ class CategoryController extends Controller
             'relation' => $testValues
         );*/
 
+        $filters = [
+            'marketplaceId' => 'HelloWorld',
+        ];
+
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $testValues = $settingsCorrelationFactory->search([], 1, 20);
+        $testValues = $settingsCorrelationFactory->search($filters, 1, 20);
 
         return $testValues;
     }
