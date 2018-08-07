@@ -93,4 +93,11 @@ class CategoryController extends Controller
 
         return $test;
     }
+
+    public function deleteAllCorrelation()
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $settingsCorrelationFactory->deleteAll('HelloWorld', 'category');
+    }
 }
