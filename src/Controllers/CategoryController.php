@@ -78,7 +78,7 @@ class CategoryController extends Controller
 
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $testValues = $settingsCorrelationFactory->search($filters, 1, 20);
+        $testValues = $settingsCorrelationFactory->search($filters, 1, 50);
 
         return $testValues;
     }
