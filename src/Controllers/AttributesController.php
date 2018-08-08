@@ -3,6 +3,7 @@
 namespace HelloWorld\Controllers;
 
 use Plenty\Modules\Item\Attribute\Contracts\AttributeMapRepositoryContract;
+use Plenty\Plugin\Controller;
 
 class AttributesController extends Controller
 {
@@ -12,13 +13,5 @@ class AttributesController extends Controller
         $test = $attributeRepo->all();
 
         return $test;
-    }
-
-    public function createAttribute()
-    {
-        $attributeRepo = pluginApp(AttributeMapRepositoryContract::class);
-        $ceate = $attributeRepo->create();
-
-        return $ceate;
     }
 }
