@@ -24,6 +24,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->post('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
             $router->delete('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@deleteAllCorrelation');
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
+            $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttributes');
         });
     }
 }

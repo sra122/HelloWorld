@@ -14,4 +14,20 @@ class AttributesController extends Controller
 
         return $test;
     }
+
+    public function createAttribute(Request $request)
+    {
+        $data = $request->get('new_attribute', '');
+
+        $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+
+        $attributeValueMap = [
+          'backendName' => $data
+        ];
+
+        $test = $attributeRepo->create($attributeValueMap);
+
+        return $test;
+
+    }
 }
