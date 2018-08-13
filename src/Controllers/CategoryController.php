@@ -74,6 +74,7 @@ class CategoryController extends Controller
 
         $filters = [
             'marketplaceId' => 'HelloWorld',
+            'type' => 'category'
         ];
 
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
