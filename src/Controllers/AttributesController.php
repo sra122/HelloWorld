@@ -45,9 +45,8 @@ class AttributesController extends Controller
             'plentyAttribute' => $plentyAttribute
         ];
 
-        return $data;
-        /*$test = $settingsRepo->create('HelloWorld', 'attribute', $data);
+        $test = $settingsRepo->create('HelloWorld', 'attribute', $data);
 
-        return $test;*/
+        return $test;
     }
 }
