@@ -4,6 +4,7 @@ namespace HelloWorld\Controllers;
 
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Plugin\Controller;
+use Plenty\Plugin\Http\Request;
 
 class AttributesController extends Controller
 {
