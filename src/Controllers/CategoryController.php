@@ -89,11 +89,9 @@ class CategoryController extends Controller
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        return $data;
+        $test = $settingsRepo->create('HelloWorld', 'category', $data);
 
-        /*$test = $settingsRepo->create('HelloWorld', 'category', $data);
-
-        return $test;*/
+        return $test;
     }
 
     public function deleteAllCorrelation()
