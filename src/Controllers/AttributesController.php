@@ -5,6 +5,7 @@ namespace HelloWorld\Controllers;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 
 class AttributesController extends Controller
 {
@@ -30,5 +31,22 @@ class AttributesController extends Controller
 
         return $test;
 
+    }
+
+    public function attributeMapping(Request $request)
+    {
+        $vendorAttribute = $request->get('vendor_attribute', '');
+        $plentyAttribute = $request->get('plenty_attribute', '');
+
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $data = [
+            'vendorAttribute' => $vendorAttribute,
+            'plentyAttribute' => $plentyAttribute
+        ];
+
+        $test = $settingsRepo->create('HelloWorld', 'attribute', $data);
+
+        return $test;
     }
 }
