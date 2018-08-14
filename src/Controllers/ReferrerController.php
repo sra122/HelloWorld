@@ -15,4 +15,18 @@ class ReferrerController extends Controller
 
         return $orderReferrerList;
     }
+
+    public function createOrderReferrer()
+    {
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+
+        $response = $orderReferrerRepo->create(['isEditable'    => false,
+                                                'backendName' => 'PandaBlack1',
+                                                'name'        => 'PandaBlack1',
+                                                'origin'      => 'plenty',
+                                                'isFilterable' => true
+                                            ]);
+
+        return $response;
+    }
 }
