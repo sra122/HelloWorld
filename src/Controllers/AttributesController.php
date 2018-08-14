@@ -12,9 +12,9 @@ class AttributesController extends Controller
     public function getAttributes()
     {
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
-        $test = $attributeRepo->all([], 50, 1);
+        $plentyMarketAttributes = $attributeRepo->all([], 50, 1);
 
-        return $test;
+        return $plentyMarketAttributes;
     }
 
     public function createAttribute(Request $request)
