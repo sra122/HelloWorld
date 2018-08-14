@@ -106,8 +106,6 @@ class CategoryController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $response = $settingsCorrelationFactory->delete($id);
-
-        return $response;
+        $settingsCorrelationFactory->delete($id);
     }
 }
