@@ -47,6 +47,6 @@ class AttributesController extends Controller
 
         $test = $settingsRepo->create('HelloWorld', 'attribute', $data);
 
-        return $test;
+        return $test->id;
     }
 }
