@@ -11,7 +11,7 @@ class ReferrerController extends Controller
     public function getListOfOrderReferrer()
     {
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
-        $orderReferrerList = $orderReferrerRepo->getList([]);
+        $orderReferrerList = $orderReferrerRepo->getList(['name']);
 
         return $orderReferrerList;
     }
