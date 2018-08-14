@@ -14,7 +14,6 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
         $router->get('hello', 'HelloWorld\Controllers\ContentController@sayHello');
         $router->get('update', 'HelloWorld\Controllers\UpdateItemController@updateItems');
         $router->get('category', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
-        $router->get('referrer', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
@@ -27,6 +26,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
             $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
             $router->post('markets/panda-black/attribute-mapping', 'HelloWorld\Controllers\AttributesController@attributeMapping');
+            $router->get('referrer', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
         });
     }
 }

@@ -4,7 +4,7 @@ namespace HelloWorld\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
-use Plenty\Modules\Order\Referrer\OrderReferrerRepositoryContract;
+use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 
 class ReferrerController extends Controller
 {
