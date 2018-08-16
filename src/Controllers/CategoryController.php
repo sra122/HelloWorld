@@ -64,14 +64,6 @@ class CategoryController extends Controller
 
     public function getCorrelation(Twig $twig)
     {
-        /*$settingsCorrelationFactory = pluginApp(SettingsCorrelationFactory::class);
-
-        $testValues = $settingsCorrelationFactory->type('category')->all('HelloWorld');
-
-        /*$templateData = array(
-            'relation' => $testValues
-        );*/
-
         $filters = [
             'marketplaceId' => 'HelloWorld',
             'type' => 'category'
@@ -79,9 +71,9 @@ class CategoryController extends Controller
 
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $testValues = $settingsCorrelationFactory->search($filters, 1, 50);
+        $correlationData = $settingsCorrelationFactory->search($filters, 1, 50);
 
-        return $testValues;
+        return $correlationData;
     }
 
     public function saveCorrelation(Request $request, Response $response, Twig $twig)
