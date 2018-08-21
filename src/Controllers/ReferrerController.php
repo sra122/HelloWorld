@@ -20,7 +20,7 @@ class ReferrerController extends Controller
     {
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
 
-        $response = $orderReferrerRepo->create(['isEditable'    => false,
+        $response = $orderReferrerRepo->create(['isEditable'    => true,
                                                 'backendName' => 'PandaBlack1',
                                                 'name'        => 'PandaBlack1',
                                                 'origin'      => 'plenty',

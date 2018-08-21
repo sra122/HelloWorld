@@ -34,7 +34,7 @@ class GetOrderReferrer
     {
 
         /*$orderReferrer = $orderReferrerRepo->create([
-                                                    'isEditable'    => false,
+                                                    'isEditable'    => true,
                                                     'backendName' => 'PandaBlack',
                                                     'name'        => 'PandaBlack',
                                                     'origin'      => 'plenty',
