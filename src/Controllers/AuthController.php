@@ -14,6 +14,9 @@ class AuthController extends Controller
     public function getLoginUrl(WebstoreHelper $webstoreHelper)
     {
         $webstore = $webstoreHelper->getCurrentWebstoreConfiguration();
-        return $webstore->domainSsl;
+
+        return [
+            'loginUrl' => $webstore->domainSsl,
+        ];
     }
 }
