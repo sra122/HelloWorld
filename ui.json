@@ -12,7 +12,7 @@
       "label": "Category-linking",
       "menu": "system/markets/iTools",
       "urlKey": "category-linking",
-      "entryPoint": "index.html?auth=stats-view"
+      "entryPoint": "index.html?action=stats-view"
     }
   ]
 }
