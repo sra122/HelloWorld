@@ -6,13 +6,13 @@
       "label": "Settings",
       "menu": "system/markets/iTools",
       "urlKey": "authentication",
-      "entryPoint": "index.html"
+      "entryPoint": "index.html?action=itools"
     },
     {
       "label": "Category-linking",
       "menu": "system/markets/iTools",
       "urlKey": "category-linking",
-      "entryPoint": "index.html"
+      "entryPoint": "index.html?auth=stats-view"
     }
   ]
 }
