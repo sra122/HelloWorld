@@ -119,7 +119,7 @@ class UpdateItemController extends Controller
         {
             $variRepo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
-            array_push($resultItem->variationRetailPrice, $variRepo);
+            array_push($resultItem->variationLinkMarketplace, $variRepo);
         }
 
         $templateData = array(
