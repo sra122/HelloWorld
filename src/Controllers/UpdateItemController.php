@@ -31,8 +31,6 @@ class UpdateItemController extends Controller
                 'price',
             ],
 
-            'variationSalesPrices' => true,
-
             'variationMarketStatus' => [
                 'params' => [
                     'marketId' => 9.0

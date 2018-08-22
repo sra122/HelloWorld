@@ -160,8 +160,9 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
-        $imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
+        //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
+        $imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
             'completeData' => $completeData,
