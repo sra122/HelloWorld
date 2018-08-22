@@ -22,7 +22,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -160,13 +160,13 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
-        $imageInfo = $imageRepo->findByItemId(103);
+        $imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
 
         $templateData = array(
             'completeData' => $completeData,
             'imageInfo' => $imageInfo
         );
-        return $twig->render('HelloWorld::content.TopItems', $templateData);
+        return $imageInfo;
     }
 }

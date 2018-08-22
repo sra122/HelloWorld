@@ -31,9 +31,11 @@ class UpdateItemController extends Controller
                 'price',
             ],
 
+            'variationSalesPrices' => true,
+
             'variationMarketStatus' => [
                 'params' => [
-                    'marketId' => 66.0
+                    'marketId' => 9.0
                 ],
                 'fields' => [
                     'id',
@@ -102,7 +104,7 @@ class UpdateItemController extends Controller
         ];
 
         $params = [
-            'referrerId' => 66.0
+            'referrerId' => 9.0
         ];
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
@@ -112,7 +114,7 @@ class UpdateItemController extends Controller
             'variRepo' => $variRepo
         );
 
-        return $twig->render('HelloWorld::content.UpdateItems', $templateData);
+        return $resultItems;
     }
 
 }
