@@ -99,6 +99,15 @@ class UpdateItemController extends Controller
         $variRepo = $variationRepository->show(1002, ['variationSalesPrices' => true], $lang = "de");
 
         $filter = [
+            'variationBase.isActive?'                     => [],
+            'variationVisibility.isVisibleForMarketplace' => [
+                'mandatoryOneMarketplace' => [],
+                'mandatoryAllMarketplace' => []
+            ],
+            'variationStock.netPositive'                  => [
+                'warehouse' => 'virtual',
+            ],
+            'referrerId' => 9.0,
         ];
 
         $params = [
