@@ -98,6 +98,8 @@ class UpdateItemController extends Controller
 
         $variRepo = $variationRepository->show(1002, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
+
+
         $filter = [
             'variationBase.isActive?'                     => [],
             'variationVisibility.isVisibleForMarketplace' => [
@@ -115,7 +117,7 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $mappingInfo = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld'], 1, 100);
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
 
         $level1 = [];
 
@@ -123,7 +125,23 @@ class UpdateItemController extends Controller
         {
             $level2 = [];
 
-            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
+            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
+
+            foreach($variationInfo->variationCategories as $variationCategory)
+            {
+                foreach($categoryMapping->entries as $categoryMappingInfo)
+                {
+                    foreach($categoryMappingInfo->settings as $categories)
+                    {
+                        foreach($categories->category as $plentyCategory)
+                        {
+                            if($plentyCategory->id == $variationCategory->categoryId) {
+                                array_push($level2, $categories->vendorCategory);
+                            }
+                        }
+                    }
+                }
+            }
 
             array_push($level2, $variationInfo);
 
@@ -133,7 +151,7 @@ class UpdateItemController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $mappingInfo,
+            'completeData' => $categoryMapping,
             'variRepo' => $variRepo,
             'test' => $level1
         );
