@@ -13,13 +13,13 @@ use Plenty\Plugin\Application;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\Item\VariationSku\Contracts\VariationSkuRepositoryContract;
-
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Plugin\Http\Request;
 
 class UpdateItemController extends Controller
 {
-    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepository):string
+    public function updateItems(Twig $twig, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepository, SettingsRepositoryContract $settingsRepositoryContract):string
     {
         $resultFields = [
             'itemBase' => [
@@ -115,6 +115,8 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
+        $mappingInfo = $settingsRepositoryContract->search(['HelloWorld'], 10, 100);
+
         $level1 = [];
 
         foreach($resultItems as $resultItem)
@@ -131,7 +133,7 @@ class UpdateItemController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $resultItems,
+            'completeData' => $mappingInfo,
             'variRepo' => $variRepo,
             'test' => $level1
         );
