@@ -115,12 +115,15 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $test = [];
         foreach($resultItems as $resultItem)
         {
+            $test = [];
+
             $variRepo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
             array_push($test, $variRepo);
+
+            array_merge($resultItem->variationLinkMarketplace, $test);
         }
 
         $templateData = array(
