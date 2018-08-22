@@ -115,21 +115,25 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
+        $level1 = [];
+
         foreach($resultItems as $resultItem)
         {
-            $test = [];
+            $level2 = [];
 
             $variRepo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
-            array_push($test, $variRepo);
+            array_push($level2, $variRepo);
 
-            array_merge($resultItem->variationLinkMarketplace, $test);
+            array_push($level2, $resultItem);
+
+            array_push($level1, $level2);
         }
 
         $templateData = array(
             'completeData' => $resultItems,
             'variRepo' => $variRepo,
-            'test' => $test
+            'test' => $level1
         );
 
         return $twig->render('HelloWorld::content.UpdateItems', $templateData);
