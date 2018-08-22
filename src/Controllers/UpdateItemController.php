@@ -107,11 +107,10 @@ class UpdateItemController extends Controller
             'variationStock.netPositive'                  => [
                 'warehouse' => 'virtual',
             ],
-            'referrerId' => 9.0,
         ];
 
         $params = [
-            'referrerId' => 9.0
+            'referrerId' => 9
         ];
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
