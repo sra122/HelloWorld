@@ -16,7 +16,7 @@ class AuthController extends Controller
         $webstore = $webstoreHelper->getCurrentWebstoreConfiguration();
 
         return [
-            'loginUrl' => $webstore->domainSsl,
+            'loginUrl' => $webstore->domainSsl . '/plenty/terra/system/markets/iTools/authentication',
         ];
     }
 }
