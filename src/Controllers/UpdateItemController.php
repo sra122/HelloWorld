@@ -19,7 +19,7 @@ use Plenty\Plugin\Http\Request;
 
 class UpdateItemController extends Controller
 {
-    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepository):string
+    public function updateItems(Twig $twig, VariationSkuRepositoryContract $skuRepo, ItemDataLayerRepositoryContract $itemRepository, VariationRepositoryContract $variationRepository):array
     {
         $resultFields = [
             'itemBase' => [
