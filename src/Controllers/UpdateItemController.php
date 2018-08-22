@@ -96,7 +96,7 @@ class UpdateItemController extends Controller
         ];
 
 
-        $variRepo = $variationRepository->show(1002, ['variationSalesPrices' => true], $lang = "de");
+        $variRepo = $variationRepository->show(1002, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
         $filter = [
             'variationBase.isActive?'                     => [],
@@ -115,7 +115,7 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $mappingInfo = $settingsRepositoryContract->search(['HelloWorld'], 1, 100);
+        $mappingInfo = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld'], 1, 100);
 
         $level1 = [];
 
@@ -123,9 +123,9 @@ class UpdateItemController extends Controller
         {
             $level2 = [];
 
-            $variRepo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
+            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true], $lang = "de");
 
-            array_push($level2, $variRepo);
+            array_push($level2, $variationInfo);
 
             array_push($level2, $resultItem);
 
