@@ -160,7 +160,7 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
-        $imageInfo = $imageRepo->findByVariationId(1000);
+        $imageInfo = $imageRepo->findByItemId(103);
 
 
         $templateData = array(
