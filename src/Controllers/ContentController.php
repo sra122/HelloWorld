@@ -162,7 +162,7 @@ class ContentController extends Controller
 
         //$imageInfo = $imageRepo->findByVariationId(1000);
 
-        $imageInfo = $authHelper->processUnguarded($imageRepo->findItemId(103));
+        $imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
 
         $templateData = array(
