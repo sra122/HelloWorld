@@ -115,7 +115,7 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $mappingInfo = $settingsRepositoryContract->search(['HelloWorld'], 10, 100);
+        $mappingInfo = $settingsRepositoryContract->search(['HelloWorld'], 1, 100);
 
         $level1 = [];
 
