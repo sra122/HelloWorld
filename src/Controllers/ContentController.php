@@ -17,11 +17,12 @@ use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
+use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -158,8 +159,13 @@ class ContentController extends Controller
         $resultItems = $itemRepository->search();
 
         $completeData = $resultItems->getResult();
+
+        $imageInfo = $imageRepo->findByVariationId(103);
+
+
         $templateData = array(
-            'completeData' => $completeData
+            'completeData' => $completeData,
+            'imageInfo' => $imageInfo
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
