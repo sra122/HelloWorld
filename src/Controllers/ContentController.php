@@ -149,7 +149,9 @@ class ContentController extends Controller
         //$itemRepository->setSearchParams($itemParams);
         $itemRepository->setSearchParams([
             'with' => [
-                'item' => null
+                'item' => null,
+                'referrerId' => 9.0,
+                'lang' => 'de'
             ]
         ]);
         $itemRepository->setFilters($itemFilter);
