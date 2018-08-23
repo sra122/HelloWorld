@@ -119,11 +119,9 @@ class UpdateItemController extends Controller
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
 
-        //$categoryMappingArray = json_decode((string)$categoryMapping);
+        $categoryMappingArray = json_decode((string)$categoryMapping);
 
         $level1 = [];
-
-
 
         foreach($resultItems as $resultItem)
         {
@@ -133,7 +131,7 @@ class UpdateItemController extends Controller
 
 
 
-            /*foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
+            foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
             {
                 foreach($categoryMappingInfo['settings'] as $categories)
                 {
@@ -146,7 +144,7 @@ class UpdateItemController extends Controller
                         }
                     }
                 }
-            }*/
+            }
 
 
 
@@ -158,8 +156,8 @@ class UpdateItemController extends Controller
         }
 
         $templateData = array(
-            'completeData' => gettype($categoryMapping),
-            'variRepo' => $variRepo,
+            'completeData' => $categoryMappingArray,
+            'variRepo' => $categoryMapping->entries,
             'test' => $level1
         );
 
