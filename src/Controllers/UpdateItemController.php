@@ -117,11 +117,8 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->texts;
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
 
-        $categoryMapping = $categoryMapping->toArray();
-
-        $categoryMappingArray = $categoryMapping->entries;
 
         $level1 = [];
 
@@ -133,7 +130,7 @@ class UpdateItemController extends Controller
 
 
 
-            foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
+            /*foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
             {
                 foreach($categoryMappingInfo['settings'] as $categories)
                 {
@@ -146,7 +143,7 @@ class UpdateItemController extends Controller
                         }
                     }
                 }
-            }
+            }*/
 
 
 
@@ -158,7 +155,7 @@ class UpdateItemController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $categoryMappingArray,
+            'completeData' => $categoryMapping,
             'variRepo' => $categoryMapping,
             'test' => $level1
         );
