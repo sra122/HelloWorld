@@ -128,7 +128,10 @@ class UpdateItemController extends Controller
 
             $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
-
+            foreach($categoryMapping->getResult() as $entry)
+            {
+                array_push($level2, $entry);
+            }
 
             /*foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
             {
