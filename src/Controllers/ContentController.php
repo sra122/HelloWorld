@@ -197,7 +197,7 @@ class ContentController extends Controller
             array_push($level1, $level2);
         }
 
-        $variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+        $variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
         //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
         $imageInfo = $imageRepo->findByVariationId(1000);
