@@ -127,28 +127,23 @@ class UpdateItemController extends Controller
 
             $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
-            $test = [];
-            array_push($test, $variationInfo);
-
-            foreach($test as $testCategories)
+            foreach($categoryMapping->entries as $categoryMappingInfo)
             {
-                /*foreach($testCategories->entries as $categoryMappingInfo)
+                foreach($categoryMappingInfo->settings as $categories)
                 {
-                    foreach($categoryMappingInfo->settings as $categories)
+                    foreach($categories->category as $plentyCategory)
                     {
-                        foreach($categories->category as $plentyCategory)
-                        {
-                            foreach($variationInfo->variationCategories as $variationCategory) {
-                                if($plentyCategory->id === $variationCategory->categoryId) {
-                                    array_push($level2, $categories->vendorCategory);
-                                }
+                        foreach($variationInfo->variationCategories as $variationCategory) {
+                            if($plentyCategory->id === $variationCategory->categoryId) {
+                                array_push($level2, $categories->vendorCategory);
                             }
                         }
                     }
+                }
 
-                }*/
-                array_push($level2, $testCategories);
             }
+
+
 
 
 
