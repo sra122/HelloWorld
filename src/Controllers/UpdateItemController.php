@@ -145,8 +145,8 @@ class UpdateItemController extends Controller
                 }
             }
 
-
-            foreach($variationInfo->toArray() as $variation)
+            //toArray() is throwing internal Error
+            foreach($variationInfo->variationCategories as $variation)
             {
                 array_push($level2, $variation);
             }
