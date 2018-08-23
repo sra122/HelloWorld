@@ -22,7 +22,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -164,13 +164,45 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
+
+        $level1 = [];
+
+        foreach($resultItems->getResult() as $resultItem)
+        {
+            $level2 = [];
+
+            $variationInfo = $variationRepositoryContract->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+
+            foreach($variationRepositoryContract->getResult() as $categoryMappingInfo)
+            {
+                foreach($categoryMappingInfo['settings'] as $categories)
+                {
+                    /*foreach($categories['category'] as $plentyCategory)
+                    {
+                        /*foreach($variationInfo['variationCategories'] as $variationCategory)
+                        {
+                            if($plentyCategory['id'] === $variationCategory['categoryId']) {
+                                array_push($level2, $categories->vendorCategory);
+                            }
+                        }
+                        array_push($level2, $plentyCategory);
+                    }*/
+                    array_push($level2, $categories);
+                }
+            }
+
+            array_push($level2, $resultItem);
+
+            array_push($level1, $level2);
+        }
+
         //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
         $imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
             'completeData' => $completeData,
-            'imageInfo' => $imageInfo
+            'imageInfo' => $level1
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
