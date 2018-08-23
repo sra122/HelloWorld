@@ -142,7 +142,7 @@ class UpdateItemController extends Controller
                         }
                         array_push($level2, $plentyCategory);
                     }*/
-                    array_push($level2, $categories['category']);
+                    array_push($level2, $categories);
                 }
             }
 
