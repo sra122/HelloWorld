@@ -148,7 +148,7 @@ class UpdateItemController extends Controller
                     }
 
                 }*/
-                array_push($level2, $testCategory);
+                array_push($level2, $testCategory->entries);
 
             }
 
