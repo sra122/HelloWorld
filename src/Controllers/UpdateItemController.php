@@ -133,7 +133,7 @@ class UpdateItemController extends Controller
 
             foreach($test as $testCategory)
             {
-                foreach($testCategory->entries as $categoryMappingInfo)
+                /*foreach($testCategory->entries as $categoryMappingInfo)
                 {
                     /*foreach($categoryMappingInfo->settings as $categories)
                     {
@@ -145,18 +145,12 @@ class UpdateItemController extends Controller
                                 }
                             }
                         }
-                    }*/
-                    array_push($level2, $categoryMappingInfo);
-                }
+                    }
 
+                }*/
+                array_push($level2, $testCategory);
 
             }
-
-
-
-
-
-
 
             //array_push($level2, $variationInfo);
 
