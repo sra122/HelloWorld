@@ -22,7 +22,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     private $parentCategoryArray = [];
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract, SettingsRepositoryContract $settingsRepositoryContract):string
     {
         $itemColumns = [
             'itemBase' => [
@@ -164,6 +164,7 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
 
         $level1 = [];
 
@@ -173,7 +174,7 @@ class ContentController extends Controller
 
             $variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
 
-            foreach($variationRepositoryContract->getResult() as $categoryMappingInfo)
+            foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
                 foreach($categoryMappingInfo['settings'] as $categories)
                 {
