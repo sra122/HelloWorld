@@ -119,6 +119,8 @@ class UpdateItemController extends Controller
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
 
+        $categoryMappingArray = json_decode($categoryMapping);
+
         $level1 = [];
 
         foreach($resultItems as $resultItem)
@@ -127,30 +129,24 @@ class UpdateItemController extends Controller
 
             $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
-            $test = [];
 
-            array_push($test, $categoryMapping);
 
-            foreach($test as $testCategory)
+            foreach($categoryMappingArray['entries'] as $categoryMappingInfo)
             {
-                /*foreach($testCategory->entries as $categoryMappingInfo)
+                foreach($categoryMappingInfo['settings'] as $categories)
                 {
-                    /*foreach($categoryMappingInfo->settings as $categories)
+                    foreach($categories['category'] as $plentyCategory)
                     {
-                        foreach($categories->category as $plentyCategory)
-                        {
-                            foreach($variationInfo->variationCategories as $variationCategory) {
-                                if($plentyCategory->id === $variationCategory->categoryId) {
-                                    array_push($level2, $categories->vendorCategory);
-                                }
+                        foreach($variationInfo->variationCategories as $variationCategory) {
+                            if($plentyCategory['id'] === $variationCategory->categoryId) {
+                                array_push($level2, $categories['vendorCategory']);
                             }
                         }
                     }
-
-                }*/
-                array_push($level2, $testCategory->isLastPage);
-
+                }
             }
+
+
 
             //array_push($level2, $variationInfo);
 
