@@ -172,9 +172,9 @@ class ContentController extends Controller
         {
             $level2 = [];
 
-            /*$variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+            //$variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
-            foreach($categoryMapping->getResult() as $categoryMappingInfo)
+            /*foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
                 foreach($categoryMappingInfo['settings'] as $categories)
                 {
@@ -197,13 +197,13 @@ class ContentController extends Controller
             array_push($level1, $level2);
         }
 
-        //$variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+        $variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
         //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
         $imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
-            'completeData' => $completeData,
+            'completeData' => $variationInfo,
             'imageInfo' => $level1
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
