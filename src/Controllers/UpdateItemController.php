@@ -117,7 +117,7 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->jsonSerialize();
 
         $categoryMappingArray = json_decode((string)$categoryMapping);
 
@@ -157,7 +157,7 @@ class UpdateItemController extends Controller
 
         $templateData = array(
             'completeData' => $categoryMappingArray,
-            'variRepo' => $categoryMapping->entries,
+            'variRepo' => $categoryMapping,
             'test' => $level1
         );
 
