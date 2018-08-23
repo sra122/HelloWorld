@@ -130,19 +130,21 @@ class UpdateItemController extends Controller
 
             foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
-                /*foreach($categoryMappingInfo->settings as $categories)
+                foreach($categoryMappingInfo['settings'] as $categories)
                 {
-                    /*foreach($categories->category as $plentyCategory)
+                    foreach($categories['category'] as $plentyCategory)
                     {
-                        foreach($variationInfo->toArray() as $variationCategory)
+                        foreach($variationInfo->toArray() as $categoryInfo)
                         {
-                            array_push($level2, $categories->vendorCategory);
+                            foreach($categoryInfo['variationCategories'] as $variationCategory)
+                            {
+                                if($plentyCategory['id'] === $variationCategory['categoryId']) {
+                                    array_push($level2, $categories->vendorCategory);
+                                }
+                            }
                         }
                     }
-                    array_push($level2, $categories->vendorCategory);
-                }*/
-
-                array_push($level2, $categoryMappingInfo['settings']);
+                }
             }
 
             array_push($level2, $resultItem);
