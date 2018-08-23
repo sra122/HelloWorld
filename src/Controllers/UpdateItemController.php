@@ -130,20 +130,22 @@ class UpdateItemController extends Controller
             $test = [];
             array_push($test, $variationInfo);
 
-            foreach($test as $testCategories) {
+            foreach($test as $testCategories)
+            {
                 foreach($testCategories->entries as $categoryMappingInfo)
                 {
-                    foreach($categoryMappingInfo->settings as $categories)
+                    /*foreach($categoryMappingInfo->settings as $categories)
                     {
                         foreach($categories->category as $plentyCategory)
                         {
                             foreach($variationInfo->variationCategories as $variationCategory) {
-                                if($plentyCategory->id == $variationCategory->categoryId) {
+                                if($plentyCategory->id === $variationCategory->categoryId) {
                                     array_push($level2, $categories->vendorCategory);
                                 }
                             }
                         }
-                    }
+                    }*/
+                    array_push($level2, $categoryMappingInfo);
                 }
             }
 
