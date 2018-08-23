@@ -117,7 +117,9 @@ class UpdateItemController extends Controller
 
         $resultItems = $itemRepository->search($resultFields, $filter, $params);
 
-        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->jsonSerialize();
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->texts;
+
+        $categoryMapping = $categoryMapping->toArray();
 
         $categoryMappingArray = $categoryMapping->entries;
 
