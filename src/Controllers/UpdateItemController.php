@@ -158,7 +158,7 @@ class UpdateItemController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $categoryMapping,
+            'completeData' => $categoryMappingArray,
             'variRepo' => $variRepo,
             'test' => $level1
         );
