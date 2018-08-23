@@ -150,7 +150,7 @@ class ContentController extends Controller
         //$itemRepository->setSearchParams($itemParams);
 
 
-        $itemRepository->setSearchParams([
+        plugin(VariationSearchRepositoryContract::class)->setSearchParams([
             'with' => [
                 'item' => null,
                 'lang' => 'de'
