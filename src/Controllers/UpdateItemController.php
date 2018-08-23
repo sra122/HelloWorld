@@ -119,7 +119,7 @@ class UpdateItemController extends Controller
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
 
-        $categoryMappingArray = json_decode($categoryMapping);
+        $categoryMappingArray = json_decode((string)$categoryMapping);
 
         $level1 = [];
 
