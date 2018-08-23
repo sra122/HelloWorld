@@ -126,7 +126,7 @@ class UpdateItemController extends Controller
         {
             $level2 = [];
 
-            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
+            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
 
             foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
@@ -134,15 +134,13 @@ class UpdateItemController extends Controller
                 {
                     foreach($categories['category'] as $plentyCategory)
                     {
-                        foreach($variationInfo->toArray() as $categoryInfo)
+                        foreach($variationInfo['variationCategories'] as $variationCategory)
                         {
-                            foreach($categoryInfo['variationCategories'] as $variationCategory)
-                            {
-                                if($plentyCategory['id'] === $variationCategory['categoryId']) {
-                                    array_push($level2, $categories->vendorCategory);
-                                }
+                            if($plentyCategory['id'] === $variationCategory['categoryId']) {
+                                array_push($level2, $categories->vendorCategory);
                             }
                         }
+
                     }
                 }
             }
