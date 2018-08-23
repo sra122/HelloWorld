@@ -126,7 +126,7 @@ class UpdateItemController extends Controller
         {
             $level2 = [];
 
-            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
+            $variationInfo = $variationRepository->show($resultItem->variationBase->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->texts;
 
             foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
