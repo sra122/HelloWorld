@@ -123,6 +123,8 @@ class UpdateItemController extends Controller
 
         $level1 = [];
 
+
+
         foreach($resultItems as $resultItem)
         {
             $level2 = [];
