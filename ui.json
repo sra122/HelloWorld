@@ -4,14 +4,14 @@
   "menuEntries"       : [
     {
       "label": "Settings",
-      "menu": "system/markets/iTools",
-      "urlKey": "iTools-authentication",
+      "menu": "system/markets/PandaBlack",
+      "urlKey": "PandaBlack-authentication",
       "entryPoint": "index.html?action=itools"
     },
     {
       "label": "Category-linking",
-      "menu": "system/markets/iTools",
-      "urlKey": "iTools-category-linking",
+      "menu": "system/markets/PandaBlack",
+      "urlKey": "PandaBlack-category-linking",
       "entryPoint": "index.html?action=stats-view"
     }
   ]
