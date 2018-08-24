@@ -5,13 +5,13 @@
     {
       "label": "Settings",
       "menu": "system/markets/PandaBlack",
-      "urlKey": "PandaBlack-authentication",
+      "urlKey": "itools",
       "entryPoint": "index.html?action=itools"
     },
     {
       "label": "Category-linking",
       "menu": "system/markets/PandaBlack",
-      "urlKey": "PandaBlack-category-linking",
+      "urlKey": "stats-view",
       "entryPoint": "index.html?action=stats-view"
     }
   ]
