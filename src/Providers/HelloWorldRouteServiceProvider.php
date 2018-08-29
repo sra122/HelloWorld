@@ -22,13 +22,13 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/parent-categories/{id}', 'HelloWorld\Controllers\CategoryController@get');
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\JdCategoriesController@listOfCategories');
             $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelations');
-            $router->get('markets/panda-black/correlation/{id}', 'HelloWorld\Controllers\CategoryController@getCorrelation'); // For editing a single Correlation
             $router->post('markets/panda-black/edit-correlations', 'HelloWorld\Controllers\CategoryController@updateCorrelation');
             $router->post('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
             $router->delete('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@deleteAllCorrelations');
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
             $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
             $router->post('markets/panda-black/attribute-mapping', 'HelloWorld\Controllers\AttributesController@attributeMapping');
+            $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
             $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
         });
     }

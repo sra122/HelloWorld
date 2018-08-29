@@ -17,6 +17,16 @@ class AttributesController extends Controller
         return $plentyMarketAttributes;
     }
 
+    public function getMappedAttributeDetails(int $id)
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $attributesData = $settingsCorrelationFactory->get($id);
+
+        return $attributesData;
+    }
+
+
     public function createAttribute(Request $request)
     {
         $data = $request->get('new_attribute', '');
