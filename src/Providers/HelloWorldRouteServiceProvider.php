@@ -21,7 +21,8 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
             $router->get('markets/panda-black/parent-categories/{id}', 'HelloWorld\Controllers\CategoryController@get');
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\JdCategoriesController@listOfCategories');
-            $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelation');
+            $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelations');
+            $router->get('markets/panda-black/correlation/{id}', 'HelloWorld\Controllers\CategoryController@getCorrelation'); // For editing a single Correlation
             $router->post('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
             $router->delete('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@deleteAllCorrelations');
             $router->delete('markets/panda-black/correlation/{id}', 'HelloWorld\Controllers\CategoryController@deleteCorrelation');

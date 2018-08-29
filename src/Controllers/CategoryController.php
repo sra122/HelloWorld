@@ -62,7 +62,7 @@ class CategoryController extends Controller
         return $response->json($category);
     }
 
-    public function getCorrelation(Twig $twig)
+    public function getCorrelations(Twig $twig)
     {
         $filters = [
             'marketplaceId' => 'HelloWorld',
@@ -71,7 +71,16 @@ class CategoryController extends Controller
 
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $correlationData = $settingsCorrelationFactory->search($filters, 1, 50);
+        $correlationsData = $settingsCorrelationFactory->search($filters, 1, 50);
+
+        return $correlationsData;
+    }
+
+    public function getCorrelation(Response $response, int $id)
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $correlationData = $settingsCorrelationFactory->get($id);
 
         return $correlationData;
     }
