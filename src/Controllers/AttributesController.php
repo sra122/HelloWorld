@@ -21,7 +21,7 @@ class AttributesController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
-        $attributesData = $settingsCorrelationFactory->get($id);
+        $attributesData = $settingsCorrelationFactory->get($id)->toArray();
 
         return $attributesData;
     }
