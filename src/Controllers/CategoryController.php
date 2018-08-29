@@ -2,7 +2,7 @@
 
 namespace HelloWorld\Controllers;
 
-use HelloWorld\Contracts\CategoryRepositoryContract;
+//use HelloWorld\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\Category\Models\Category;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
@@ -11,6 +11,7 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
+use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 
 /**
  * Class CategoryController
@@ -38,9 +39,7 @@ class CategoryController extends Controller
         /** @var CategoryRepositoryContract $categoryRepo */
         $categoryRepo = pluginApp(CategoryRepositoryContract::class);
 
-        $categoryInfo = array(
-            'categoryDetails' => $categoryRepo->all(['lang' => $request->get('lang', 'de')], $with)
-        );
+        $categoryInfo = $categoryRepo->search($categoryId = null, 1, 50, $with, ['lang' => $request->get('lang', 'de')]);
 
         return $categoryInfo;
     }
