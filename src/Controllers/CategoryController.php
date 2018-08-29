@@ -85,15 +85,25 @@ class CategoryController extends Controller
         return $correlationData;
     }
 
-    public function saveCorrelation(Request $request, Response $response, Twig $twig)
+    public function updateCorrelation(Request $request)
+    {
+        $correlationData = $request->get('correlations', []);
+        $id = $request->get('id', []);
+
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $settingsRepo->update($correlationData, $id);
+    }
+
+    public function saveCorrelation(Request $request, Twig $twig)
     {
         $data = $request->get('correlations', []);
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $test = $settingsRepo->create('HelloWorld', 'category', $data);
+        $response = $settingsRepo->create('HelloWorld', 'category', $data);
 
-        return $test;
+        return $response;
     }
 
     public function deleteAllCorrelations()
