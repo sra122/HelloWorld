@@ -15,7 +15,7 @@ interface CategoryRepositoryContract
      *
      * @return array
      */
-    public function all(array $filters = [], array $with = []);
+    //public function all(array $filters = [], array $with = []);
 
-    public function get(int $categoryId, string $lang, array $with = []);
+    //public function get(int $categoryId, string $lang, array $with = []);
 }

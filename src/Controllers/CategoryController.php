@@ -36,7 +36,6 @@ class CategoryController extends Controller
             $with = explode(',', $with);
         }
 
-        /** @var CategoryRepositoryContract $categoryRepo */
         $categoryRepo = pluginApp(CategoryRepositoryContract::class);
 
         $categoryInfo = $categoryRepo->search($categoryId = null, 1, 50, $with, ['lang' => $request->get('lang', 'de')]);
@@ -53,10 +52,10 @@ class CategoryController extends Controller
             $with = explode(',', $with);
         }
 
-        /** @var CategoryRepositoryContract $categoryRepo */
+
         $categoryRepo = pluginApp(CategoryRepositoryContract::class);
 
-        $category = $categoryRepo->get($id, $request->get('lang', 'de'), $with);
+        $category = $categoryRepo->get($id, $request->get('lang', 'de'));
 
         return $response->json($category);
     }
