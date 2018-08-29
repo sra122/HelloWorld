@@ -76,7 +76,7 @@ class CategoryController extends Controller
         return $correlationsData;
     }
 
-    public function getCorrelation(Response $response, int $id)
+    public function getCorrelation(int $id)
     {
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
