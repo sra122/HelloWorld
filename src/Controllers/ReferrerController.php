@@ -17,10 +17,9 @@ class ReferrerController extends Controller
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            array_push($pandaBlackReferrerID, $orderReferrerList);
-            /*if(trim($orderReferrerList) == 'PandaBlack') {
+            if(trim($orderReferrerList->name) == 'PandaBlack') {
                 array_push($pandaBlackReferrerID, $orderReferrerList);
-            }*/
+            }
         }
 
         /*if(empty($pandaBlackReferrerID)) {
