@@ -17,13 +17,11 @@ class ReferrerController extends Controller
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            if(trim($orderReferrerList) === 'PandaBlack') {
-                array_push($pandaBlackReferrerID, $orderReferrerList);
-            }
+            array_push($pandaBlackReferrerID, $orderReferrerList);
         }
 
 
-        if(empty($pandaBlackReferrerID)) {
+        /*if(empty($pandaBlackReferrerID)) {
 
             $orderReferrer = $orderReferrerRepo->create([
                 'isEditable'    => true,
@@ -34,7 +32,7 @@ class ReferrerController extends Controller
             ]);
 
             return $orderReferrer;
-        }
+        }*/
 
         return $pandaBlackReferrerID;
     }
