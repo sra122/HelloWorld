@@ -18,12 +18,12 @@ class ReferrerController extends Controller
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
             if(trim($orderReferrerList) === 'PandaBlack') {
-                $pandaBlackReferrerID[$key] = $orderReferrerList;
+                array_push($pandaBlackReferrerID, $orderReferrerList);
             }
         }
 
 
-        if(empty(array_filter($pandaBlackReferrerID))) {
+        if(empty($pandaBlackReferrerID)) {
 
             $orderReferrer = $orderReferrerRepo->create([
                 'isEditable'    => true,

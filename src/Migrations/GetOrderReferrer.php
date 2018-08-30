@@ -43,7 +43,6 @@ class GetOrderReferrer
             }
         }
 
-
         if(empty(array_filter($pandaBlackReferrerID))) {
 
             $orderReferrer = $orderReferrerRepo->create([
