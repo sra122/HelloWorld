@@ -11,9 +11,32 @@ class ReferrerController extends Controller
     public function getListOfOrderReferrer()
     {
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
-        $orderReferrerList = $orderReferrerRepo->getList(['name']);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name']);
 
-        return $orderReferrerList;
+        $pandaBlackReferrerID = [];
+
+        foreach($orderReferrerLists as $key => $orderReferrerList)
+        {
+            if(trim($orderReferrerList) === 'PandaBlack') {
+                $pandaBlackReferrerID[$key] = $orderReferrerList;
+            }
+        }
+
+
+        if(empty(array_filter($pandaBlackReferrerID))) {
+
+            $orderReferrer = $orderReferrerRepo->create([
+                'isEditable'    => true,
+                'backendName' => 'PandaBlack',
+                'name'        => 'PandaBlack',
+                'origin'      => 'plenty',
+                'isFilterable' => true
+            ]);
+
+            return $orderReferrer;
+        }
+
+        return $pandaBlackReferrerID;
     }
 
     public function createOrderReferrer()

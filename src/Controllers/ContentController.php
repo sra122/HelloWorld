@@ -157,9 +157,6 @@ class ContentController extends Controller
             ]
         ]);
 
-
-
-
         $itemRepository->setFilters([
             'referrerId' => 9.0
         ]);

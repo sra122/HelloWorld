@@ -4,7 +4,6 @@ namespace HelloWorld\Migrations;
 use HelloWorld\Helper\SettingsHelper;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
-use HelloWorld\Models\OrderReferrer;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use Plenty\Plugin\Templates\Twig;
 
@@ -30,46 +29,33 @@ class GetOrderReferrer
     /**
      * @param OrderReferrerRepositoryContract $orderReferrerRepo
      */
-    public function run(OrderReferrerRepositoryContract $orderReferrerRepo, Migrate $migrate, Twig $twig)
+    public function run()
     {
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name']);
 
-        /*$orderReferrer = $orderReferrerRepo->create([
-                                                    'isEditable'    => true,
-                                                    'backendName' => 'PandaBlack',
-                                                    'name'        => 'PandaBlack',
-                                                    'origin'      => 'plenty',
-                                                    'isFilterable' => true
-                                                  ]);
+        $pandaBlackReferrerID = [];
 
-        $orderReferr = array(
-            'orderRef' => $orderReferrer,
-        );
-
-
-        $retries = 0;
-
-        do
+        foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            // due to the fact that CreateSettingsTable migration just run, it could be that DynamoDB needs some time to create the table, so we try again
-            //$status = $this->settingsHelper->save(SettingsHelper::SETTINGS_ORDER_REFERRER, $orderReferrer->id);
-
-            $status = $migrate->createTable(OrderReferrer::class);
-
-            $database = pluginApp(DataBase::class);
-
-            $orderRef = pluginApp(OrderReferrer::class);
-
-            $orderRef->id = $orderReferrer->id;
-
-            $database->save($orderRef);
-
-            if($status === false)
-            {
-                sleep(5);
+            if(trim($orderReferrerList) === 'PandaBlack') {
+                $pandaBlackReferrerID[$key] = $orderReferrerList;
             }
         }
-        while($status === false && ++$retries < 3);
 
-        return $twig->render('HelloWorld::content.ReferrerInfo', $orderReferr);*/
+
+        if(empty(array_filter($pandaBlackReferrerID))) {
+
+            $orderReferrer = $orderReferrerRepo->create([
+                'isEditable'    => true,
+                'backendName' => 'PandaBlack',
+                'name'        => 'PandaBlack',
+                'origin'      => 'plenty',
+                'isFilterable' => true
+            ]);
+
+            return $orderReferrer;
+        }
+
     }
 }
