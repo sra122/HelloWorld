@@ -164,7 +164,7 @@ class ContentController extends Controller
 
         $completeData = $resultItems->getResult();
 
-        //$categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100);
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
 
         $level1 = [];
 
@@ -197,13 +197,13 @@ class ContentController extends Controller
             array_push($level1, $level2);
         }
 
-        $variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
+        //$variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
         //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
 
-        $imageInfo = $imageRepo->findByVariationId(1000);
+        //$imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
-            'completeData' => $variationInfo,
+            'completeData' => $categoryMapping,
             'imageInfo' => $level1
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);

@@ -22,7 +22,7 @@ class ReferrerController extends Controller
             }
         }
 
-        /*if(empty($pandaBlackReferrerID)) {
+        if(empty($pandaBlackReferrerID)) {
 
             $orderReferrer = $orderReferrerRepo->create([
                 'isEditable'    => true,
@@ -33,7 +33,7 @@ class ReferrerController extends Controller
             ]);
 
             return $orderReferrer;
-        }*/
+        }
 
         return $pandaBlackReferrerID;
     }

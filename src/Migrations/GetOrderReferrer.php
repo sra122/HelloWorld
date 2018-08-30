@@ -3,6 +3,7 @@ namespace HelloWorld\Migrations;
 
 use HelloWorld\Helper\SettingsHelper;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
 use Plenty\Plugin\Templates\Twig;
@@ -38,10 +39,11 @@ class GetOrderReferrer
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
+            if(trim($orderReferrerList->name) === 'PandaBlack')
             array_push($pandaBlackReferrerID, $orderReferrerList);
         }
 
-        /*if(empty(array_filter($pandaBlackReferrerID))) {
+        if(empty(array_filter($pandaBlackReferrerID))) {
 
             $orderReferrer = $orderReferrerRepo->create([
                 'isEditable'    => true,
@@ -50,9 +52,11 @@ class GetOrderReferrer
                 'origin'      => 'plenty',
                 'isFilterable' => true
             ]);
+            $settingsRepository = pluginApp(SettingsRepositoryContract::class);
+            $settingsRepository->create('HelloWorld', 'property', $orderReferrer);
 
             return $orderReferrer;
-        }*/
+        }
 
     }
 }
