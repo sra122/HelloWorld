@@ -39,8 +39,9 @@ class GetOrderReferrer
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            if(trim($orderReferrerList->name) === 'PandaBlack')
-            array_push($pandaBlackReferrerID, $orderReferrerList);
+            if(trim($orderReferrerList->name) === 'PandaBlack') {
+                array_push($pandaBlackReferrerID, $orderReferrerList);
+            }
         }
 
         if(empty(array_filter($pandaBlackReferrerID))) {
@@ -51,7 +52,7 @@ class GetOrderReferrer
                 'name'        => 'PandaBlack',
                 'origin'      => 'plenty',
                 'isFilterable' => true
-            ]);
+            ])->toArray();
             $settingsRepository = pluginApp(SettingsRepositoryContract::class);
             $settingsRepository->create('HelloWorld', 'property', $orderReferrer);
 
