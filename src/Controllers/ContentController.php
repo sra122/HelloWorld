@@ -154,12 +154,15 @@ class ContentController extends Controller
             'with' => [
                 'item' => null,
                 'lang' => 'de'
-            ],
-            'referrerId' => 9.0
+            ]
         ]);
 
 
-        $itemRepository->setFilters($itemFilter);
+
+
+        $itemRepository->setFilters([
+            'referrerId' => 9.0
+        ]);
         $resultItems = $itemRepository->search();
 
         $completeData = $resultItems->getResult();
