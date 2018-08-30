@@ -40,6 +40,17 @@ class CategoryController extends Controller
 
         $categoryInfo = $categoryRepo->search($categoryId = null, 1, 50, $with, ['lang' => $request->get('lang', 'de')])->getResult();
 
+        foreach($categoryInfo as $category)
+        {
+            if($category->parentCategoryId === null) {
+                foreach($categoryInfo as $childCategory) {
+                    if($childCategory->parentCategoryId === $category->id) {
+                        $category->child = $childCategory;
+                    }
+                }
+            }
+        }
+
         return $categoryInfo;
     }
 
