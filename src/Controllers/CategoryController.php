@@ -38,7 +38,7 @@ class CategoryController extends Controller
 
         $categoryRepo = pluginApp(CategoryRepositoryContract::class);
 
-        $categoryInfo = $categoryRepo->getLinklistTree($type = "item", $lang = "de", $clientId = null, $maxLevel = 6);
+        $categoryInfo = $categoryRepo->getLinklistTree($type = "all", $lang = "de", $clientId = null, $maxLevel = 6);
 
         return $categoryInfo;
     }
