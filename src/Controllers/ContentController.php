@@ -153,7 +153,8 @@ class ContentController extends Controller
         $itemRepository->setSearchParams([
             'with' => [
                 'item' => null,
-                'lang' => 'de'
+                'lang' => 'de',
+                'variationSalesPrices' => true
             ]
         ]);
 
@@ -172,7 +173,7 @@ class ContentController extends Controller
         {
             $level2 = [];
 
-            $variationInfo = $variationRepositoryContract->show(1030, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+            //$variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
             /*foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
@@ -192,7 +193,7 @@ class ContentController extends Controller
                 }
             }*/
 
-            array_push($level1, $variationInfo);
+            //array_push($level1, $variationInfo);
         }
 
         //$variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
@@ -202,7 +203,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $completeData,
-            'imageInfo' => $level1
+            'imageInfo' => $categoryMapping
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
