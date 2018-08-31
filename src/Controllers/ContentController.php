@@ -182,7 +182,6 @@ class ContentController extends Controller
                         array_push($imageUrls, $imageRepo->findByImageId($imageWithId->imageId));
                     }
                     return $imageUrls;
-                    //
                 }
             );
 
