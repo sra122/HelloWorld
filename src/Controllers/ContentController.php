@@ -187,7 +187,7 @@ class ContentController extends Controller
                 }
             );*/
 
-            $itemInfo = $imageRepo->findByVariationId($item->id);
+            $itemInfo = $imageRepo->findByVariationId(1030);
 
 
             $item->imageDetails = $itemInfo;
