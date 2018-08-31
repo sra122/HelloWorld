@@ -154,7 +154,40 @@ class ContentController extends Controller
             'with' => [
                 'item' => null,
                 'lang' => 'de',
-                'variationSalesPrices' => true
+                'variationSalesPrices' => true,
+                'variationCategories' => true,
+                'variationImageList' => [
+                    'params' => [
+                        'all_images'                                       => [
+                            'type'                 => 'all', // all images
+                            'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
+                            'imageType'            => ['internal'],
+                        ],
+                        'only_current_variation_images_and_generic_images' => [
+                            'type'                 => 'item_variation', // current variation + item images
+                            'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
+                            'imageType'            => ['internal'],
+                        ],
+                        'only_current_variation_images'                    => [
+                            'type'                 => 'variation', // current variation images
+                            'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
+                            'imageType'            => ['internal'],
+                        ],
+                        'only_generic_images'                              => [
+                            'type'                 => 'item', // only item images
+                            'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
+                            'imageType'            => ['internal'],
+                        ],
+                    ],
+                    'fields' => [
+                        'imageId',
+                        'type',
+                        'fileType',
+                        'path',
+                        'position',
+                        'attributeValueId',
+                    ]
+                ]
             ]
         ]);
 
