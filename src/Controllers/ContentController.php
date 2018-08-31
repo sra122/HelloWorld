@@ -18,6 +18,7 @@ use Plenty\Modules\Authorization\Services\AuthHelper;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
+use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -147,8 +148,6 @@ class ContentController extends Controller
             'referrerId' => 9.0,
         ];
 
-        //$itemRepository->setSearchParams($itemParams);
-
 
         $itemRepository->setSearchParams([
             'with' => [
@@ -165,46 +164,21 @@ class ContentController extends Controller
         ]);
         $resultItems = $itemRepository->search();
 
-        $completeData = $resultItems->getResult();
+        $items = $resultItems->getResult();
+
+        foreach($items as $item) {
+            $imageRepo = pluginApp(VariationImageRepositoryContract::class);
+
+            $itemInfo = $imageRepo->findByVariationId($item->id);
+
+            $item->imageDetails = $itemInfo;
+        }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
 
-        $level1 = [];
-
-        foreach($completeData as $resultItem)
-        {
-            $level2 = [];
-
-            //$variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
-
-            /*foreach($categoryMapping->getResult() as $categoryMappingInfo)
-            {
-                foreach($categoryMappingInfo['settings'] as $categories)
-                {
-                    /*foreach($categories['category'] as $plentyCategory)
-                    {
-                        /*foreach($variationInfo['variationCategories'] as $variationCategory)
-                        {
-                            if($plentyCategory['id'] === $variationCategory['categoryId']) {
-                                array_push($level2, $categories->vendorCategory);
-                            }
-                        }
-                        array_push($level2, $plentyCategory);
-                    }
-                    array_push($level2, $categories);
-                }
-            }*/
-
-            //array_push($level1, $variationInfo);
-        }
-
-        //$variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
-        //$imageInfo = $authHelper->processUnguarded($imageRepo->findByItemId(103));
-
-        //$imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
-            'completeData' => $completeData,
+            'completeData' => $items,
             'imageInfo' => $categoryMapping
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
