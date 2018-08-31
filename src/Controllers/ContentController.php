@@ -172,7 +172,7 @@ class ContentController extends Controller
         {
             $level2 = [];
 
-            $variationInfo = $variationRepositoryContract->show(1030, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
+            $variationInfo = $variationRepositoryContract->show(1030, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
 
             /*foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
