@@ -188,15 +188,15 @@ class ContentController extends Controller
             );*/
 
 
-            /*$itemInfo = $authHelper->processUnguarded(
+            $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $item) {
                     return $imageRepo->findByItemId(132);
                 }
-            );*/
+            );
 
 
-            //$item->imageDetails = $itemInfo;
-            //array_push($imageData, $itemInfo);
+            $item->imageDetails = $itemInfo;
+            array_push($imageData, $itemInfo);
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
@@ -204,7 +204,8 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $items,
-            'imageInfo' => $categoryMapping
+            'categoryMapping' => $categoryMapping,
+            'imageInfo' => $imageData
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
