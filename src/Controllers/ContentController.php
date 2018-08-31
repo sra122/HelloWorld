@@ -166,6 +166,8 @@ class ContentController extends Controller
 
         $items = $resultItems->getResult();
 
+        $imageData = [];
+
         foreach($items as $item) {
 
             $authHelper = pluginApp(AuthHelper::class);
@@ -179,6 +181,7 @@ class ContentController extends Controller
             );
 
             $item->imageDetails = $itemInfo;
+            array_push($imageData, $itemInfo);
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
@@ -186,7 +189,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $items,
-            'imageInfo' => $categoryMapping
+            'imageInfo' => $imageData
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
