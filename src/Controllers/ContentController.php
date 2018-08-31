@@ -176,8 +176,8 @@ class ContentController extends Controller
 
             $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $item) {
-                    $imageWithId = $imageRepo->findByItemId($item->itemId);
-                    return $imageRepo->findByImageId($imageWithId->imageId);
+                    return $imageRepo->findByItemId($item->itemId);
+                    //return $imageRepo->findByImageId($imageWithId->imageId);
                 }
             );
 
