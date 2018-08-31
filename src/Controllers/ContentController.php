@@ -201,8 +201,8 @@ class ContentController extends Controller
         //$imageInfo = $imageRepo->findByVariationId(1000);
 
         $templateData = array(
-            'completeData' => $categoryMapping,
-            'imageInfo' => $level1
+            'completeData' => $completeData,
+            'imageInfo' => $categoryMapping
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
