@@ -168,11 +168,11 @@ class ContentController extends Controller
 
         $level1 = [];
 
-        foreach($resultItems->getResult() as $resultItem)
+        foreach($completeData as $resultItem)
         {
             $level2 = [];
 
-            //$variationInfo = $variationRepositoryContract->show($resultItem->id, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de")->toArray();
+            $variationInfo = $variationRepositoryContract->show(1030, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
 
             /*foreach($categoryMapping->getResult() as $categoryMappingInfo)
             {
@@ -192,7 +192,7 @@ class ContentController extends Controller
                 }
             }*/
 
-            //array_push($level1, $variationInfo);
+            array_push($level1, $variationInfo);
         }
 
         //$variationInfo = $variationRepositoryContract->show(1000, ['variationSalesPrices' => true, 'variationCategories' => true], $lang = "de");
@@ -202,7 +202,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $completeData,
-            'imageInfo' => $categoryMapping
+            'imageInfo' => $level1
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
