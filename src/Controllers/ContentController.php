@@ -59,8 +59,10 @@ class ContentController extends Controller
         $imageData = [];
 
         foreach($items as $item) {
+            $textArray = $item['item']->texts;
+            $item = $textArray->toArray();
 
-            $authHelper = pluginApp(AuthHelper::class);
+            /*$authHelper = pluginApp(AuthHelper::class);
 
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
 
@@ -73,7 +75,9 @@ class ContentController extends Controller
 
                 $item->imageDetails = $itemInfo;
                 array_push($imageData, $itemInfo);
-            }
+            }*/
+
+            array_push($imageData, $item);
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
