@@ -22,132 +22,8 @@ use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContrac
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
-    private $parentCategoryArray = [];
     public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract, SettingsRepositoryContract $settingsRepositoryContract):string
     {
-        $itemColumns = [
-            'itemBase' => [
-                'id',
-                'producer',
-            ],
-            'itemShippingProfilesList' => [
-                'id',
-                'name',
-            ],
-            'itemDescription' => [
-                'name1',
-                'description',
-                'shortDescription',
-                'technicalData',
-                'keywords',
-                'lang',
-            ],
-            'variationMarketStatus' => [
-                'id',
-                'sku',
-                'marketStatus',
-                'additionalInformation',
-            ],
-            'variationBase' => [
-                'id',
-                'limitOrderByStockSelect',
-                'weightG',
-                'lengthMm',
-                'widthMm',
-                'heightMm',
-                'attributeValueSetId',
-                'customNumber',
-                'purchasePrice',
-                'availableUntil',
-                'availability',
-                'content',
-            ],
-            'variationRetailPrice' => [
-                'price',
-                'currency',
-                'retailPriceNet',
-                'unitPrice',
-                'vatId',
-                'unitPriceNet',
-                'vatValue'
-            ],
-            'variationStock' => [
-                'params' => [
-                    'type' => 'virtual'
-                ],
-                'fields' => [
-                    'stockNet'
-                ]
-            ],
-            'variationStandardCategory' => [
-                'params' => [
-                    'plentyId' => pluginApp(Application::class)->getPlentyId(),
-                ],
-                'fields' => [
-                    'categoryId'
-                ],
-            ],
-            'itemCharacterList' => [
-                'itemCharacterId',
-                'characterId',
-                'characterValue',
-                'characterValueType',
-                'isOrderCharacter',
-                'characterOrderMarkup'
-            ],
-            'variationAttributeValueList' => [
-                'attributeId',
-                'attributeValueId'
-            ],
-            'variationImageList' => [
-                'params' => [
-                    'all_images'                                       => [
-                        'type'                 => 'all', // all images
-                        'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
-                        'imageType'            => ['internal'],
-                    ],
-                    'only_current_variation_images_and_generic_images' => [
-                        'type'                 => 'item_variation', // current variation + item images
-                        'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
-                        'imageType'            => ['internal'],
-                    ],
-                    'only_current_variation_images'                    => [
-                        'type'                 => 'variation', // current variation images
-                        'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
-                        'imageType'            => ['internal'],
-                    ],
-                    'only_generic_images'                              => [
-                        'type'                 => 'item', // only item images
-                        'fileType'             => ['gif', 'jpeg', 'jpg', 'png'],
-                        'imageType'            => ['internal'],
-                    ],
-                ],
-                'fields' => [
-                    'imageId',
-                    'type',
-                    'fileType',
-                    'path',
-                    'position',
-                    'attributeValueId',
-                ],
-            ]
-        ];
-        $itemFilter = [
-            'variationBase.isActive?'                     => [],
-            'variationVisibility.isVisibleForMarketplace' => [
-                'mandatoryOneMarketplace' => [],
-                'mandatoryAllMarketplace' => []
-            ],
-            'variationStock.netPositive'                  => [
-                'warehouse' => 'virtual',
-            ],
-        ];
-
-
-        $itemParams = [
-            'referrerId' => 9.0,
-        ];
-
 
         $itemRepository->setSearchParams([
             'with' => [
@@ -158,6 +34,19 @@ class ContentController extends Controller
                 'variationImageList' => true
                 ]
         ]);
+
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name']);
+
+        $referrerId = [];
+
+        foreach($orderReferrerLists as $key => $orderReferrerList)
+        {
+            if(trim($orderReferrerList->name) == 'PandaBlack') {
+                array_push($pandaBlackReferrerID, $orderReferrerList);
+            }
+        }
+
 
         $itemRepository->setFilters([
             'referrerId' => 13.0
@@ -172,28 +61,13 @@ class ContentController extends Controller
 
             $authHelper = pluginApp(AuthHelper::class);
 
-            //$imageRepo = pluginApp(VariationImageRepositoryContract::class);
-
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
-
-            /*$itemInfo = $authHelper->processUnguarded(
-                function () use ($imageRepo, $item) {
-                    $imageWithIds = $imageRepo->findByItemId($item->itemId);
-                    $imageUrls = [];
-                    foreach($imageWithIds as $imageWithId) {
-                        array_push($imageUrls, $imageRepo->findByImageId($imageWithId->imageId));
-                    }
-                    return $imageUrls;
-                }
-            );*/
-
 
             $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $item) {
-                    return $imageRepo->findByItemId(132);
+                    return $imageRepo->findByItemId($item->itemId);
                 }
             );
-
 
             $item->imageDetails = $itemInfo;
             array_push($imageData, $itemInfo);
