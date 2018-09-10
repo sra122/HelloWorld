@@ -39,7 +39,7 @@ class ContentController extends Controller
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
         $orderReferrerLists = $orderReferrerRepo->getList(['name']);
 
-        $referrerId = [];
+        $pandaBlackReferrerID = [];
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
