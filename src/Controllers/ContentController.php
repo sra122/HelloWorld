@@ -19,6 +19,7 @@ use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContract;
+use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
