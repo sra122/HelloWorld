@@ -59,8 +59,8 @@ class ContentController extends Controller
         $imageData = [];
 
         foreach($items as $item) {
-            $textArray = $item['item']->texts;
-            $item = $textArray->toArray();
+            //$textArray = $item['item']->texts;
+            $item = $item->toArray();
 
             /*$authHelper = pluginApp(AuthHelper::class);
 
