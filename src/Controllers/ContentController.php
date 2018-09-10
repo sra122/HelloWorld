@@ -61,20 +61,20 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $variation) {
 
-            /*$authHelper = pluginApp(AuthHelper::class);
+            $authHelper = pluginApp(AuthHelper::class);
 
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
 
-            if(!($item->isMain)) {
-                $itemInfo = $authHelper->processUnguarded(
-                    function () use ($imageRepo, $item) {
-                        return $imageRepo->findByVariationId($item->id);
-                    }
-                );
 
-                $item->imageDetails = $itemInfo;
-                array_push($imageData, $itemInfo);
-            }*/
+            $itemInfo = $authHelper->processUnguarded(
+                function () use ($imageRepo, $variation) {
+                    return $imageRepo->findByVariationId($variation->id);
+                }
+            );
+
+            $variation->imageDetails = $itemInfo;
+            array_push($imageData, $itemInfo);
+
 
             array_push($imageData, $variation);
         }
