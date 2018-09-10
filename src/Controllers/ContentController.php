@@ -74,9 +74,6 @@ class ContentController extends Controller
 
             $variation->imageDetails = $itemInfo;
             array_push($imageData, $itemInfo);
-
-
-            array_push($imageData, $variation);
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
