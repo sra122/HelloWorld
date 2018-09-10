@@ -61,7 +61,7 @@ class ContentController extends Controller
 
         foreach($items as $item) {
 
-            $itemTest = $item->toArray();
+            $itemTest = $item->jsonSerialize();
             /*$authHelper = pluginApp(AuthHelper::class);
 
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
