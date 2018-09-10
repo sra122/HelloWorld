@@ -50,17 +50,18 @@ class ContentController extends Controller
 
 
         $itemRepository->setFilters([
-            'referrerId' => 13.0
+            'referrerId' => 13.0,
+            'isMain' => 1
         ]);
         $resultItems = $itemRepository->search();
 
         $items = $resultItems->getResult();
 
+        $items = $items->toArray();
+
         $imageData = [];
 
         foreach($items as $item) {
-            //$textArray = $item['item']->texts;
-            $item = $item->toArray();
 
             /*$authHelper = pluginApp(AuthHelper::class);
 
