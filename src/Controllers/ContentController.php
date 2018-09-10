@@ -36,7 +36,7 @@ class ContentController extends Controller
                 ]
         ]);
 
-        /*$orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
         $orderReferrerLists = $orderReferrerRepo->getList(['name']);
 
         $pandaBlackReferrerID = [];
@@ -46,7 +46,7 @@ class ContentController extends Controller
             if(trim($orderReferrerList->name) == 'PandaBlack') {
                 array_push($pandaBlackReferrerID, $orderReferrerList);
             }
-        }*/
+        }
 
 
         $itemRepository->setFilters([
@@ -66,7 +66,7 @@ class ContentController extends Controller
 
             $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $item) {
-                    return $imageRepo->findByItemId(131);
+                    return $imageRepo->findByVariationId(1063);
                 }
             );
 
