@@ -113,6 +113,8 @@ class CategoryController extends Controller
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
         $settingsCorrelationFactory->deleteAll('HelloWorld', 'category');
+
+        $settingsCorrelationFactory->deleteAll('HelloWorld', 'attribute');
     }
 
     public function deleteCorrelation(int $id)
