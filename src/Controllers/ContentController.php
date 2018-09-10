@@ -64,14 +64,16 @@ class ContentController extends Controller
 
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
 
-            $itemInfo = $authHelper->processUnguarded(
-                function () use ($imageRepo, $item) {
-                    return $imageRepo->findByVariationId(1063);
-                }
-            );
+            if(!($item->isMain)) {
+                $itemInfo = $authHelper->processUnguarded(
+                    function () use ($imageRepo, $item) {
+                        return $imageRepo->findByVariationId($item->id);
+                    }
+                );
 
-            $item->imageDetails = $itemInfo;
-            array_push($imageData, $itemInfo);
+                $item->imageDetails = $itemInfo;
+                array_push($imageData, $itemInfo);
+            }
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
