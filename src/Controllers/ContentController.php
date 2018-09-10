@@ -50,9 +50,10 @@ class ContentController extends Controller
 
 
         $itemRepository->setFilters([
-            'referrerId' => 13.0,
-            'isMain' => 1
+            'referrerId' => 13.0
         ]);
+
+
         $resultItems = $itemRepository->search();
 
         $items = $resultItems->getResult();
@@ -64,7 +65,6 @@ class ContentController extends Controller
             $authHelper = pluginApp(AuthHelper::class);
 
             $imageRepo = pluginApp(ItemImageRepositoryContract::class);
-
 
             $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $variation) {
