@@ -28,14 +28,17 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-            if($key == 'sessionTime') {
+            if($key === 'sessionTime') {
                 array_push($sessionValue, $property);
             }
         }
+        debug($sessionValue);
 
         $time = [
             'sessionTime' => time()
         ];
+
+        debug($time);
 
         $response = $settingsRepo->create('HelloWorld', 'property', $time);
 
