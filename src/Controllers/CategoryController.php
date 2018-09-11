@@ -121,6 +121,14 @@ class CategoryController extends Controller
     {
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 
+        $correlationDetails = $settingsCorrelationFactory->get($id);
+
+        $attributesCollection = $correlationDetails->settings[1];
+
+        foreach($attributesCollection as $attributeMapping) {
+            $settingsCorrelationFactory->delete($attributeMapping->id);
+        }
+
         $settingsCorrelationFactory->delete($id);
     }
 }
