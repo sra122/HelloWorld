@@ -37,12 +37,11 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
-        if(empty($sessionValue)) {
-            $settingsRepo->create('HelloWorld', 'property', $time);
+        $settingsRepo->create('HelloWorld', 'property', $time);
 
-            return [
-                'sessionTime' => $time['sessionTime']
-            ];
-        }
+        return [
+            'sessionTime' => $time['sessionTime']
+        ];
+
     }
 }
