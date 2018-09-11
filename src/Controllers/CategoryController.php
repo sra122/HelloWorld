@@ -70,9 +70,12 @@ class CategoryController extends Controller
 
         $category = $categoryRepo->get($id, $request->get('lang', 'de'));
 
+        $childCategoryName = $category->details[0]->name;
+
         while($category->parentCategoryId !== null) {
-            $parentCategoryName = $categoryRepo->get($category->parentCategoryId);
-            $category->details[0]->name = $parentCategoryName->details[0]->name .'>>' . $category->details[0]->name ;
+            $category = $categoryRepo->get($category->parentCategoryId);
+            $category->details[0]->name = $category->details[0]->name .' >> ' . $childCategoryName ;
+            $childCategoryName = $category->details[0]->name;
         }
 
         return $response->json($category);
