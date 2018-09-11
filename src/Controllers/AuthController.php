@@ -38,7 +38,7 @@ class AuthController extends Controller
         ];
 
         if(empty($sessionValue)) {
-            $settingsRepo->create('HelloWorld', 'category', $time);
+            $settingsRepo->create('HelloWorld', 'property', $time);
 
             return [
                 'sessionTime' => $time['sessionTime']
