@@ -65,20 +65,25 @@ class CategoryController extends Controller
             $with = explode(',', $with);
         }
 
-
         $categoryRepo = pluginApp(CategoryRepositoryContract::class);
 
         $category = $categoryRepo->get($id, $request->get('lang', 'de'));
+
+        $plentyCategory = $category;
 
         $childCategoryName = $category->details[0]->name;
 
         while($category->parentCategoryId !== null) {
             $category = $categoryRepo->get($category->parentCategoryId);
-            $category->details[0]->name = $category->details[0]->name .' >> ' . $childCategoryName ;
+            $category->details[0]->name = $category->details[0]->name . ' << ' . $childCategoryName ;
             $childCategoryName = $category->details[0]->name;
         }
 
-        return $response->json($category);
+        $parentCategoryPath = $category->details[0]->name;
+
+        $plentyCategory->details[0]->name = $parentCategoryPath;
+
+        return $response->json($plentyCategory);
     }
 
     public function getCorrelations(Twig $twig)
