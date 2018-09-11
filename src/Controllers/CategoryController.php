@@ -131,4 +131,13 @@ class CategoryController extends Controller
 
         $settingsCorrelationFactory->delete($id);
     }
+
+    public function getProperties()
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
+
+        return $properties;
+    }
 }

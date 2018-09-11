@@ -16,6 +16,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
         $router->get('category', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
         $router->get('create-referrer', 'HelloWorld\Controllers\ReferrerController@createOrderReferrer');
         $router->get('referrer', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
+        $router->get('properties', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
