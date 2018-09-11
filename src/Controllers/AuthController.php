@@ -32,13 +32,10 @@ class AuthController extends Controller
                 array_push($sessionValue, $property);
             }
         }
-        debug($sessionValue);
 
         $time = [
             'sessionTime' => time()
         ];
-
-        debug($time);
 
         $response = $settingsRepo->create('HelloWorld', 'property', $time);
 
