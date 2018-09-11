@@ -19,4 +19,30 @@ class AuthController extends Controller
             'loginUrl' => $webstore->domainSsl . '/plenty/terra/system/markets/iTools/authentication',
         ];
     }
+
+    public function sessionCreation(SettingsRepositoryContract $settingsRepo)
+    {
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $sessionValue = [];
+
+        foreach($properties as $key => $property)
+        {
+            if($key == 'sessionTime') {
+                array_push($sessionValue, $property);
+            }
+        }
+
+        $time = [
+            'sessionTime' => time()
+        ];
+
+        if(empty($sessionValue)) {
+            $settingsRepo->create('HelloWorld', 'category', $time);
+
+            return [
+                'sessionTime' => $time['sessionTime']
+            ];
+        }
+    }
 }
