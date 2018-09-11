@@ -48,4 +48,25 @@ class SettingsHelper
         ]);
     }
 
+    /**
+     *
+     * Get settings for a given id.
+     *
+     * @param string $name
+     * @param mixed  $default
+     *
+     * @return string|null
+     */
+    public function get($name, $default = null)
+    {
+        $data = $this->dynamoDbRepo->getItem(self::PLUGIN_NAME, self::TABLE_NAME, true, [
+            'name' => [DynamoDbRepositoryContract::FIELD_TYPE_STRING => $name]
+        ]);
+        if(isset($data['value'][ DynamoDbRepositoryContract::FIELD_TYPE_STRING ]))
+        {
+            return $data['value'][ DynamoDbRepositoryContract::FIELD_TYPE_STRING ];
+        }
+        return $default;
+    }
+
 }
