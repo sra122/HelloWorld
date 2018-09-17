@@ -32,7 +32,8 @@ class ContentController extends Controller
                 'lang' => 'de',
                 'variationSalesPrices' => true,
                 'variationCategories' => true,
-                'variationImageList' => true
+                'variationImageList' => true,
+                'isMain' => false
                 ]
         ]);
 
@@ -56,13 +57,9 @@ class ContentController extends Controller
 
         $resultItems = $itemRepository->search();
 
-        $items = $resultItems->getResult();
+        $items = [];
 
-
-        $imageData = [];
-        $variationCategory = [];
-
-        foreach($resultItems->getResult() as $variation) {
+        foreach($resultItems->getResult() as $key => $variation) {
 
             $authHelper = pluginApp(AuthHelper::class);
 
@@ -74,14 +71,8 @@ class ContentController extends Controller
                 }
             );
 
-            $variation->imageDetails = $itemInfo;
-            array_push($imageData, $itemInfo);
 
-
-            $category = pluginApp(CategoryRepositoryContract::class);
-            $categoryVariation  = $category->get($variation['variationCategories'][0]->categoryId);
-
-            array_push($variationCategory, $categoryVariation);
+            $items[$key] = [$itemInfo, $variation];
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
@@ -90,8 +81,6 @@ class ContentController extends Controller
         $templateData = array(
             'completeData' => $items,
             'categoryMapping' => $categoryMapping,
-            'imageInfo' => $imageData,
-            'variationCategory' => $variationCategory
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
