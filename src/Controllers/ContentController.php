@@ -65,12 +65,13 @@ class ContentController extends Controller
         $categoryId = [];
 
         foreach($categoryMapping['entries'] as $category) {
-            $categoryId[$category->settings[0]->category[0]->id] = $category->settings[0]->category[0]->details[0]->name;
+            //$categoryId[$category->settings[0]->category[0]->id] = $category->settings[0]->category[0]->details[0]->name;
+            array_push($categoryId, $category->settings);
         }
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]->categoryId])) {
+            if(!$variation['isMain']) {
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
