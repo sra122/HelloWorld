@@ -68,11 +68,11 @@ class ContentController extends Controller
 
             $itemInfo = $authHelper->processUnguarded(
                 function () use ($imageRepo, $variation) {
-                    return $imageRepo->findByVariationId($variation->id);
+                    return $imageRepo->findByVariationId($variation['id']);
                 }
             );
 
-            $variation->imageDetails = $itemInfo;
+            //$variation->imageDetails = $itemInfo;
             array_push($imageData, $itemInfo);
         }
 
