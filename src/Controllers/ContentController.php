@@ -65,6 +65,10 @@ class ContentController extends Controller
         foreach($resultItems->getResult() as $key => $variation) {
 
             if(!$variation['isMain']) {
+
+                $textArray = $variation['item']->texts;
+                $variation['texts'] = $textArray->toArray();
+
                 $authHelper = pluginApp(AuthHelper::class);
 
                 $imageRepo = pluginApp(ItemImageRepositoryContract::class);
@@ -75,16 +79,13 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo, $variation];
+                $items[$key] = [$itemInfo[0], $variation, $variation['texts']];
             }
         }
 
-
-
-
         $templateData = array(
             'completeData' => $items,
-            'categoryMapping' => $categoryMapping->entries,
+            'categoryMapping' => $categoryMapping['entries'],
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
