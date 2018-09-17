@@ -70,7 +70,7 @@ class ContentController extends Controller
         }
 
         foreach($resultItems->getResult() as $key => $variation) {
-            $items = $categoryId['variationCategories'];
+            $items = $variation['variationCategories'][0]['categoryId'];
             /*if(!$variation['isMain'] && isset($categoryId['variationCategories'][0]['categoryId'])) {
 
                 $textArray = $variation['item']->texts;
