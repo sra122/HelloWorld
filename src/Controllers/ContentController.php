@@ -66,7 +66,7 @@ class ContentController extends Controller
 
         foreach($categoryMapping['entries'] as $category) {
             //$categoryId[$category->settings[0]->category[0]->id] = $category->settings[0]->category[0]->details[0]->name;
-            array_push($categoryId, $category->settings[0]->category);
+            array_push($categoryId, $category->settings[0]['category']);
         }
 
         foreach($resultItems->getResult() as $key => $variation) {
