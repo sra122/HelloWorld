@@ -4,6 +4,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
+use Plenty\Modules\Item\VariationCategory\Contracts\VariationCategoryRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
@@ -59,28 +60,31 @@ class ContentController extends Controller
 
         $items = [];
 
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
+
         foreach($resultItems->getResult() as $key => $variation) {
 
-            $authHelper = pluginApp(AuthHelper::class);
+            if(!$variation['isMain']) {
+                $authHelper = pluginApp(AuthHelper::class);
 
-            $imageRepo = pluginApp(ItemImageRepositoryContract::class);
+                $imageRepo = pluginApp(ItemImageRepositoryContract::class);
 
-            $itemInfo = $authHelper->processUnguarded(
-                function () use ($imageRepo, $variation) {
-                    return $imageRepo->findByVariationId($variation['id']);
-                }
-            );
+                $itemInfo = $authHelper->processUnguarded(
+                    function () use ($imageRepo, $variation) {
+                        return $imageRepo->findByVariationId($variation['id']);
+                    }
+                );
 
-
-            $items[$key] = [$itemInfo, $variation];
+                $items[$key] = [$itemInfo, $variation];
+            }
         }
 
-        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
+
 
 
         $templateData = array(
             'completeData' => $items,
-            'categoryMapping' => $categoryMapping,
+            'categoryMapping' => $categoryMapping->entries,
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
