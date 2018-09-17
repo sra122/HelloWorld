@@ -58,7 +58,9 @@ class ContentController extends Controller
 
         $items = $resultItems->getResult();
 
+
         $imageData = [];
+        $variationCategory = [];
 
         foreach($resultItems->getResult() as $variation) {
 
@@ -72,8 +74,14 @@ class ContentController extends Controller
                 }
             );
 
-            //$variation->imageDetails = $itemInfo;
+            $variation->imageDetails = $itemInfo;
             array_push($imageData, $itemInfo);
+
+
+            $category = pluginApp(CategoryRepositoryContract::class);
+            $categoryVariation  = $category->get($variation['variationCategories'][0]->categoryId);
+
+            array_push($variationCategory, $categoryVariation);
         }
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
@@ -82,7 +90,8 @@ class ContentController extends Controller
         $templateData = array(
             'completeData' => $items,
             'categoryMapping' => $categoryMapping,
-            'imageInfo' => $imageData
+            'imageInfo' => $imageData,
+            'variationCategory' => $variationCategory
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
