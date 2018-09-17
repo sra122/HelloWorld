@@ -5,6 +5,7 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Plugin\DataBase\Contracts;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Item\VariationCategory\Contracts\VariationCategoryRepositoryContract;
+use Plenty\Modules\Item\VariationStock\Contracts\VariationStockRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Modules\Item\Property\Contracts\PropertyRepositoryContract;
 use Plenty\Modules\Item\Search\Mutators\KeyMutator;
@@ -34,6 +35,7 @@ class ContentController extends Controller
                 'variationSalesPrices' => true,
                 'variationCategories' => true,
                 'variationImageList' => true,
+                'variationStock' => true,
                 'isMain' => false
                 ]
         ]);
@@ -72,6 +74,9 @@ class ContentController extends Controller
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
+                $stockDetails = pluginApp(VariationStockRepositoryContract::class);
+                $stock = $stockDetails->listStockByWarehouse($variation['id'], []);
+
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
 
@@ -85,7 +90,7 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $variation['texts'], $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['variationCategories'][0]['categoryId'][0]], $stock];
             }
         }
 
