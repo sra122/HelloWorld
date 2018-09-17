@@ -65,8 +65,7 @@ class ContentController extends Controller
         $categoryId = [];
 
         foreach($categoryMapping['entries'] as $category) {
-            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings[0]['category'][0]['details'][0]['name'];
-            //array_push($categoryId, $category->settings[0]['category'][0]['id']);
+            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings[0]['vendorCategory'];
         }
 
         foreach($resultItems->getResult() as $key => $variation) {
@@ -86,7 +85,7 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $variation['texts']];
+                $items[$key] = [$itemInfo[0], $variation, $variation['texts'], $categoryId[$variation['variationCategories'][0]['categoryId']]];
             }
         }
 
