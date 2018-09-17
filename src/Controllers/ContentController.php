@@ -62,9 +62,15 @@ class ContentController extends Controller
 
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
 
+        $categoryId = [];
+
+        foreach($categoryMapping['entries'] as $category) {
+            $categoryId[$category->settings[0]->category[0]->id] = $category->settings[0]->category[0]->details[0]->name;
+        }
+
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if(!$variation['isMain']) {
+            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]->categoryId])) {
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
@@ -85,7 +91,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $items,
-            'categoryMapping' => $categoryMapping['entries'],
+            'categoryMapping' => $categoryId,
         );
         return $twig->render('HelloWorld::content.TopItems', $templateData);
     }
