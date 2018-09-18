@@ -58,8 +58,8 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-            if(isset($property->settings['Response']) && count($tokenDetails) === 0) {
-                $tokenDetails[$property->id] = $property->settings['Response'];
+            if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
+                $tokenDetails[$property->id] = $property->settings['Token'];
             }
         }
 
@@ -76,7 +76,7 @@ class AuthController extends Controller
         }
 
         $data = [
-            'Response' => $tokenInformation
+            'Token' => $tokenInformation['Response']
         ];
 
         if(count($tokenDetails) === 0) {
