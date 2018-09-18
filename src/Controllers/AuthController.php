@@ -24,12 +24,12 @@ class AuthController extends Controller
     {
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
-        $sessionValue = [];
+        $sessionValues = [];
 
         foreach($properties as $key => $property)
         {
-           if(isset($property->settings)) {
-               $sessionValue[$property->id] = $property->settings;
+           if(isset($property->settings) && empty($sessionValues)) {
+               $sessionValues[$property->id] = $property->settings['sessionTime'];
            }
         }
 
@@ -37,10 +37,18 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
-        /*if(empty($sessionValue)) {
+        if(empty($sessionValue)) {
             $response = $settingsRepo->create('HelloWorld', 'property', $time);
             return $response;
-        } */
+        } else {
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                if((time() - $sessionValue) > 600) {
+                    $response = $settingsRepo->update($time, $key);
+                    return $response;
+                }
+            }
+        }
 
         return $sessionValue;
     }
