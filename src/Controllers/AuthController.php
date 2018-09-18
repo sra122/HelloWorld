@@ -37,7 +37,7 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
-        if(empty($sessionValue)) {
+        /*if(empty($sessionValue)) {
             $response = $settingsRepo->create('HelloWorld', 'property', $time);
             return $response;
         } else {
@@ -47,8 +47,12 @@ class AuthController extends Controller
                     $settingsRepo->update($time, $key);
                 }
             }
+        }*/
+
+        if(empty($sessionValues)) {
+            return 'test';
         }
 
-        return $properties;
+        return $sessionValues;
     }
 }
