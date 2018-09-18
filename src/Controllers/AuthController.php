@@ -8,6 +8,8 @@ use Plenty\Plugin\Http\Request;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\System\Models\WebstoreConfiguration;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class AuthController extends Controller
 {
@@ -31,7 +33,8 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper)
     {
         try {
-            return $_GET;
+            $response = $this->getToken($_GET['autorize_code']);
+            return $response;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
@@ -83,5 +86,22 @@ class AuthController extends Controller
                 }
             }
         }
+    }
+
+
+    public function getToken($authorizeCode)
+    {
+        $client = new Client();
+        $response = $client->post('https://pb.i-ways-network.org/api/oauth2/token', [
+            'headers' => [
+                'APP-ID' => 'Lr7u9w86bUL5qsg7MJEVut8XYsqrZmTTxM67qFdH89f4NYQnHrkgKkMAsH9YLE4tjce4GtPSqrYScSt7w558USrVgXHB'
+            ],
+            'form_params' => [
+                'grant_type' => 'authorization_code',
+                'code' => $authorizeCode
+            ]
+        ]);
+
+        return $response;
     }
 }

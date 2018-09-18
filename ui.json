@@ -3,7 +3,7 @@
   "namespace"         : "HelloWorld",
   "menuEntries"       : [
     {
-      "label": "Settings",
+      "label": "Authentication",
       "menu": "system/markets/PandaBlack",
       "urlKey": "itools",
       "entryPoint": "index.html?action=itools"
