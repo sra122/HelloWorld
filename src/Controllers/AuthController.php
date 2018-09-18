@@ -12,6 +12,11 @@ use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 
 class AuthController extends Controller
 {
+
+    /**
+     * @param WebstoreHelper $webstoreHelper
+     * @return array
+     */
     public function getLoginUrl(WebstoreHelper $webstoreHelper)
     {
         $webstore = $webstoreHelper->getCurrentWebstoreConfiguration();
@@ -36,7 +41,7 @@ class AuthController extends Controller
                 'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
             );
 
-            return $response;
+            return $response->Response['token'];
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
@@ -44,6 +49,7 @@ class AuthController extends Controller
 
 
     /**
+     *
      * @param SettingsRepositoryContract $settingsRepo
      * @return mixed
      *
