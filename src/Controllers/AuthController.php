@@ -37,11 +37,11 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper, LibraryCallContract $libCall)
     {
         try {
-            $response = $libCall->call(
+            $tokenInformation = $libCall->call(
                 'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
             );
-
-            return $response['Response'];
+            $response = $this->tokenStorage($tokenInformation);
+            return $response;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
@@ -58,12 +58,38 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-            if(isset($property->settings['Response'])) {
+            if(isset($property->settings['Response']) && count($tokenDetails) === 0) {
                 $tokenDetails[$property->id] = $property->settings['Response'];
             }
         }
 
-        $settingsRepo->create('HelloWorld', 'property', $tokenInformation);
+        // Removing if any Extra Session Properties are created
+        if(count($tokenDetails) > 1) {
+            $tokenCount = 0;
+            foreach($tokenDetails as $key => $tokenDetail)
+            {
+                $tokenCount++;
+                if($tokenCount > 1) {
+                    $settingsRepo->delete($key);
+                }
+            }
+        }
+
+        $data = [
+            'Response' => $tokenInformation
+        ];
+
+        if(count($tokenDetails) === 0) {
+            $settingsRepo->create('HelloWorld', 'property', $data);
+        } else {
+            foreach($tokenDetails as $key => $tokenDetail)
+            {
+                $settingsRepo->update($data, $key);
+            }
+        }
+
+        return $tokenDetails;
+
     }
 
     /**
