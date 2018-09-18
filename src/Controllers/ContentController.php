@@ -47,16 +47,14 @@ class ContentController extends Controller
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            if(trim($orderReferrerList->name) == 'PandaBlack') {
+            if(trim($orderReferrerList->name) === 'PandaBlack' && count($pandaBlackReferrerID) === 0) {
                 array_push($pandaBlackReferrerID, $orderReferrerList);
             }
         }
 
-
         $itemRepository->setFilters([
             'referrerId' => 13.0
         ]);
-
 
         $resultItems = $itemRepository->search();
 
@@ -85,13 +83,14 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['category'][0]['id'][0]]];
+                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
             }
         }
 
         $templateData = array(
             'completeData' => $items,
-            'variation' => $categoryId
+            'variation' => $categoryId,
+            'referrer' => $pandaBlackReferrerID
         );
         return $templateData;
     }
