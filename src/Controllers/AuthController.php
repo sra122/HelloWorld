@@ -49,7 +49,7 @@ class AuthController extends Controller
             }
         }
 
-        /*if(empty($sessionValue)) {
+        if(count($sessionValues) === 0) {
             $response = $settingsRepo->create('HelloWorld', 'property', $time);
             return $response;
         } else {
@@ -59,11 +59,8 @@ class AuthController extends Controller
                     $settingsRepo->update($time, $key);
                 }
             }
-        }*/
-
-        if(empty($sessionValues)) {
-            return 'test';
         }
+
 
         return $sessionValues;
     }
