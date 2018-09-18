@@ -41,12 +41,21 @@ class AuthController extends Controller
                 'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
             );
 
-            return $response->Response['token'];
+            return $response->Response;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 
+
+    /*public function tokenStorage($tokenInformation)
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $settingsRepo->create('HelloWorld', 'property', $tokenInformation);
+    }*/
 
     /**
      *
