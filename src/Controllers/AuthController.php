@@ -28,7 +28,7 @@ class AuthController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function getAuthentication(Request $request, Response $response, WebstoreHelper $webstoreHelper)
+    public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper)
     {
         try {
             return $request;
