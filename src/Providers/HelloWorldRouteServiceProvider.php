@@ -18,6 +18,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
         $router->get('referrer', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
         $router->get('properties', 'HelloWorld\Controllers\ReferrerController@getListOfOrderReferrer');
         $router->get('session', 'HelloWorld\Controllers\AuthController@sessionCreation');
+        $router->get('markets/panda-black/auth/authentication', 'HelloWorld\Controllers\AuthController@getAuthentication');
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
@@ -35,6 +36,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
             $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
             $router->post('markets/panda-black/session', 'HelloWorld\Controllers\AuthController@sessionCreation');
+            $router->get('markets/panda-black/products-data', 'HelloWorld\Controllers\ContentController@sayHello');
         });
     }
 }

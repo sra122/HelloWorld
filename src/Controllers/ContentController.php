@@ -25,7 +25,7 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract, SettingsRepositoryContract $settingsRepositoryContract):string
+    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract, SettingsRepositoryContract $settingsRepositoryContract):array
     {
 
         $itemRepository->setSearchParams([
@@ -90,7 +90,7 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['variationCategories'][0]['vendorCategory'][0]], $stock];
+                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['category'][0]['id'][0]], $stock];
             }
         }
 
@@ -98,6 +98,6 @@ class ContentController extends Controller
             'completeData' => $items,
             'categoryMapping' => $categoryId,
         );
-        return $twig->render('HelloWorld::content.TopItems', $templateData);
+        return $templateData;
     }
 }

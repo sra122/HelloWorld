@@ -16,10 +16,34 @@ class AuthController extends Controller
         $webstore = $webstoreHelper->getCurrentWebstoreConfiguration();
 
         return [
-            'loginUrl' => $webstore->domainSsl . '/plenty/terra/system/markets/iTools/authentication',
+            'loginUrl' => $webstore->domainSsl . '/markets/panda-black/auth/authentication',
         ];
     }
 
+    /**
+     * Exchange request token for access token.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getAuthentication(Request $request)
+    {
+        try {
+            // TODO: check if valid session exists, request token, save it, expire session
+            return 'Login was successful. This window will close automatically.<script>window.close();</script>';
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+
+    /**
+     * @param SettingsRepositoryContract $settingsRepo
+     * @return mixed
+     *
+     */
     public function sessionCreation(SettingsRepositoryContract $settingsRepo)
     {
         $properties = $settingsRepo->find('HelloWorld', 'property');
@@ -28,7 +52,7 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-           if(isset($property->settings['sessionTime'])) {
+           if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
                $sessionValues[$property->id] = $property->settings['sessionTime'];
            }
         }
@@ -60,8 +84,5 @@ class AuthController extends Controller
                 }
             }
         }
-
-
-        return $sessionValues;
     }
 }
