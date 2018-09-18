@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-           if(isset($property->settings) && empty($sessionValues)) {
+           if(isset($property->settings)) {
                $sessionValues[$property->id] = $property->settings['sessionTime'];
            }
         }
