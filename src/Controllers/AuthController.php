@@ -28,7 +28,7 @@ class AuthController extends Controller
 
         foreach($properties as $key => $property)
         {
-           if(isset($property->settings)) {
+           if(isset($property->settings['sessionTime'])) {
                $sessionValues[$property->id] = $property->settings['sessionTime'];
            }
         }
@@ -36,6 +36,18 @@ class AuthController extends Controller
         $time = [
             'sessionTime' => time()
         ];
+
+        // Removing if any Extra Session Properties are created
+        if(count($sessionValues) > 1) {
+            $sessionCount = 0;
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                $sessionCount++;
+                if($sessionCount > 1) {
+                    $settingsRepo->delete($key);
+                }
+            }
+        }
 
         /*if(empty($sessionValue)) {
             $response = $settingsRepo->create('HelloWorld', 'property', $time);
