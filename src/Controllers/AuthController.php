@@ -24,21 +24,24 @@ class AuthController extends Controller
     {
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
-        /*$sessionValue = [];
+        $sessionValue = [];
 
         foreach($properties as $key => $property)
         {
-            if($key === 'sessionTime') {
-                array_push($sessionValue, $property);
-            }
+           if(isset($property->settings)) {
+               $sessionValue[$property->id] = $property->settings->sessionTime;
+           }
         }
 
         $time = [
             'sessionTime' => time()
         ];
 
-        $response = $settingsRepo->create('HelloWorld', 'property', $time);*/
+        /*if(empty($sessionValue)) {
+            $response = $settingsRepo->create('HelloWorld', 'property', $time);
+            return $response;
+        } */
 
-        return $properties;
+        return $sessionValue;
     }
 }
