@@ -109,13 +109,14 @@ class ContentController extends Controller
         foreach($properties as $key => $property) {
             if(isset($property->settings['Token'])) {
                 $productDetails = $this->sayHello();
-                $libCall->call(
+                $response = $libCall->call(
                     'HelloWorld::products_to_pandablack',
                     [
                         'token' => $property->settings['Token']['token'],
                         'product_details' => $productDetails
                     ]
                 );
+                return $response;
             }
         }
     }
