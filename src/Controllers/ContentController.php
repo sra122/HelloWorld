@@ -52,9 +52,12 @@ class ContentController extends Controller
             }
         }
 
-        $itemRepository->setFilters([
-            'referrerId' => 13.0
-        ]);
+        foreach($pandaBlackReferrerID as $pandaBlackId) {
+            $itemRepository->setFilters([
+                'referrerId' => (int)$pandaBlackId['id']
+            ]);
+        }
+
 
         $resultItems = $itemRepository->search();
 
