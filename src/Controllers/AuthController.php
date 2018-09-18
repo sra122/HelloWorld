@@ -28,11 +28,10 @@ class AuthController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper)
+    public function getAuthentication(Request $request, Response $response, WebstoreHelper $webstoreHelper)
     {
         try {
-            $webstore = $webstoreHelper->getCurrentWebstoreConfiguration();
-            return $webstore->domain;
+            return $request->autorize_code;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
