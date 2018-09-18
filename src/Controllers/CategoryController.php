@@ -57,7 +57,7 @@ class CategoryController extends Controller
     }
 
 
-    public function get(Request $request, Response $response, int $id)
+    public function get(Request $request, Response $response, $id)
     {
         $with = $request->get('with', []);
 
@@ -130,7 +130,7 @@ class CategoryController extends Controller
         $settingsCorrelationFactory->deleteAll('HelloWorld', 'attribute');
     }
 
-    public function deleteCorrelation(int $id)
+    public function deleteCorrelation($id)
     {
         $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
 

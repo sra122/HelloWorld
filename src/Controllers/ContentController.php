@@ -90,7 +90,7 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['variationCategories'][0]['categoryId'][0]], $stock];
+                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['variationCategories'][0]['vendorCategory'][0]], $stock];
             }
         }
 

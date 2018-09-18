@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
-        $sessionValue = [];
+        /*$sessionValue = [];
 
         foreach($properties as $key => $property)
         {
@@ -37,9 +37,8 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
-        $response = $settingsRepo->create('HelloWorld', 'property', $time);
+        $response = $settingsRepo->create('HelloWorld', 'property', $time);*/
 
-        return $response;
-
+        return $properties;
     }
 }
