@@ -25,9 +25,9 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
-    public function sayHello(Twig $twig, VariationSearchRepositoryContract $itemRepository, ItemImageRepositoryContract $imageRepo, AuthHelper $authHelper, VariationRepositoryContract $variationRepositoryContract, SettingsRepositoryContract $settingsRepositoryContract):array
+    public function sayHello()
     {
-
+        $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
         $itemRepository->setSearchParams([
             'with' => [
                 'item' => null,
@@ -62,6 +62,7 @@ class ContentController extends Controller
 
         $items = [];
 
+        $settingsRepositoryContract = pluginApp(SettingsRepositoryContract::class);
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
 
         $categoryId = [];
@@ -95,17 +96,27 @@ class ContentController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $items,
-            'categoryMapping' => $categoryId,
+            'completeData' => $items
         );
         return $templateData;
     }
 
 
-    public function sendProductDetails(SettingsRepositoryContract $settingRepo)
+    public function sendProductDetails(SettingsRepositoryContract $settingRepo, LibraryCallContract $libCall)
     {
         $properties = $settingRepo->find('HelloWorld', 'property');
 
-        return $properties;
+        foreach($properties as $key => $property) {
+            if(isset($property->settings['Token'])) {
+                $productDetails = $this->sayHello();
+                $libCall->call(
+                    'HelloWorld::products_to_pandablack',
+                    [
+                        'token' => $property->settings['Token']['token'],
+                        'product_details' => $productDetails
+                    ]
+                );
+            }
+        }
     }
 }
