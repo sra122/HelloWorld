@@ -100,4 +100,12 @@ class ContentController extends Controller
         );
         return $templateData;
     }
+
+
+    public function sendProductDetails(SettingsRepositoryContract $settingRepo)
+    {
+        $properties = $settingRepo->find('HelloWorld', 'property');
+
+        return $properties;
+    }
 }
