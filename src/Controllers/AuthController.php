@@ -44,12 +44,11 @@ class AuthController extends Controller
             foreach($sessionValues as $key => $sessionValue)
             {
                 if((time() - $sessionValue) > 600) {
-                    $response = $settingsRepo->update($time, $key);
-                    return $response;
+                    $settingsRepo->update($time, $key);
                 }
             }
         }
 
-        return $sessionValue;
+        return $properties;
     }
 }
