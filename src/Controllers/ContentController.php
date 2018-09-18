@@ -48,7 +48,7 @@ class ContentController extends Controller
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
             if(trim($orderReferrerList->name) === 'PandaBlack' && count($pandaBlackReferrerID) === 0) {
-                array_push($pandaBlackReferrerID, $orderReferrerList);
+                array_push($pandaBlackReferrerID, $key);
             }
         }
 
