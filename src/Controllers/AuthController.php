@@ -31,7 +31,7 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper)
     {
         try {
-            return $request;
+            return $_GET;
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
