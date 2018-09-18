@@ -73,13 +73,7 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if($variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
-
-                $stockDetails = pluginApp(VariationStockRepositoryContract::class);
-                $stock = $stockDetails->listStockByWarehouse($variation['id'], []);
-
-                $textArray = $variation['item']->texts;
-                $variation['texts'] = $textArray->toArray();
+            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $authHelper = pluginApp(AuthHelper::class);
 
@@ -91,12 +85,13 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $variation['texts'][0], $categoryId[$variation['category'][0]['id'][0]], $stock];
+                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['category'][0]['id'][0]]];
             }
         }
 
         $templateData = array(
-            'completeData' => $items
+            'completeData' => $items,
+            'variation' => $categoryId
         );
         return $templateData;
     }
