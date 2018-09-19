@@ -84,6 +84,9 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
+        $variationStock = pluginApp(VariationStockRepositoryContract::class);
+        $stockData1 = $variationStock->listStockByWarehouse(1063, ['*']);
+
         foreach($resultItems->getResult() as $key => $variation) {
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
@@ -139,6 +142,7 @@ class ContentController extends Controller
         $templateData = array(
             'completeData' => $completeData,
             'variation' => $items,
+            'stock' => $stockData1
         );
         return $templateData;
     }
