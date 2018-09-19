@@ -45,6 +45,8 @@ class AuthController extends Controller
                 );
                 $this->tokenStorage($tokenInformation);
                 return 'Login was successful. This window will close automatically.<script>window.close();</script>';
+            } else {
+                return 'Login was successful. This window will close automatically.<script>window.close();</script>';
             }
 
         } catch (\Exception $e) {
