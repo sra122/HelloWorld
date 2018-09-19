@@ -202,7 +202,10 @@ class AuthController extends Controller
 
         foreach($tokenDetails as $key => $tokenDetail)
         {
-            return $tokenDetail;
+            $expireTime = [
+              'time' => $tokenDetail
+            ];
+            return json_encode($expireTime);
         }
     }
 }
