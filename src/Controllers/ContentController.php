@@ -91,8 +91,8 @@ class ContentController extends Controller
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
-                /*$variationStock = pluginApp(VariationStockRepositoryContract::class);
-                $stockData = $variationStock->listStockByWarehouse($variation['id'], ['*']);*/
+                $variationStock = pluginApp(VariationStockRepositoryContract::class);
+                $stockData = $variationStock->listStockByWarehouse($variation['id'], ['*']);
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
@@ -130,7 +130,7 @@ class ContentController extends Controller
                     'size' => '',
                     'content_supplier' => '',
                     'product_type' => '',
-                    'quantity' => '',
+                    'quantity' => $stockData,
                     'store_name' => '',
                     'status' => '',
                     'brand' => '',
