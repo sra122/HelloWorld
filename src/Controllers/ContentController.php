@@ -81,19 +81,15 @@ class ContentController extends Controller
         $categoryId = [];
 
         foreach($categoryMapping['entries'] as $category) {
-            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings[0];
+            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
-
-
-        $variationStock = pluginApp(VariationStockRepositoryContract::class);
-        $stockData1 = $variationStock->listStockByWarehouse(1064, []);
 
         foreach($resultItems->getResult() as $key => $variation) {
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
-                $stockData = $variationStock->listStockByWarehouse($variation['id'], []);
+                $stockData = $variationStock->listStockByWarehouse($variation['id'], ['*']);
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
@@ -141,9 +137,8 @@ class ContentController extends Controller
         }
 
         $templateData = array(
-            'completeData' => $items,
-            'variation' => $categoryId,
-            'referrer' => $pandaBlackReferrerID,
+            'completeData' => $completeData,
+            'variation' => $items,
         );
         return $templateData;
     }
