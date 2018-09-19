@@ -22,6 +22,7 @@ use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContract;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
+use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -71,6 +72,7 @@ class ContentController extends Controller
         $resultItems = $itemRepository->search();
 
         $items = [];
+        $completeData = [];
 
         $settingsRepositoryContract = pluginApp(SettingsRepositoryContract::class);
         $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
@@ -90,8 +92,10 @@ class ContentController extends Controller
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
-
                 $stockData = $variationStock->listStockByWarehouse($variation['id'], []);
+
+                $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
+                $warehouse = $warehouseInfo->findByVariationId($variation['id']);
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
@@ -106,21 +110,26 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
+                $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
+                //$items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
+
+                $completeData[$key] = array(
+                    'parent_product_id' => $variation['mainVariationId'],
+                    'product_id' => $variation['id'],
+                    'name' => $variation['item']['texts'][0]['name1'],
+                    'price' => $variation['variationSalesPrices'][0]['price'],
+                    'category' => $categoryMappingInfo[0]['name'],
+                    'short_description' => $variation['item']['texts'][0]['description'],
+                    'image_url' => $itemInfo[0]['url'],
+                    'warehouse' => $warehouse
+                );
             }
         }
 
-        $completeData = array(
-          'parent_product_id' => $items[1]['mainVariationId'],
-          'product_id' => $items[1]['id'],
-        );
-
-
         $templateData = array(
-            'completeData' => $items,
+            'completeData' => $completeData,
             'variation' => $categoryId,
             'referrer' => $pandaBlackReferrerID,
-            'stock' => $stockData1
         );
         return $templateData;
     }

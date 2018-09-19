@@ -37,9 +37,9 @@ class AttributesController extends Controller
           'backendName' => $data
         ];
 
-        $test = $attributeRepo->create($attributeValueMap);
+        $attributeInfo = $attributeRepo->create($attributeValueMap);
 
-        return $test;
+        return $attributeInfo;
 
     }
 
