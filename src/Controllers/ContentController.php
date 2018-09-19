@@ -120,7 +120,7 @@ class ContentController extends Controller
                     'item_id' => $variation['itemId'],
                     'name' => $variation['item']['texts'][0]['name1'],
                     'price' => $variation['variationSalesPrices'][0]['price'],
-                    'category' => $categoryMappingInfo,
+                    'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
                     'short_description' => $variation['item']['texts'][0]['description'],
                     'image_url' => $itemImageInfo[0]['url'],
                     'color' => '',
