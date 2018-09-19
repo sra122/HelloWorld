@@ -84,15 +84,12 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
-        $variationStock = pluginApp(VariationStockRepositoryContract::class);
-        $stockData1 = $variationStock->listStockByWarehouse(1063, ['*']);
-
         foreach($resultItems->getResult() as $key => $variation) {
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
-                $variationStock = pluginApp(VariationStockRepositoryContract::class);
-                $stockData = $variationStock->listStockByWarehouse($variation['id'], ['*']);
+                /*$variationStock = pluginApp(VariationStockRepositoryContract::class);
+                $stockData = $variationStock->listStockByWarehouse($variation['id'], ['*']);*/
 
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
@@ -108,14 +105,14 @@ class ContentController extends Controller
                     }
                 );
 
-                $warehouse = $authHelper->processUnguarded(
+                /*$warehouse = $authHelper->processUnguarded(
                     function () use ($warehouseInfo, $variation) {
                         return $warehouseInfo->findByVariationId($variation['id']);
                     }
-                );
+                );*/
 
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
+                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
 
                 $completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
@@ -123,7 +120,7 @@ class ContentController extends Controller
                     'item_id' => $variation['itemId'],
                     'name' => $variation['item']['texts'][0]['name1'],
                     'price' => $variation['variationSalesPrices'][0]['price'],
-                    'category' => $categoryMappingInfo[0]['name'],
+                    'category' => $categoryMappingInfo,
                     'short_description' => $variation['item']['texts'][0]['description'],
                     'image_url' => $itemImageInfo[0]['url'],
                     'color' => '',
