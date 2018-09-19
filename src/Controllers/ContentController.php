@@ -26,6 +26,9 @@ use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositor
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
+    /**
+     * @return array
+     */
     public function productDetails()
     {
         $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
@@ -143,17 +146,32 @@ class ContentController extends Controller
     }
 
 
+    /**
+     * @param SettingsRepositoryContract $settingRepo
+     * @param LibraryCallContract $libCall
+     * @return mixed
+     */
     public function sendProductDetails(SettingsRepositoryContract $settingRepo, LibraryCallContract $libCall)
     {
         $properties = $settingRepo->find('HelloWorld', 'property');
 
         foreach($properties as $key => $property) {
-            if(isset($property->settings['Token'])) {
+            if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
                 $productDetails = $this->productDetails();
                 $response = $libCall->call(
                     'HelloWorld::products_to_pandablack',
                     [
                         'token' => $property->settings['Token']['token'],
+                        'product_details' => $productDetails
+                    ]
+                );
+                return $response;
+            } else if(isset($property->settings['Token']) && ($property->settings['Token']['refresh_token_expires_in'] > time())) {
+                $productDetails = $this->productDetails();
+                $response = $libCall->call(
+                    'HelloWorld::products_to_pandablack',
+                    [
+                        'token' => $property->settings['Token']['refresh_token'],
                         'product_details' => $productDetails
                     ]
                 );

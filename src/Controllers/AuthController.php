@@ -43,8 +43,8 @@ class AuthController extends Controller
                 $tokenInformation = $libCall->call(
                     'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
                 );
-                $response = $this->tokenStorage($tokenInformation);
-                return $response;
+                $this->tokenStorage($tokenInformation);
+                return 'Login was successful. This window will close automatically.<script>window.close();</script>';
             }
 
         } catch (\Exception $e) {
@@ -53,8 +53,9 @@ class AuthController extends Controller
     }
 
     /**
+     * Saving token information.
+     *
      * @param $tokenInformation
-     * @return array
      */
     public function tokenStorage($tokenInformation)
     {
@@ -98,12 +99,9 @@ class AuthController extends Controller
                 $settingsRepo->update($data, $key);
             }
         }
-
-        return $tokenDetails;
     }
 
     /**
-     *
      * @param SettingsRepositoryContract $settingsRepo
      * @return mixed
      *
@@ -151,7 +149,9 @@ class AuthController extends Controller
         }
     }
 
-
+    /**
+     * @return bool
+     */
     public function sessionCheck()
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
@@ -176,8 +176,31 @@ class AuthController extends Controller
                 }
             }
         }
-
         return false;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function tokenExpireTime()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $tokenDetails = [];
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
+                $tokenDetails[$property->id] = $property->settings['Token']['expires_in'];
+            }
+        }
+
+        foreach($tokenDetails as $key => $tokenDetail)
+        {
+            return $tokenDetail;
+        }
     }
 }
