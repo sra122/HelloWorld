@@ -11,7 +11,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
 {
     public function map(Router $router, ApiRouter $api)
     {
-        $router->get('hello', 'HelloWorld\Controllers\ContentController@sayHello');
+        $router->get('hello', 'HelloWorld\Controllers\ContentController@productDetails');
         $router->get('update', 'HelloWorld\Controllers\UpdateItemController@updateItems');
         $router->get('category', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
         $router->get('create-referrer', 'HelloWorld\Controllers\ReferrerController@createOrderReferrer');
@@ -37,7 +37,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
             $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
             $router->post('markets/panda-black/session', 'HelloWorld\Controllers\AuthController@sessionCreation');
-            $router->get('markets/panda-black/products-data', 'HelloWorld\Controllers\ContentController@sayHello');
+            $router->get('markets/panda-black/products-data', 'HelloWorld\Controllers\ContentController@productDetails');
         });
     }
 }

@@ -25,7 +25,7 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
-    public function sayHello()
+    public function productDetails()
     {
         $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
         $itemRepository->setSearchParams([
@@ -35,7 +35,15 @@ class ContentController extends Controller
                 'variationSalesPrices' => true,
                 'variationCategories' => true,
                 'variationImageList' => true,
-                'variationStock' => true,
+                'variationStock' => [
+                    'params' => [
+                        'type' => 'virtual'
+                    ],
+                    'fields' => [
+                        'stockNet'
+                    ]
+                ],
+                'variationAttributeValueList' => true,
                 'isMain' => false
                 ]
         ]);
@@ -105,7 +113,7 @@ class ContentController extends Controller
 
         foreach($properties as $key => $property) {
             if(isset($property->settings['Token'])) {
-                $productDetails = $this->sayHello();
+                $productDetails = $this->productDetails();
                 $response = $libCall->call(
                     'HelloWorld::products_to_pandablack',
                     [
