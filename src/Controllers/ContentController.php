@@ -37,6 +37,7 @@ class ContentController extends Controller
                 'variationSalesPrices' => true,
                 'variationCategories' => true,
                 'variationImageList' => true,
+                'variationClients' => true,
                 'variationStock' => [
                     'params' => [
                         'type' => 'virtual'
@@ -115,9 +116,9 @@ class ContentController extends Controller
                 );
 
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                //$items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
+                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
 
-                $completeData[$key] = array(
+                /*$completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
                     'product_id' => $variation['id'],
                     'name' => $variation['item']['texts'][0]['name1'],
@@ -126,12 +127,12 @@ class ContentController extends Controller
                     'short_description' => $variation['item']['texts'][0]['description'],
                     'image_url' => $itemImageInfo[0]['url'],
                     'warehouse' => $warehouse
-                );
+                );*/
             }
         }
 
         $templateData = array(
-            'completeData' => $completeData,
+            'completeData' => $items,
             'variation' => $categoryId,
             'referrer' => $pandaBlackReferrerID,
         );
