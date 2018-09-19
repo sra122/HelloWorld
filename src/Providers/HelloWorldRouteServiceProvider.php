@@ -41,7 +41,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
             $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
             $router->post('markets/panda-black/session', 'HelloWorld\Controllers\AuthController@sessionCreation');
-            $router->post('markets/panda-black/expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');
+            $router->get('markets/panda-black/expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');
             $router->get('markets/panda-black/products-data', 'HelloWorld\Controllers\ContentController@productDetails');
         });
     }
