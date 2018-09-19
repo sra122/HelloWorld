@@ -81,7 +81,7 @@ class ContentController extends Controller
         $categoryId = [];
 
         foreach($categoryMapping['entries'] as $category) {
-            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings[0]['vendorCategory'];
+            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings[0];
         }
 
 
@@ -121,12 +121,21 @@ class ContentController extends Controller
                 /*$completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
                     'product_id' => $variation['id'],
+                    'item_id' => $variation['itemId'],
                     'name' => $variation['item']['texts'][0]['name1'],
                     'price' => $variation['variationSalesPrices'][0]['price'],
                     'category' => $categoryMappingInfo[0]['name'],
                     'short_description' => $variation['item']['texts'][0]['description'],
                     'image_url' => $itemImageInfo[0]['url'],
-                    'warehouse' => $warehouse
+                    'color' => '',
+                    'size' => '',
+                    'content_supplier' => '',
+                    'product_type' => '',
+                    'quantity' => '',
+                    'store_name' => '',
+                    'status' => '',
+                    'brand' => '',
+                    'variant_attribute_1' => '',
                 );*/
             }
         }
