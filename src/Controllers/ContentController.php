@@ -94,19 +94,23 @@ class ContentController extends Controller
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
                 $stockData = $variationStock->listStockByWarehouse($variation['id'], []);
 
-                $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
-                $warehouse = $warehouseInfo->findByVariationId($variation['id']);
-
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
 
                 $authHelper = pluginApp(AuthHelper::class);
 
                 $imageRepo = pluginApp(ItemImageRepositoryContract::class);
+                $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
 
-                $itemInfo = $authHelper->processUnguarded(
+                $itemImageInfo = $authHelper->processUnguarded(
                     function () use ($imageRepo, $variation) {
                         return $imageRepo->findByVariationId($variation['id']);
+                    }
+                );
+
+                $warehouse = $authHelper->processUnguarded(
+                    function () use ($warehouseInfo, $variation) {
+                        return $warehouseInfo->findByVariationId($variation['id']);
                     }
                 );
 
@@ -120,7 +124,7 @@ class ContentController extends Controller
                     'price' => $variation['variationSalesPrices'][0]['price'],
                     'category' => $categoryMappingInfo[0]['name'],
                     'short_description' => $variation['item']['texts'][0]['description'],
-                    'image_url' => $itemInfo[0]['url'],
+                    'image_url' => $itemImageInfo[0]['url'],
                     'warehouse' => $warehouse
                 );
             }
