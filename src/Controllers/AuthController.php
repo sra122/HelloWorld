@@ -37,17 +37,25 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper, LibraryCallContract $libCall)
     {
         try {
-            $tokenInformation = $libCall->call(
-                'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
-            );
-            $response = $this->tokenStorage($tokenInformation);
-            return $response;
+            $sessionCheck = $this->sessionCheck();
+            if($sessionCheck) {
+                $this->sessionCreation();
+                $tokenInformation = $libCall->call(
+                    'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
+                );
+                $response = $this->tokenStorage($tokenInformation);
+                return $response;
+            }
+
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 
-
+    /**
+     * @param $tokenInformation
+     * @return array
+     */
     public function tokenStorage($tokenInformation)
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
@@ -89,7 +97,6 @@ class AuthController extends Controller
         }
 
         return $tokenDetails;
-
     }
 
     /**
@@ -98,8 +105,9 @@ class AuthController extends Controller
      * @return mixed
      *
      */
-    public function sessionCreation(SettingsRepositoryContract $settingsRepo)
+    public function sessionCreation()
     {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
         $sessionValues = [];
@@ -138,5 +146,35 @@ class AuthController extends Controller
                 }
             }
         }
+    }
+
+
+    public function sessionCheck()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $sessionValues = [];
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
+                $sessionValues[$property->id] = $property->settings['sessionTime'];
+            }
+        }
+
+        if(count($sessionValues) === 1) {
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                if((time() - $sessionValue) < 600) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return false;
+
     }
 }

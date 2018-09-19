@@ -112,7 +112,7 @@ class ContentController extends Controller
                 );*/
 
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                //$items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
 
                 $completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
