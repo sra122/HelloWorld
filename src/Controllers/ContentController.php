@@ -93,6 +93,9 @@ class ContentController extends Controller
 
                 $stockData = $variationStock->listStockByWarehouse($variation['id'], []);
 
+                $textArray = $variation['item']->texts;
+                $variation['texts'] = $textArray->toArray();
+
                 $authHelper = pluginApp(AuthHelper::class);
 
                 $imageRepo = pluginApp(ItemImageRepositoryContract::class);
@@ -106,6 +109,12 @@ class ContentController extends Controller
                 $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
             }
         }
+
+        $completeData = array(
+          'parent_product_id' => $items[1]['mainVariationId'],
+          'product_id' => $items[1]['id'],
+        );
+
 
         $templateData = array(
             'completeData' => $items,
