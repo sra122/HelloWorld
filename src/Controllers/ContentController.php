@@ -28,6 +28,7 @@ class ContentController extends Controller
     public function productDetails()
     {
         $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
+
         $itemRepository->setSearchParams([
             'with' => [
                 'item' => null,
@@ -84,6 +85,10 @@ class ContentController extends Controller
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
+                $variationStock = pluginApp(VariationStockRepositoryContract::class);
+
+                $stockData = $variationStock->listStockByWarehouse($variation['id'], []);
+
                 $authHelper = pluginApp(AuthHelper::class);
 
                 $imageRepo = pluginApp(ItemImageRepositoryContract::class);
@@ -94,7 +99,7 @@ class ContentController extends Controller
                     }
                 );
 
-                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                $items[$key] = [$itemInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
             }
         }
 
