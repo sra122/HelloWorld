@@ -117,7 +117,7 @@ class ContentController extends Controller
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
                 $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $stockData];
 
-                /*$completeData[$key] = array(
+                $completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
                     'product_id' => $variation['id'],
                     'item_id' => $variation['itemId'],
@@ -135,14 +135,12 @@ class ContentController extends Controller
                     'status' => '',
                     'brand' => '',
                     'variant_attribute_1' => '',
-                );*/
+                );
             }
         }
 
         $templateData = array(
-            'completeData' => $completeData,
-            'variation' => $items,
-            'stock' => $stockData1
+            'completeData' => $completeData
         );
         return $templateData;
     }
