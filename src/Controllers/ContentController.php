@@ -23,6 +23,7 @@ use Plenty\Modules\Item\ItemImage\Contracts\ItemImageRepositoryContract;
 use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContract;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositoryContract;
+use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -37,10 +38,14 @@ class ContentController extends Controller
             'with' => [
                 'item' => null,
                 'lang' => 'de',
-                'variationSalesPrices' => true,
-                'variationCategories' => true,
-                'variationImageList' => true,
-                'variationClients' => true,
+                'variationSalesPrices',
+                'variationCategories',
+                'variationImageList',
+                'variationClients',
+                'VariationAttributeValue',
+                'variationMarkets',
+                'variationSuppliers',
+                'unit',
                 'variationStock' => [
                     'params' => [
                         'type' => 'virtual'
@@ -49,8 +54,8 @@ class ContentController extends Controller
                         'stockNet'
                     ]
                 ],
-                'variationAttributeValueList' => true,
-                'isMain' => false
+                'stock',
+                'parent'
                 ]
         ]);
 
@@ -119,7 +124,7 @@ class ContentController extends Controller
                 );*/
 
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                //$items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
 
                 $completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
@@ -145,8 +150,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'completeData' => $completeData,
-            'stock1' => $stockData1,
-            'stock2' => $stockData2
+            'stock1' => $items,
         );
         return $templateData;
     }
