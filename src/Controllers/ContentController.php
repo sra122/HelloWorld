@@ -38,14 +38,14 @@ class ContentController extends Controller
             'with' => [
                 'item' => null,
                 'lang' => 'de',
-                'variationSalesPrices',
-                'variationCategories',
-                'variationImageList',
-                'variationClients',
-                'VariationAttributeValue',
-                'variationMarkets',
-                'variationSuppliers',
-                'unit',
+                'variationSalesPrices' => true,
+                'variationCategories' => true,
+                'variationImageList' => true,
+                'variationClients' => true,
+                'VariationAttributeValue' => true,
+                'variationMarkets' => true,
+                'variationSuppliers' => true,
+                'unit' => true,
                 'variationStock' => [
                     'params' => [
                         'type' => 'virtual'
@@ -54,8 +54,8 @@ class ContentController extends Controller
                         'stockNet'
                     ]
                 ],
-                'stock',
-                'parent'
+                'stock' => true,
+                'images' => true,
                 ]
         ]);
 
