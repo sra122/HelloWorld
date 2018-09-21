@@ -106,7 +106,7 @@ class ContentController extends Controller
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
-                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufactureId'], []);
+                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufactureId'], ['*'])->toArray();
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
