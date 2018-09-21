@@ -143,7 +143,7 @@ class ContentController extends Controller
                         'status' => '',
                         'brand' => '',
                         'variant_attribute_1' => '',
-                        'last_update_at' => strtotime($variation['updatedAt']),
+                        'last_update_at' => $variation['updatedAt'],
                     );
                 }
             }
