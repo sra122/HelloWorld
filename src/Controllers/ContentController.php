@@ -98,7 +98,7 @@ class ContentController extends Controller
         foreach($resultItems->getResult() as $key => $variation) {
 
             // Update only if products are updated in last 1 hour.
-            if((strtotime($variation['updatedAt'])- time()) < 3600) {
+            if((time() - strtotime($variation['updatedAt'])) < 3600) {
 
                 if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
@@ -106,7 +106,7 @@ class ContentController extends Controller
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
-                    $manufacturer = $manufacturerRepository->findById(1, ['*'])->toArray();
+                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
