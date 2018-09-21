@@ -45,6 +45,8 @@ class ContentController extends Controller
                 'VariationAttributeValue' => true,
                 'variationMarkets' => true,
                 'variationSuppliers' => true,
+                'variationWarehouses' => true,
+                'variationDefaultCategory' => true,
                 'unit' => true,
                 'variationStock' => [
                     'params' => [
@@ -92,10 +94,6 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
-        $variationStock = pluginApp(VariationStockRepositoryContract::class);
-        $stockData1 = $variationStock->listStockByWarehouse(1063);
-        $stockData2 = $variationStock->listStockByWarehouse(1063, ['*']);
-
         foreach($resultItems->getResult() as $key => $variation) {
 
             if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
@@ -106,16 +104,10 @@ class ContentController extends Controller
                 $textArray = $variation['item']->texts;
                 $variation['texts'] = $textArray->toArray();
 
-                $authHelper = pluginApp(AuthHelper::class);
 
-                $imageRepo = pluginApp(ItemImageRepositoryContract::class);
+
                 $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
 
-                $itemImageInfo = $authHelper->processUnguarded(
-                    function () use ($imageRepo, $variation) {
-                        return $imageRepo->findByVariationId($variation['id']);
-                    }
-                );
 
                 /*$warehouse = $authHelper->processUnguarded(
                     function () use ($warehouseInfo, $variation) {
@@ -124,7 +116,7 @@ class ContentController extends Controller
                 );*/
 
                 $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                $items[$key] = [$itemImageInfo[0], $variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
 
                 $completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
@@ -134,7 +126,7 @@ class ContentController extends Controller
                     'price' => $variation['variationSalesPrices'][0]['price'],
                     'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
                     'short_description' => $variation['item']['texts'][0]['description'],
-                    'image_url' => $itemImageInfo[0]['url'],
+                    'image_url' => $variation['images'][0]['url'],
                     'color' => '',
                     'size' => '',
                     'content_supplier' => '',
