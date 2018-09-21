@@ -105,8 +105,8 @@ class ContentController extends Controller
                     $variationStock = pluginApp(VariationStockRepositoryContract::class);
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
-                    $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
-                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufactureId'], ['*'])->toArray();
+                    /*$manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
+                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufactureId'], ['*'])->toArray();*/
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
@@ -123,7 +123,7 @@ class ContentController extends Controller
                     );*/
 
                     $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                    $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $manufacturer];
+                    $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
 
                     $completeData[$key] = array(
                         'parent_product_id' => $variation['mainVariationId'],
