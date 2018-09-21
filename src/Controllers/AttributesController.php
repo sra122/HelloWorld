@@ -6,6 +6,7 @@ use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
+use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 
 class AttributesController extends Controller
 {
@@ -30,17 +31,19 @@ class AttributesController extends Controller
     public function createAttribute(Request $request)
     {
         $data = $request->get('new_attribute', '');
+        $data = 'test';
 
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
 
         $attributeValueMap = [
-            'backendName' => $data,
-            'values' => [
-                'New', 'Old'
-            ]
+            'backendName' => $data
         ];
 
-        $attributeInfo = $attributeRepo->create($attributeValueMap);
+        $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
+
+        $attributeValueRepo = pluginApp(AttributeValueRepositoryContract::class);
+
+        $attributeValue = $attributeValueRepo->create(['Old', 'New'], $attributeInfo['id']);
 
         return $attributeInfo;
 
