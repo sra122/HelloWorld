@@ -34,7 +34,10 @@ class AttributesController extends Controller
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
 
         $attributeValueMap = [
-          'backendName' => $data
+            'backendName' => $data,
+            'values' => [
+                'New', 'Old'
+            ]
         ];
 
         $attributeInfo = $attributeRepo->create($attributeValueMap);

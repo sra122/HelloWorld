@@ -95,7 +95,7 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
-        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray;
+        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
 
         foreach($resultItems->getResult() as $key => $variation) {
@@ -198,11 +198,14 @@ class ContentController extends Controller
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function saveCronTime()
     {
         $settingRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $crons = $settingRepo->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray;
+        $crons = $settingRepo->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
         foreach($crons as $key => $cron) {
             if(isset($crons['entries']['pbItemCron'])) {
