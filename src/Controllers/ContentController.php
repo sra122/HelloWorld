@@ -136,7 +136,7 @@ class ContentController extends Controller
                         'image_url' => $variation['images'][0]['url'],
                         'color' => '',
                         'size' => '',
-                        'content_supplier' => '',
+                        'content_supplier' => $manufacturer['name'],
                         'product_type' => '',
                         'quantity' => $stockData,
                         'store_name' => '',
