@@ -96,7 +96,7 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if(strtotime($variation['updatedAt']) < 600) {
+            if((strtotime($variation['updatedAt'])- time()) < 600) {
 
                 if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
