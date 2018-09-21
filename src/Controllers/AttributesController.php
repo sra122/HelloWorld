@@ -54,7 +54,7 @@ class AttributesController extends Controller
         $data = [
             'vendorAttribute' => $vendorAttribute,
             'plentyAttributeName' => $plentyAttribute,
-            '$plentyAttribute_id' => $plentyAttribute_id
+            'plentyAttribute_id' => $plentyAttribute_id
         ];
 
         $response = $settingsRepo->create('HelloWorld', 'attribute', $data);
