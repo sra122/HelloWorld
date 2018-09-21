@@ -31,19 +31,15 @@ class AttributesController extends Controller
     public function createAttribute(Request $request)
     {
         $data = $request->get('new_attribute', '');
-        $data = 'test';
 
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
 
         $attributeValueMap = [
-            'backendName' => $data
+            'backendName' => $data,
+            'typeOfSelectionInOnlineStore' => 'image'
         ];
 
         $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
-
-        $attributeValueRepo = pluginApp(AttributeValueRepositoryContract::class);
-
-        $attributeValue = $attributeValueRepo->create(['Old', 'New'], $attributeInfo['id']);
 
         return $attributeInfo;
 
