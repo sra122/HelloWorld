@@ -96,53 +96,55 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if(strtotime($variation['updatedAt']) < 600) {
 
-                $variationStock = pluginApp(VariationStockRepositoryContract::class);
-                $stockData = $variationStock->listStockByWarehouse($variation['id']);
+                if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
-                $textArray = $variation['item']->texts;
-                $variation['texts'] = $textArray->toArray();
+                    $variationStock = pluginApp(VariationStockRepositoryContract::class);
+                    $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
-
-
-                $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
+                    $textArray = $variation['item']->texts;
+                    $variation['texts'] = $textArray->toArray();
 
 
-                /*$warehouse = $authHelper->processUnguarded(
-                    function () use ($warehouseInfo, $variation) {
-                        return $warehouseInfo->findByVariationId($variation['id']);
-                    }
-                );*/
 
-                $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                    $warehouseInfo = pluginApp(VariationWarehouseRepositoryContract::class);
 
-                $completeData[$key] = array(
-                    'parent_product_id' => $variation['mainVariationId'],
-                    'product_id' => $variation['id'],
-                    'item_id' => $variation['itemId'],
-                    'name' => $variation['item']['texts'][0]['name1'],
-                    'price' => $variation['variationSalesPrices'][0]['price'],
-                    'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
-                    'short_description' => $variation['item']['texts'][0]['description'],
-                    'image_url' => $variation['images'][0]['url'],
-                    'color' => '',
-                    'size' => '',
-                    'content_supplier' => '',
-                    'product_type' => '',
-                    'quantity' => $stockData,
-                    'store_name' => '',
-                    'status' => '',
-                    'brand' => '',
-                    'variant_attribute_1' => '',
-                );
+
+                    /*$warehouse = $authHelper->processUnguarded(
+                        function () use ($warehouseInfo, $variation) {
+                            return $warehouseInfo->findByVariationId($variation['id']);
+                        }
+                    );*/
+
+                    $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
+                    //$items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+
+                    $completeData[$key] = array(
+                        'parent_product_id' => $variation['mainVariationId'],
+                        'product_id' => $variation['id'],
+                        'item_id' => $variation['itemId'],
+                        'name' => $variation['item']['texts'][0]['name1'],
+                        'price' => $variation['variationSalesPrices'][0]['price'],
+                        'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
+                        'short_description' => $variation['item']['texts'][0]['description'],
+                        'image_url' => $variation['images'][0]['url'],
+                        'color' => '',
+                        'size' => '',
+                        'content_supplier' => '',
+                        'product_type' => '',
+                        'quantity' => $stockData,
+                        'store_name' => '',
+                        'status' => '',
+                        'brand' => '',
+                        'variant_attribute_1' => '',
+                    );
+                }
             }
         }
 
         $templateData = array(
-            'completeData' => $completeData,
-            'stock1' => $items,
+            'exportData' => $completeData,
         );
         return $templateData;
     }
@@ -153,13 +155,19 @@ class ContentController extends Controller
      * @param LibraryCallContract $libCall
      * @return mixed
      */
-    public function sendProductDetails(SettingsRepositoryContract $settingRepo, LibraryCallContract $libCall)
+    public function sendProductDetails()
     {
+
+        $settingRepo = pluginApp(SettingsRepositoryContract::class);
+        $libCall = pluginApp(LibraryCallContract::class);
+
+
         $properties = $settingRepo->find('HelloWorld', 'property');
 
         foreach($properties as $key => $property) {
             if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
                 $productDetails = $this->productDetails();
+
                 $response = $libCall->call(
                     'HelloWorld::products_to_pandablack',
                     [
