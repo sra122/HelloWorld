@@ -47,15 +47,24 @@ class AttributesController extends Controller
     {
         $vendorAttribute = $request->get('vendor_attribute', '');
         $plentyAttribute = $request->get('plenty_attribute', '');
-        $plentyAttribute_id = $request->get('plenty_attribute_id', '');
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
         $data = [
             'vendorAttribute' => $vendorAttribute,
-            'plentyAttributeName' => $plentyAttribute,
-            'plentyAttribute_id' => $plentyAttribute_id
+            'plentyAttribute' => $plentyAttribute
         ];
+
+
+        $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+        $plentyMarketAttributes = $attributeRepo->all([], 50, 1);
+
+        foreach($plentyMarketAttributes->entries as $plentyMarketAttribute) {
+            if($plentyMarketAttribute[0]['backendName'] === $plentyAttribute) {
+                $data['plentyAttributeId'] = $plentyMarketAttribute[0]['id'];
+            }
+        }
+
 
         $response = $settingsRepo->create('HelloWorld', 'attribute', $data);
 
