@@ -36,7 +36,7 @@ class AttributesController extends Controller
 
         $attributeValueMap = [
             'backendName' => $data,
-            'typeOfSelectionInOnlineStore' => 'image'
+            'typeOfSelectionInOnlineStore' => 'box'
         ];
 
         $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
