@@ -47,16 +47,18 @@ class AttributesController extends Controller
     {
         $vendorAttribute = $request->get('vendor_attribute', '');
         $plentyAttribute = $request->get('plenty_attribute', '');
+        $plentyAttribute_id = $request->get('plenty_attribute_id', '');
 
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
         $data = [
             'vendorAttribute' => $vendorAttribute,
-            'plentyAttribute' => $plentyAttribute
+            'plentyAttributeName' => $plentyAttribute,
+            '$plentyAttribute_id' => $plentyAttribute_id
         ];
 
-        $test = $settingsRepo->create('HelloWorld', 'attribute', $data);
+        $response = $settingsRepo->create('HelloWorld', 'attribute', $data);
 
-        return $test->id;
+        return $response->id;
     }
 }
