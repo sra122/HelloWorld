@@ -24,6 +24,7 @@ use Plenty\Modules\Item\VariationImage\Contracts\VariationImageRepositoryContrac
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositoryContract;
 use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
+use Plenty\Modules\Item\Manufacturer\Contracts\ManufacturerRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -104,6 +105,9 @@ class ContentController extends Controller
                     $variationStock = pluginApp(VariationStockRepositoryContract::class);
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
+                    $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
+                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufactureId'], []);
+
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
 
@@ -119,7 +123,7 @@ class ContentController extends Controller
                     );*/
 
                     $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                    $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']]];
+                    $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $manufacturer];
 
                     $completeData[$key] = array(
                         'parent_product_id' => $variation['mainVariationId'],
@@ -139,7 +143,7 @@ class ContentController extends Controller
                         'status' => '',
                         'brand' => '',
                         'variant_attribute_1' => '',
-                        'last_update_at' => $variation['updatedAt'],
+                        'last_update_at' => strtotime($variation['updatedAt']),
                     );
                 }
             }
