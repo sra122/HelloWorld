@@ -96,7 +96,8 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if((strtotime($variation['updatedAt'])- time()) < 600) {
+            // Update only if products are updated in last 1 hour.
+            if((strtotime($variation['updatedAt'])- time()) < 3600) {
 
                 if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
@@ -138,6 +139,7 @@ class ContentController extends Controller
                         'status' => '',
                         'brand' => '',
                         'variant_attribute_1' => '',
+                        'last_update_at' => $variation['updatedAt'],
                     );
                 }
             }
@@ -165,27 +167,32 @@ class ContentController extends Controller
         $properties = $settingRepo->find('HelloWorld', 'property');
 
         foreach($properties as $key => $property) {
-            if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
-                $productDetails = $this->productDetails();
 
-                $response = $libCall->call(
-                    'HelloWorld::products_to_pandablack',
-                    [
-                        'token' => $property->settings['Token']['token'],
-                        'product_details' => $productDetails
-                    ]
-                );
-                return $response;
-            } else if(isset($property->settings['Token']) && ($property->settings['Token']['refresh_token_expires_in'] > time())) {
-                $productDetails = $this->productDetails();
-                $response = $libCall->call(
-                    'HelloWorld::products_to_pandablack',
-                    [
-                        'token' => $property->settings['Token']['refresh_token'],
-                        'product_details' => $productDetails
-                    ]
-                );
-                return $response;
+            $productDetails = $this->productDetails();
+
+            if(!empty($productDetails['exportData'])) {
+
+                if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
+
+
+                    $response = $libCall->call(
+                        'HelloWorld::products_to_pandablack',
+                        [
+                            'token' => $property->settings['Token']['token'],
+                            'product_details' => $productDetails
+                        ]
+                    );
+                    return $response;
+                } else if(isset($property->settings['Token']) && ($property->settings['Token']['refresh_token_expires_in'] > time())) {
+                    $response = $libCall->call(
+                        'HelloWorld::products_to_pandablack',
+                        [
+                            'token' => $property->settings['Token']['refresh_token'],
+                            'product_details' => $productDetails
+                        ]
+                    );
+                    return $response;
+                }
             }
         }
     }
