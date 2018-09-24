@@ -133,9 +133,14 @@ class ContentController extends Controller
                         'product_type' => '',
                         'quantity' => $stockData,
                         'store_name' => '',
-                        'status' => '',
+                        'status' => $variation['isActive'],
                         'brand' => '',
-                        'variant_attribute_1' => '',
+                        'variant_attribute_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attribute']['backendName'] : '',
+                        'variant_attribute_value_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attributeValue']['backendName'] : '',
+                        'variant_attribute_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attribute']['backendName'] : '',
+                        'variant_attribute_value_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attributeValue']['backendName'] : '',
+                        'variant_attribute_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attribute']['backendName'] : '',
+                        'variant_attribute_value_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attributeValue']['backendName'] : '',
                         'last_update_at' => $variation['updatedAt'],
                     );
                 }

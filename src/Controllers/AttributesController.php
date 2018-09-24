@@ -36,8 +36,7 @@ class AttributesController extends Controller
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
 
         $attributeValueMap = [
-            'backendName' => $data,
-            'typeOfSelectionInOnlineStore' => 'box'
+            'backendName' => $data
         ];
 
         $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
@@ -45,7 +44,7 @@ class AttributesController extends Controller
         $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
 
         foreach($dataValues as $attributeValue) {
-            $attributeValueRepository->create(['backendName' => $attributeValue], $attributeInfo['id']);
+            $attributeValueRepository->create(['backendName' => trim($attributeValue)], $attributeInfo['id']);
         }
 
         return $attributeInfo;
