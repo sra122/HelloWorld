@@ -41,6 +41,9 @@ class AttributesController extends Controller
 
         $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
 
+
+
+
         return $attributeInfo;
 
     }
