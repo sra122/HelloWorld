@@ -63,7 +63,6 @@ class AttributesController extends Controller
             'plentyAttribute' => $plentyAttribute
         ];
 
-
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
         $plentyMarketAttributes = $attributeRepo->all([], 50, 1);
 
