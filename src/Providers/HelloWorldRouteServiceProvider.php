@@ -18,10 +18,10 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
         $router->get('hello', 'HelloWorld\Controllers\ContentController@productDetails');
         $router->get('update', 'HelloWorld\Controllers\UpdateItemController@updateItems');
         $router->get('category', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
-        $router->get('create-referrer', 'HelloWorld\Controllers\ReferrerController@createOrderReferrer');
         $router->get('expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');
         $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
         $router->get('create-attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
+        //Authentication route
         $router->get('markets/panda-black/auth/authentication', 'HelloWorld\Controllers\AuthController@getAuthentication');
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
