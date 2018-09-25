@@ -202,7 +202,7 @@ class AuthController extends Controller
 
         foreach($tokenDetails as $key => $tokenDetail)
         {
-            return $tokenDetail;
+            return date('Y', $tokenDetail);
         }
     }
 }
