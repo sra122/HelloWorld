@@ -6,6 +6,7 @@ use Plenty\Modules\Item\Attribute\Contracts\AttributeRepositoryContract;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
+use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
 
 class AttributesController extends Controller
 {
@@ -30,16 +31,23 @@ class AttributesController extends Controller
     public function createAttribute(Request $request)
     {
         $data = $request->get('new_attribute', '');
+        $dataValues = explode(',', $request->get('attribute_values', ''));
 
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
 
         $attributeValueMap = [
-          'backendName' => $data
+            'backendName' => $data
         ];
 
-        $test = $attributeRepo->create($attributeValueMap);
+        $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
 
-        return $test;
+        $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+
+        foreach($dataValues as $attributeValue) {
+            $attributeValueRepository->create(['backendName' => trim($attributeValue)], $attributeInfo['id']);
+        }
+
+        return $attributeInfo;
 
     }
 
@@ -55,8 +63,18 @@ class AttributesController extends Controller
             'plentyAttribute' => $plentyAttribute
         ];
 
-        $test = $settingsRepo->create('HelloWorld', 'attribute', $data);
+        $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+        $plentyMarketAttributes = $attributeRepo->all([], 50, 1);
 
-        return $test->id;
+        foreach($plentyMarketAttributes->entries as $plentyMarketAttribute) {
+            if($plentyMarketAttribute[0]['backendName'] === $plentyAttribute) {
+                $data['plentyAttributeId'] = $plentyMarketAttribute[0]['id'];
+            }
+        }
+
+
+        $response = $settingsRepo->create('HelloWorld', 'attribute', $data);
+
+        return $response->id;
     }
 }

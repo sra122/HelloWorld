@@ -37,17 +37,28 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, WebstoreHelper $webstoreHelper, LibraryCallContract $libCall)
     {
         try {
-            $tokenInformation = $libCall->call(
-                'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
-            );
-            $response = $this->tokenStorage($tokenInformation);
-            return $response;
+            $sessionCheck = $this->sessionCheck();
+            if($sessionCheck) {
+                $this->sessionCreation();
+                $tokenInformation = $libCall->call(
+                    'HelloWorld::guzzle_connector', ['auth_code' => $request->get('autorize_code')]
+                );
+                $this->tokenStorage($tokenInformation);
+                return 'Login was successful. This window will close automatically.<script>window.close();</script>';
+            } else {
+                return 'Login was successful. This window will close automatically.<script>window.close();</script>';
+            }
+
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), $e->getCode());
         }
     }
 
-
+    /**
+     * Saving token information.
+     *
+     * @param $tokenInformation
+     */
     public function tokenStorage($tokenInformation)
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
@@ -75,6 +86,9 @@ class AuthController extends Controller
             }
         }
 
+        $tokenInformation['Response']['expires_in'] = time() + $tokenInformation['Response']['expires_in'];
+        $tokenInformation['Response']['refresh_token_expires_in'] = time() + $tokenInformation['Response']['refresh_token_expires_in'];
+
         $data = [
             'Token' => $tokenInformation['Response']
         ];
@@ -87,19 +101,16 @@ class AuthController extends Controller
                 $settingsRepo->update($data, $key);
             }
         }
-
-        return $tokenDetails;
-
     }
 
     /**
-     *
      * @param SettingsRepositoryContract $settingsRepo
      * @return mixed
      *
      */
-    public function sessionCreation(SettingsRepositoryContract $settingsRepo)
+    public function sessionCreation()
     {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
         $sessionValues = [];
@@ -137,6 +148,61 @@ class AuthController extends Controller
                     $settingsRepo->update($time, $key);
                 }
             }
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function sessionCheck()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $sessionValues = [];
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
+                $sessionValues[$property->id] = $property->settings['sessionTime'];
+            }
+        }
+
+        if(count($sessionValues) === 1) {
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                if((time() - $sessionValue) < 600) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function tokenExpireTime()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        $tokenDetails = [];
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
+                $tokenDetails[$property->id] = $property->settings['Token']['expires_in'];
+            }
+        }
+
+        foreach($tokenDetails as $key => $tokenDetail)
+        {
+            return $tokenDetail;
         }
     }
 }
