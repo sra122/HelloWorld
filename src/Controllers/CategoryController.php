@@ -2,7 +2,6 @@
 
 namespace HelloWorld\Controllers;
 
-use HelloWorld\Contracts\CategoryRepositoryContract;
 use Plenty\Modules\Category\Models\Category;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
@@ -11,6 +10,7 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
+use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 
 /**
  * Class CategoryController
