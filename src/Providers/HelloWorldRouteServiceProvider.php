@@ -34,12 +34,12 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/correlations/delete', 'HelloWorld\Controllers\CategoryController@deleteAllCorrelations');//delete
             $router->get('markets/panda-black/correlation/delete/{id}', 'HelloWorld\Controllers\CategoryController@deleteCorrelation');//delete
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
-            $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
+            $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');//working
             $router->post('markets/panda-black/attribute-mapping', 'HelloWorld\Controllers\AttributesController@attributeMapping');
             $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
-            $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
-            $router->post('markets/panda-black/session', 'HelloWorld\Controllers\AuthController@sessionCreation');
-            $router->get('markets/panda-black/expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');
+            $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');//working
+            $router->post('markets/panda-black/session', 'HelloWorld\Controllers\AuthController@sessionCreation');//working
+            $router->get('markets/panda-black/expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');//working
             $router->get('markets/panda-black/products-data', 'HelloWorld\Controllers\ContentController@productDetails');
         });
     }
