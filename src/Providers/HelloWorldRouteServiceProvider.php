@@ -30,7 +30,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\JdCategoriesController@listOfCategories');
             $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelations');
             $router->post('markets/panda-black/edit-correlations', 'HelloWorld\Controllers\CategoryController@updateCorrelation');
-            $router->post('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
+            $router->post('markets/panda-black/correlations/creation', 'HelloWorld\Controllers\CategoryController@saveCorrelation');
             $router->delete('markets/panda-black/correlations/delete', 'HelloWorld\Controllers\CategoryController@deleteAllCorrelations');//delete
             $router->delete('markets/panda-black/correlation/delete/{id}', 'HelloWorld\Controllers\CategoryController@deleteCorrelation');//delete
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
