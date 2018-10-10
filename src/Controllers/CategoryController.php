@@ -14,8 +14,7 @@ use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 
 /**
  * Class CategoryController
- *
- * @package Etsy\Controllers
+ * @package HelloWorld\Controllers
  */
 class CategoryController extends Controller
 {
