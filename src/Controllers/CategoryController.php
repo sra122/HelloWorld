@@ -143,6 +143,8 @@ class CategoryController extends Controller
         }
 
         $settingsCorrelationFactory->delete($id);
+
+        return $id;
     }
 
     public function getProperties()
