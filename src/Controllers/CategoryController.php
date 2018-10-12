@@ -106,6 +106,8 @@ class CategoryController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
         $settingsRepo->update($correlationData, $id);
+
+        return $id;
     }
 
     public function saveCorrelation(Request $request, Twig $twig)
@@ -126,6 +128,8 @@ class CategoryController extends Controller
         $settingsCorrelationFactory->deleteAll('HelloWorld', 'category');
 
         $settingsCorrelationFactory->deleteAll('HelloWorld', 'attribute');
+
+        return true;
     }
 
     public function deleteCorrelation($id)
