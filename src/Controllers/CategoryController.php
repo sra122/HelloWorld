@@ -10,7 +10,7 @@ use Plenty\Plugin\Templates\Twig;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
-
+use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
 /**
  * Class CategoryController
  * @package HelloWorld\Controllers
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      * @return Category[]
      */
 
-    /*public function all(Request $request, Twig $twig)
+    public function all(Request $request)
     {
         $with = $request->get('with', []);
 
@@ -81,7 +81,7 @@ class CategoryController extends Controller
         $plentyCategory->details[0]->name = $parentCategoryPath;
 
         return $response->json($plentyCategory);
-    }*/
+    }
 
     public function getCorrelations()
     {
@@ -109,7 +109,7 @@ class CategoryController extends Controller
         return $id;
     }
 
-    public function saveCorrelation(Request $request, Twig $twig)
+    public function saveCorrelation(Request $request)
     {
         $data = $request->get('correlations', []);
 
