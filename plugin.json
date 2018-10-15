@@ -7,6 +7,5 @@
   "serviceProvider":"HelloWorld\\Providers\\HelloWorldServiceProvider",
   "dependencies" : {
     "guzzlehttp/guzzle": "6.2.*"
-  },
-  "runOnBuild":["HelloWorld\\Migrations\\GetOrderReferrer"]
+  }
 }
