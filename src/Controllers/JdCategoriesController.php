@@ -50,7 +50,7 @@ class JdCategoriesController extends Controller
                                 'name' => '文胸',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1,
                                         'displayName' => '品牌'
@@ -194,7 +194,7 @@ class JdCategoriesController extends Controller
                                 'name' => '女式内裤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 35,
                                         'displayName' => '组合形式'
@@ -286,7 +286,7 @@ class JdCategoriesController extends Controller
                                 'name' => '男式内裤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 56,
                                         'displayName' => '品牌'
@@ -362,7 +362,7 @@ class JdCategoriesController extends Controller
                                 'name' => '睡衣/家居服',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 73,
                                         'displayName' => '品牌'
@@ -490,7 +490,7 @@ class JdCategoriesController extends Controller
                                 'name' => '塑身美体',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 103,
                                         'displayName' => '品牌'
@@ -610,7 +610,7 @@ class JdCategoriesController extends Controller
                                 'name' => '泳衣',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 131,
                                         'displayName' => '价格'
@@ -678,7 +678,7 @@ class JdCategoriesController extends Controller
                                 'name' => '吊带/背心',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 146,
                                         'displayName' => '价格'
@@ -794,7 +794,7 @@ class JdCategoriesController extends Controller
                                 'name' => '抹胸',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 173,
                                         'displayName' => '品牌'
@@ -854,7 +854,7 @@ class JdCategoriesController extends Controller
                                 'name' => '连裤袜/丝袜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 186,
                                         'displayName' => '价格'
@@ -970,7 +970,7 @@ class JdCategoriesController extends Controller
                                 'name' => '美腿袜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 213,
                                         'displayName' => '价格'
@@ -1054,7 +1054,7 @@ class JdCategoriesController extends Controller
                                 'name' => '商务男袜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 232,
                                         'displayName' => '花型'
@@ -1134,7 +1134,7 @@ class JdCategoriesController extends Controller
                                 'name' => '保暖内衣',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 250,
                                         'displayName' => '品牌'
@@ -1250,7 +1250,7 @@ class JdCategoriesController extends Controller
                                 'name' => '情侣睡衣',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 277,
                                         'displayName' => '袖长'
@@ -1358,7 +1358,7 @@ class JdCategoriesController extends Controller
                                 'name' => '文胸套装',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 302,
                                         'displayName' => '品牌'
@@ -1494,7 +1494,7 @@ class JdCategoriesController extends Controller
                                 'name' => '少女文胸',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 334,
                                         'displayName' => '品牌'
@@ -1590,7 +1590,7 @@ class JdCategoriesController extends Controller
                                 'name' => '休闲棉袜 ',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 356,
                                         'displayName' => '品牌'
@@ -1678,7 +1678,7 @@ class JdCategoriesController extends Controller
                                 'name' => '大码内衣',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 376,
                                         'displayName' => '适用人群'
@@ -1762,7 +1762,7 @@ class JdCategoriesController extends Controller
                                 'name' => '内衣配件',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 395,
                                         'displayName' => '品牌'
@@ -1810,7 +1810,7 @@ class JdCategoriesController extends Controller
                                 'name' => '打底裤袜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 405,
                                         'displayName' => '尺码'
@@ -1902,7 +1902,7 @@ class JdCategoriesController extends Controller
                                 'name' => '打底衫',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 426,
                                         'displayName' => '适用人群'
@@ -2002,7 +2002,7 @@ class JdCategoriesController extends Controller
                                 'name' => '秋衣秋裤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 449,
                                         'displayName' => '适用人群'
@@ -2114,14 +2114,14 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ],
                             (int) 22 => [
                                 'id' => (int) 41,
                                 'name' => '情趣内衣',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 475,
                                         'displayName' => '价格'
@@ -2169,7 +2169,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ]
                 ]
             ],
@@ -2205,7 +2205,7 @@ class JdCategoriesController extends Controller
                                 'name' => '洁面',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 486,
                                         'displayName' => '人群'
@@ -2273,7 +2273,7 @@ class JdCategoriesController extends Controller
                                 'name' => '乳液/面霜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 501,
                                         'displayName' => '功效'
@@ -2341,7 +2341,7 @@ class JdCategoriesController extends Controller
                                 'name' => '面膜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 516,
                                         'displayName' => '产品产地'
@@ -2413,7 +2413,7 @@ class JdCategoriesController extends Controller
                                 'name' => '套装/礼盒',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 532,
                                         'displayName' => '功效'
@@ -2477,7 +2477,7 @@ class JdCategoriesController extends Controller
                                 'name' => '面部精华',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 546,
                                         'displayName' => '适合肤质'
@@ -2541,7 +2541,7 @@ class JdCategoriesController extends Controller
                                 'name' => '眼霜/眼部精华',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 560,
                                         'displayName' => '适合肤质'
@@ -2609,7 +2609,7 @@ class JdCategoriesController extends Controller
                                 'name' => '卸妆',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 575,
                                         'displayName' => '适用部位'
@@ -2669,7 +2669,7 @@ class JdCategoriesController extends Controller
                                 'name' => '防晒',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 588,
                                         'displayName' => '分类'
@@ -2757,7 +2757,7 @@ class JdCategoriesController extends Controller
                                 'name' => '眼膜',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 608,
                                         'displayName' => '规格'
@@ -2825,7 +2825,7 @@ class JdCategoriesController extends Controller
                                 'name' => '唇膜/唇部精华',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 623,
                                         'displayName' => '分类'
@@ -2881,7 +2881,7 @@ class JdCategoriesController extends Controller
                                 'name' => 'T区护理',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 635,
                                         'displayName' => '国产/进口'
@@ -2937,7 +2937,7 @@ class JdCategoriesController extends Controller
                                 'name' => '润唇膏',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 647,
                                         'displayName' => '颜色'
@@ -3009,7 +3009,7 @@ class JdCategoriesController extends Controller
                                 'name' => '其它面部护肤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 663,
                                         'displayName' => '产品产地'
@@ -3057,7 +3057,7 @@ class JdCategoriesController extends Controller
                                 'name' => '爽肤水/化妆水',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 673,
                                         'displayName' => '功效'
@@ -3105,7 +3105,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ]
                 ]
             ],
@@ -3142,7 +3142,7 @@ class JdCategoriesController extends Controller
                                 'name' => '整套茶具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 684,
                                         'displayName' => '品牌'
@@ -3234,7 +3234,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 705,
                                         'displayName' => '材质'
@@ -3318,7 +3318,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶壶',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 724,
                                         'displayName' => '价格'
@@ -3390,7 +3390,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶盘茶托',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 740,
                                         'displayName' => '价格'
@@ -3470,7 +3470,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶叶罐',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 758,
                                         'displayName' => '品牌'
@@ -3534,7 +3534,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶具配件',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 772,
                                         'displayName' => '品牌'
@@ -3594,7 +3594,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶宠摆件',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 785,
                                         'displayName' => '材质'
@@ -3650,7 +3650,7 @@ class JdCategoriesController extends Controller
                                 'name' => '咖啡具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 797,
                                         'displayName' => '价格'
@@ -3726,7 +3726,7 @@ class JdCategoriesController extends Controller
                                 'name' => '其他',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 814,
                                         'displayName' => '品牌'
@@ -3778,10 +3778,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 1 => [
                         'id' => (int) 9,
@@ -3801,7 +3801,7 @@ class JdCategoriesController extends Controller
                                 'name' => '菜刀',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 825,
                                         'displayName' => '品牌'
@@ -3873,7 +3873,7 @@ class JdCategoriesController extends Controller
                                 'name' => '剪刀',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 841,
                                         'displayName' => '价格'
@@ -3929,7 +3929,7 @@ class JdCategoriesController extends Controller
                                 'name' => '刀具套装',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 853,
                                         'displayName' => '材质'
@@ -3997,7 +3997,7 @@ class JdCategoriesController extends Controller
                                 'name' => '砧板',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 868,
                                         'displayName' => '材质'
@@ -4049,7 +4049,7 @@ class JdCategoriesController extends Controller
                                 'name' => '瓜果刀/刨',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 879,
                                         'displayName' => '品牌'
@@ -4101,7 +4101,7 @@ class JdCategoriesController extends Controller
                                 'name' => '多功能刀',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 890,
                                         'displayName' => '价格'
@@ -4169,10 +4169,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 2 => [
                         'id' => (int) 10,
@@ -4196,7 +4196,7 @@ class JdCategoriesController extends Controller
                                 'name' => '炒锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 905,
                                         'displayName' => '材质'
@@ -4272,7 +4272,7 @@ class JdCategoriesController extends Controller
                                 'name' => '平底锅/煎锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 922,
                                         'displayName' => '材质'
@@ -4348,7 +4348,7 @@ class JdCategoriesController extends Controller
                                 'name' => '高压锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 939,
                                         'displayName' => '价格'
@@ -4420,7 +4420,7 @@ class JdCategoriesController extends Controller
                                 'name' => '蒸锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 955,
                                         'displayName' => '品牌'
@@ -4488,7 +4488,7 @@ class JdCategoriesController extends Controller
                                 'name' => '汤锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 970,
                                         'displayName' => '材质'
@@ -4556,7 +4556,7 @@ class JdCategoriesController extends Controller
                                 'name' => '奶锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 985,
                                         'displayName' => '价格'
@@ -4624,7 +4624,7 @@ class JdCategoriesController extends Controller
                                 'name' => '锅具套装',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1000,
                                         'displayName' => '价格'
@@ -4692,7 +4692,7 @@ class JdCategoriesController extends Controller
                                 'name' => '砂锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1015,
                                         'displayName' => '价格'
@@ -4760,7 +4760,7 @@ class JdCategoriesController extends Controller
                                 'name' => '水壶',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1030,
                                         'displayName' => '品牌'
@@ -4816,7 +4816,7 @@ class JdCategoriesController extends Controller
                                 'name' => '火锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1042,
                                         'displayName' => '品牌'
@@ -4868,10 +4868,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 3 => [
                         'id' => (int) 11,
@@ -4893,7 +4893,7 @@ class JdCategoriesController extends Controller
                                 'name' => '餐具套装',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1053,
                                         'displayName' => '价格'
@@ -4981,7 +4981,7 @@ class JdCategoriesController extends Controller
                                 'name' => '茶具/咖啡具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1073,
                                         'displayName' => '品牌'
@@ -5037,7 +5037,7 @@ class JdCategoriesController extends Controller
                                 'name' => '碗',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1085,
                                         'displayName' => '品牌'
@@ -5137,7 +5137,7 @@ class JdCategoriesController extends Controller
                                 'name' => '筷子',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1108,
                                         'displayName' => '品牌'
@@ -5213,7 +5213,7 @@ class JdCategoriesController extends Controller
                                 'name' => '一次性用品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1125,
                                         'displayName' => '品牌'
@@ -5277,7 +5277,7 @@ class JdCategoriesController extends Controller
                                 'name' => '果盘/果篮',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1139,
                                         'displayName' => '适用范围'
@@ -5365,7 +5365,7 @@ class JdCategoriesController extends Controller
                                 'name' => '盘/碟',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1159,
                                         'displayName' => '分类'
@@ -5401,7 +5401,7 @@ class JdCategoriesController extends Controller
                                 'name' => '刀/叉/勺',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1166,
                                         'displayName' => '材质'
@@ -5425,10 +5425,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 4 => [
                         'id' => (int) 12,
@@ -5450,7 +5450,7 @@ class JdCategoriesController extends Controller
                                 'name' => '保鲜盒',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1170,
                                         'displayName' => '材质'
@@ -5546,7 +5546,7 @@ class JdCategoriesController extends Controller
                                 'name' => '烘焙/烧烤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1192,
                                         'displayName' => '品牌'
@@ -5606,7 +5606,7 @@ class JdCategoriesController extends Controller
                                 'name' => '厨房秤',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1205,
                                         'displayName' => '类型'
@@ -5634,7 +5634,7 @@ class JdCategoriesController extends Controller
                                 'name' => '饭盒/提锅',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1210,
                                         'displayName' => '品牌'
@@ -5706,7 +5706,7 @@ class JdCategoriesController extends Controller
                                 'name' => '厨房置物架',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1226,
                                         'displayName' => '品牌'
@@ -5766,7 +5766,7 @@ class JdCategoriesController extends Controller
                                 'name' => '厨房DIY/小工具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1239,
                                         'displayName' => '净重量（kg）'
@@ -5818,7 +5818,7 @@ class JdCategoriesController extends Controller
                                 'name' => '厨房储物器皿',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1250,
                                         'displayName' => '分类'
@@ -5834,7 +5834,7 @@ class JdCategoriesController extends Controller
                                 'name' => '调料器皿',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1252,
                                         'displayName' => '品牌'
@@ -5886,10 +5886,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 5 => [
                         'id' => (int) 13,
@@ -5913,7 +5913,7 @@ class JdCategoriesController extends Controller
                                 'name' => '塑料杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1263,
                                         'displayName' => '品牌'
@@ -5997,7 +5997,7 @@ class JdCategoriesController extends Controller
                                 'name' => '运动水壶',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1282,
                                         'displayName' => '价格'
@@ -6085,7 +6085,7 @@ class JdCategoriesController extends Controller
                                 'name' => '玻璃杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1302,
                                         'displayName' => '品牌'
@@ -6165,7 +6165,7 @@ class JdCategoriesController extends Controller
                                 'name' => '陶瓷/马克杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1320,
                                         'displayName' => '价格'
@@ -6249,7 +6249,7 @@ class JdCategoriesController extends Controller
                                 'name' => '保温杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1339,
                                         'displayName' => '品牌'
@@ -6337,7 +6337,7 @@ class JdCategoriesController extends Controller
                                 'name' => '保温壶',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1359,
                                         'displayName' => '品牌'
@@ -6425,7 +6425,7 @@ class JdCategoriesController extends Controller
                                 'name' => '酒杯/酒具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1379,
                                         'displayName' => '价格'
@@ -6489,7 +6489,7 @@ class JdCategoriesController extends Controller
                                 'name' => '杯具套装',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1393,
                                         'displayName' => '净重量（kg）'
@@ -6545,7 +6545,7 @@ class JdCategoriesController extends Controller
                                 'name' => '焖烧杯',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1405,
                                         'displayName' => '适用人群'
@@ -6577,7 +6577,7 @@ class JdCategoriesController extends Controller
                                 'name' => '水具/酒具配件',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1411,
                                         'displayName' => '适用场景'
@@ -6629,10 +6629,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ]
                 ]
             ],
@@ -6671,7 +6671,7 @@ class JdCategoriesController extends Controller
                                 'name' => '移动硬盘',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1422,
                                         'displayName' => '容量'
@@ -6771,7 +6771,7 @@ class JdCategoriesController extends Controller
                                 'name' => 'U盘',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1445,
                                         'displayName' => '品牌'
@@ -6859,7 +6859,7 @@ class JdCategoriesController extends Controller
                                 'name' => '鼠标',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1465,
                                         'displayName' => '品牌'
@@ -6955,7 +6955,7 @@ class JdCategoriesController extends Controller
                                 'name' => '键盘',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1487,
                                         'displayName' => '价格'
@@ -7095,7 +7095,7 @@ class JdCategoriesController extends Controller
                                 'name' => '鼠标垫',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1520,
                                         'displayName' => '材质'
@@ -7155,7 +7155,7 @@ class JdCategoriesController extends Controller
                                 'name' => '摄像头',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1533,
                                         'displayName' => '价格'
@@ -7235,7 +7235,7 @@ class JdCategoriesController extends Controller
                                 'name' => '手写板',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1551,
                                         'displayName' => '价格'
@@ -7299,7 +7299,7 @@ class JdCategoriesController extends Controller
                                 'name' => '硬盘盒',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1565,
                                         'displayName' => '品牌'
@@ -7375,7 +7375,7 @@ class JdCategoriesController extends Controller
                                 'name' => '插座',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1582,
                                         'displayName' => '品牌'
@@ -7447,7 +7447,7 @@ class JdCategoriesController extends Controller
                                 'name' => '线缆',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1598,
                                         'displayName' => '品牌'
@@ -7507,7 +7507,7 @@ class JdCategoriesController extends Controller
                                 'name' => 'UPS电源',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1611,
                                         'displayName' => '输入电压'
@@ -7575,7 +7575,7 @@ class JdCategoriesController extends Controller
                                 'name' => '电脑工具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1626,
                                         'displayName' => '品牌'
@@ -7647,7 +7647,7 @@ class JdCategoriesController extends Controller
                                 'name' => '游戏设备',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1642,
                                         'displayName' => '价格'
@@ -7715,7 +7715,7 @@ class JdCategoriesController extends Controller
                                 'name' => '电脑清洁',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1657,
                                         'displayName' => '品牌'
@@ -7755,7 +7755,7 @@ class JdCategoriesController extends Controller
                                 'name' => '网络仪表仪器',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1665,
                                         'displayName' => '焊接工具'
@@ -7807,10 +7807,10 @@ class JdCategoriesController extends Controller
                                 'name' => '特殊商品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => []
+                                'attributeValueSets' => []
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 1 => [
                         'id' => (int) 15,
@@ -7837,7 +7837,7 @@ class JdCategoriesController extends Controller
                                 'name' => '硒鼓/墨粉',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1676,
                                         'displayName' => '品牌'
@@ -7897,7 +7897,7 @@ class JdCategoriesController extends Controller
                                 'name' => '墨盒',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1689,
                                         'displayName' => '品牌'
@@ -7957,7 +7957,7 @@ class JdCategoriesController extends Controller
                                 'name' => '色带',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1702,
                                         'displayName' => '品牌'
@@ -8017,7 +8017,7 @@ class JdCategoriesController extends Controller
                                 'name' => '纸类',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1715,
                                         'displayName' => '品牌'
@@ -8073,7 +8073,7 @@ class JdCategoriesController extends Controller
                                 'name' => '办公文具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1727,
                                         'displayName' => '品牌'
@@ -8097,7 +8097,7 @@ class JdCategoriesController extends Controller
                                 'name' => '学生文具',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1731,
                                         'displayName' => '价格'
@@ -8125,7 +8125,7 @@ class JdCategoriesController extends Controller
                                 'name' => '文件管理',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1736,
                                         'displayName' => '品牌'
@@ -8149,7 +8149,7 @@ class JdCategoriesController extends Controller
                                 'name' => '财会用品',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1740,
                                         'displayName' => '品牌'
@@ -8173,7 +8173,7 @@ class JdCategoriesController extends Controller
                                 'name' => '本册/便签',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1744,
                                         'displayName' => '品牌'
@@ -8221,7 +8221,7 @@ class JdCategoriesController extends Controller
                                 'name' => '计算器',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1754,
                                         'displayName' => '品牌'
@@ -8257,7 +8257,7 @@ class JdCategoriesController extends Controller
                                 'name' => '激光笔',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1761,
                                         'displayName' => '功能'
@@ -8289,7 +8289,7 @@ class JdCategoriesController extends Controller
                                 'name' => '笔类',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1767,
                                         'displayName' => '价格'
@@ -8385,7 +8385,7 @@ class JdCategoriesController extends Controller
                                 'name' => '画具画材',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1789,
                                         'displayName' => '数量'
@@ -8405,7 +8405,7 @@ class JdCategoriesController extends Controller
                                 'name' => '刻录碟片/附件',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1792,
                                         'displayName' => '品牌'
@@ -8461,7 +8461,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ]
                 ]
             ],
@@ -8488,7 +8488,7 @@ class JdCategoriesController extends Controller
                                 'name' => '电影周边',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1805,
                                         'displayName' => '品牌'
@@ -8544,7 +8544,7 @@ class JdCategoriesController extends Controller
                                 'name' => '卡通周边',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1817,
                                         'displayName' => '品牌'
@@ -8600,7 +8600,7 @@ class JdCategoriesController extends Controller
                                 'name' => '网游周边',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1829,
                                         'displayName' => '价格'
@@ -8648,7 +8648,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 1 => [
                         'id' => (int) 17,
@@ -8663,7 +8663,7 @@ class JdCategoriesController extends Controller
                                 'name' => '毛绒/布艺',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1840,
                                         'displayName' => '品牌'
@@ -8719,7 +8719,7 @@ class JdCategoriesController extends Controller
                                 'name' => '靠垫/抱枕',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1852,
                                         'displayName' => '价格'
@@ -8771,7 +8771,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ],
                     (int) 2 => [
                         'id' => (int) 18,
@@ -8790,7 +8790,7 @@ class JdCategoriesController extends Controller
                                 'name' => '0-6个月',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1864,
                                         'displayName' => '价格'
@@ -8846,7 +8846,7 @@ class JdCategoriesController extends Controller
                                 'name' => '6-12个月',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1876,
                                         'displayName' => '价格'
@@ -8902,7 +8902,7 @@ class JdCategoriesController extends Controller
                                 'name' => '1-3岁',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1888,
                                         'displayName' => '价格'
@@ -8958,7 +8958,7 @@ class JdCategoriesController extends Controller
                                 'name' => '3-6岁',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1900,
                                         'displayName' => '品牌'
@@ -9010,7 +9010,7 @@ class JdCategoriesController extends Controller
                                 'name' => '6-14岁',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1911,
                                         'displayName' => '品牌'
@@ -9066,7 +9066,7 @@ class JdCategoriesController extends Controller
                                 'name' => '14岁以上',
                                 'children_ids' => [],
                                 'children' => [],
-                                'attributeValues' => [
+                                'attributeValueSets' => [
                                     (int) 0 => [
                                         'attribute' => (int) 1923,
                                         'displayName' => '品牌'
@@ -9122,7 +9122,7 @@ class JdCategoriesController extends Controller
                                 ]
                             ]
                         ],
-                        'attributeValues' => []
+                        'attributeValueSets' => []
                     ]
                 ]
             ]
