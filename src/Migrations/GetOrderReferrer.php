@@ -1,12 +1,10 @@
 <?php
 namespace HelloWorld\Migrations;
 
-use HelloWorld\Helper\SettingsHelper;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Plugin\DataBase\Contracts\Migrate;
 use Plenty\Modules\Plugin\DataBase\Contracts\DataBase;
-use Plenty\Plugin\Templates\Twig;
 
 /**
  * Class CreateOrderReferrer
@@ -14,17 +12,10 @@ use Plenty\Plugin\Templates\Twig;
 class GetOrderReferrer
 {
     /**
-     * @var SettingsHelper
-     */
-    private $settingsHelper;
-
-    /**
      * GetOrderReferrer constructor.
-     * @param SettingsHelper $settingsHelper
      */
-    public function __construct(SettingsHelper $settingsHelper)
+    public function __construct()
     {
-        $this->settingsHelper = $settingsHelper;
     }
 
     /**
