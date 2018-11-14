@@ -21,6 +21,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
         $router->get('expire-time', 'HelloWorld\Controllers\AuthController@tokenExpireTime');
         $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
         $router->get('create-attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
+        $router->get('test', 'HelloWorld\Controllers\OrdersController@getData');
         //Authentication route
         $router->get('markets/panda-black/auth/authentication', 'HelloWorld\Controllers\AuthController@getAuthentication');
 
