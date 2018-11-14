@@ -31,6 +31,7 @@ class AuthController extends Controller
      * Exchange request token for access token.
      *
      * @param Request $request
+     * @param LibraryCallContract $libCall
      *
      * @return mixed
      * @throws \Exception
@@ -218,7 +219,7 @@ class AuthController extends Controller
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
-            if(trim($orderReferrerList->name) === 'PandaBlackTest') {
+            if(trim($orderReferrerList->name) === 'PandaBlack') {
                 array_push($pandaBlackReferrerID, $orderReferrerList);
             }
         }
@@ -227,13 +228,13 @@ class AuthController extends Controller
 
             $orderReferrer = $orderReferrerRepo->create([
                 'isEditable'    => true,
-                'backendName' => 'PandaBlackTest',
-                'name'        => 'PandaBlackTest',
+                'backendName' => 'PandaBlack',
+                'name'        => 'PandaBlack',
                 'origin'      => 'plenty',
                 'isFilterable' => true
             ])->toArray();
             $settingsRepository = pluginApp(SettingsRepositoryContract::class);
-            $settingsRepository->create('PandaBlackTest', 'property', $orderReferrer);
+            $settingsRepository->create('PandaBlack', 'property', $orderReferrer);
 
             return $orderReferrer;
         }
