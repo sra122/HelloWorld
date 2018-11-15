@@ -1,7 +1,7 @@
 <?php
 namespace HelloWorld\Controllers;
 use Plenty\Plugin\Controller;
-use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
+use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
 use Plenty\Plugin\Application;
 /**
