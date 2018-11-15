@@ -11,8 +11,8 @@ class OrdersController extends Controller
 {
     public function getAllPaymentMethods()
     {
-        $paymentRepo = pluginApp(PaymentRepositoryContract::class);
-        $paymentInfo = $paymentRepo->getAll(50, 1);
+        $paymentRepo = pluginApp(PaymentMethodRepositoryContract::class);
+        $paymentInfo = $paymentRepo->all();
 
         return $paymentInfo;
     }

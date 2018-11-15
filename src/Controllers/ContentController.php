@@ -131,7 +131,7 @@ class ContentController extends Controller
                         'size' => '',
                         'content_supplier' => 'PlentyMarkets',
                         'product_type' => '',
-                        'quantity' => $stockData,
+                        'quantity' => $stockData['netStock'],
                         'store_name' => '',
                         'status' => $variation['isActive'],
                         'brand' => $manufacturer['name'],
