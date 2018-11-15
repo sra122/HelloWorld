@@ -183,7 +183,8 @@ class ContentController extends Controller
 
         $templateData = array(
             'exportData' => $completeData,
-            'completeData' => $items
+            'completeData' => $items,
+            'crons' => $crons
         );
         return $templateData;
     }
