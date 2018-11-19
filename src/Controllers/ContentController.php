@@ -184,7 +184,8 @@ class ContentController extends Controller
         $templateData = array(
             'exportData' => $completeData,
             'completeData' => $items,
-            'crons' => $crons
+            'crons' => $crons,
+            'cronsTest' => $crons['entries'][6]['settings']['pbItemCron']['presentCronTime']
         );
         return $templateData;
     }
@@ -247,11 +248,11 @@ class ContentController extends Controller
 
         $crons = $settingRepo->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
-        foreach($crons as $key => $cron) {
-            if(isset($cron['entries']['settings']['pbItemCron'])) {
+        foreach($crons['entries'] as $key => $cron) {
+            if(isset($cron['settings']['pbItemCron'])) {
                     $cronData = [
                         'pbItemCron' => [
-                            'pastCronTime' => $cron['entries']['settings']['pbItemCron']['presentCronTime'],
+                            'pastCronTime' => $cron['settings']['pbItemCron']['presentCronTime'],
                             'presentCronTime' => time()
                         ]
                     ];
