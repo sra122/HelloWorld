@@ -29,7 +29,7 @@ use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
     /**
-     * @return array
+     * @return array|bool
      */
     public function productDetails()
     {
@@ -199,9 +199,11 @@ class ContentController extends Controller
             );
             return $templateData;
         } else {
-            return false;
+            $templateData = array(
+              'test' => 'test'
+            );
+            return $templateData;
         }
-
     }
 
 
