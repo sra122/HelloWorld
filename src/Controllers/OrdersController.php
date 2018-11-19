@@ -43,13 +43,32 @@ class OrdersController extends Controller
         return $orderDetails;
     }
 
+    public function createOrder()
+    {
+        $ordersRepo = pluginApp(OrderRepositoryContract::class);
+        $data = [
+            'typeId' => 1,
+            'methodOfPaymentId' => 1,
+            'shippingProfileId' => 1,
+            'paymentStatus' => 1,
+            'statusId' => 1,
+            'statusName' => '',
+            'ownerId' => '',
+            'plentyId' => $this->getPlentyPluginInfo()
+        ];
+        $response = $ordersRepo->createOrder($data);
+
+        return $response;
+    }
+
     public function getData()
     {
         $test = [
             'paymentMethods' => $this->getAllPaymentMethods(),
             'orderStatus' => $this->getOrderStatus(),
             'plentyPluginInfo' => $this->getPlentyPluginInfo(),
-            'ordersRepo' => $this->getOrders()
+            'ordersRepo' => $this->getOrders(),
+            'order' => $this->createOrder()
         ];
 
         return $test;
