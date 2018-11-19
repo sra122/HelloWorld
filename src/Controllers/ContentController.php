@@ -190,11 +190,18 @@ class ContentController extends Controller
             }
         }
 
-        $templateData = array(
-            'exportData' => $completeData,
-            'completeData' => $items
-        );
-        return $templateData;
+        if(!empty($completeData) && !empty($items))
+        {
+            $templateData = array(
+                'exportData' => $completeData,
+                'completeData' => $items,
+                'productStatus' => $this->sendProductDetails()
+            );
+            return $templateData;
+        } else {
+            return false;
+        }
+
     }
 
 
@@ -215,7 +222,7 @@ class ContentController extends Controller
 
             $productDetails = $this->productDetails();
 
-            if(!empty($productDetails['exportData'])) {
+            if($productDetails && !empty($productDetails['exportData'])) {
 
                 if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
 
@@ -242,6 +249,8 @@ class ContentController extends Controller
                     );
                     return $response;
                 }
+            } else {
+                return false;
             }
         }
     }
