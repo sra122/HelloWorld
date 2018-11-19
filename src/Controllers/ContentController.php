@@ -97,11 +97,20 @@ class ContentController extends Controller
 
         $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
+        $firstCron = false;
+
+        foreach($crons['entries'] as $cron)
+        {
+            if(!isset($cron['entries']['settings']['pbItemCron'])) {
+                $firstCron = true;
+            }
+        }
+
 
         foreach($resultItems->getResult() as $key => $variation) {
 
             // Update only if products are updated in last 1 hour.
-            if((time() - strtotime($variation['updatedAt'])) < 3600 || !isset($crons['entries']['settings']['pbItemCron'])) {
+            if((time() - strtotime($variation['updatedAt'])) < 3600 || $firstCron) {
 
                 if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
@@ -183,9 +192,7 @@ class ContentController extends Controller
 
         $templateData = array(
             'exportData' => $completeData,
-            'completeData' => $items,
-            'crons' => $crons,
-            'cronsTest' => $crons['entries'][6]['settings']['pbItemCron']['presentCronTime']
+            'completeData' => $items
         );
         return $templateData;
     }
