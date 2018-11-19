@@ -3,6 +3,7 @@ namespace HelloWorld\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
+use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Plugin\Application;
 /**
  * Class OrdersController
@@ -34,12 +35,21 @@ class OrdersController extends Controller
         return $plentyId->getPlentyId();
     }
 
+    public function getOrders()
+    {
+        $ordersRepo = pluginApp(OrderRepositoryContract::class);
+        $orderDetails = $ordersRepo->searchOrders(1, 50, [])->toArray();
+
+        return $orderDetails;
+    }
+
     public function getData()
     {
         $test = [
             'paymentMethods' => $this->getAllPaymentMethods(),
             'orderStatus' => $this->getOrderStatus(),
-            'plentyPluginInfo' => $this->getPlentyPluginInfo()
+            'plentyPluginInfo' => $this->getPlentyPluginInfo(),
+            'ordersRepo' => $this->getOrders()
         ];
 
         return $test;

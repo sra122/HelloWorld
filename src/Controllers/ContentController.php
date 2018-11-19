@@ -189,15 +189,12 @@ class ContentController extends Controller
             }
         }
 
-        if(!empty($completeData) && !empty($items))
-        {
-            $templateData = array(
-                'exportData' => $completeData,
-                'completeData' => $items,
-                'firstCron' => $firstCron
-            );
-            return $templateData;
-        }
+        $templateData = array(
+            'exportData' => $completeData,
+            'completeData' => $items
+        );
+        return $templateData;
+
     }
 
 
