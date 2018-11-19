@@ -97,15 +97,14 @@ class ContentController extends Controller
 
         $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
-        $firstCron = false;
+        $firstCron = true;
 
         foreach($crons['entries'] as $cron)
         {
-            if(!isset($cron['entries']['settings']['pbItemCron'])) {
-                $firstCron = true;
+            if(isset($cron['entries']['settings']['pbItemCron'])) {
+                $firstCron = false;
             }
         }
-
 
         foreach($resultItems->getResult() as $key => $variation) {
 
@@ -194,14 +193,9 @@ class ContentController extends Controller
         {
             $templateData = array(
                 'exportData' => $completeData,
-                'completeData' => $items
+                'completeData' => $items,
+                'firstCron' => $firstCron
             );
-            return $templateData;
-        } else {
-            $templateData = array(
-                'test' => 'test'
-            );
-
             return $templateData;
         }
     }
@@ -224,7 +218,7 @@ class ContentController extends Controller
 
             $productDetails = $this->productDetails();
 
-            if($productDetails && !empty($productDetails['exportData'])) {
+            if(!empty($productDetails['exportData'])) {
 
                 if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
 
