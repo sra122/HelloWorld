@@ -101,7 +101,7 @@ class ContentController extends Controller
 
         foreach($crons['entries'] as $cron)
         {
-            if(isset($cron['entries']['settings']['pbItemCron'])) {
+            if(isset($cron['settings']['pbItemCron'])) {
                 $firstCron = false;
             }
         }
