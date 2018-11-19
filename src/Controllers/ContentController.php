@@ -194,14 +194,14 @@ class ContentController extends Controller
         {
             $templateData = array(
                 'exportData' => $completeData,
-                'completeData' => $items,
-                'productStatus' => $this->sendProductDetails()
+                'completeData' => $items
             );
             return $templateData;
         } else {
             $templateData = array(
-              'test' => 'test'
+                'test' => 'test'
             );
+
             return $templateData;
         }
     }
@@ -251,8 +251,6 @@ class ContentController extends Controller
                     );
                     return $response;
                 }
-            } else {
-                return false;
             }
         }
     }
