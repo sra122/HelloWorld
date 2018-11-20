@@ -56,13 +56,16 @@ class OrdersController extends Controller
             'ownerId' => '',
             'plentyId' => $this->getPlentyPluginInfo(),
             'orderItems' => [
-                'typeId' => 1,
-                'itemVariationId' => 1030,
-                'quantity' => 1,
-                'orderItemName' => 'Zweisitzer Paradise Now'
+                0 => [
+                    'typeId' => 1,
+                    'itemVariationId' => 1030,
+                    'quantity' => 1,
+                    'orderItemName' => 'Zweisitzer Paradise Now'
+                ]
             ]
         ];
         $response = $ordersRepo->createOrder($data);
+
 
         return $response;
     }
