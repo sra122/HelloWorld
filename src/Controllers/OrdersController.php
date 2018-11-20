@@ -60,18 +60,18 @@ class OrdersController extends Controller
                     'typeId' => 1,
                     'itemVariationId' => 1030,
                     'quantity' => 1,
-                    'orderItemName' => 'Zweisitzer Paradise Now'
+                    'orderItemName' => 'Zweisitzer Paradise Now',
+                    'amounts' => [
+                        'isSystemCurrency' => true,
+                        'isNet' => true,
+                        'exchangeRate' => 1,
+                        'netTotal' => 1350.00,
+                        'grossTotal' => 1350.00,
+                        'vatTotal' => 1350.00,
+                        'invoiceTotal' => 1350.00
+                    ]
                 ]
             ],
-            'amounts' => [
-                'isSystemCurrency' => true,
-                'isNet' => true,
-                'exchangeRate' => 1,
-                'netTotal' => 1350.00,
-                'grossTotal' => 1350.00,
-                'vatTotal' => 1350.00,
-                'invoiceTotal' => 1350.00
-            ]
         ];
         $response = $ordersRepo->createOrder($data);
 
