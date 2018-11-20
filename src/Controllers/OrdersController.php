@@ -1,5 +1,6 @@
 <?php
 namespace HelloWorld\Controllers;
+use HelloWorld\Migrations\GetOrderReferrer;
 use Plenty\Plugin\Controller;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
@@ -85,18 +86,26 @@ class OrdersController extends Controller
             'orderStatus' => $this->getOrderStatus(),
             'plentyPluginInfo' => $this->getPlentyPluginInfo(),
             'ordersRepo' => $this->getOrders(),
-            'order' => $this->createOrder()
+            'order' => '',
+            'orderReferrer' => $this->getOrderReferrer(),
+
         ];
 
         return $test;
     }
 
 
-    public function getPlentyId()
+    public function deleteOrder()
     {
-
+        $orderId = 165;
+        $orderRepo = pluginApp(OrderRepositoryContract::class);
+        $orderRepo->deleteOrder($orderId);
     }
 
 
-
+    public function getOrderReferrer()
+    {
+        $orderReferrer = new GetOrderReferrer();
+        return $orderReferrer->run();
+    }
 }

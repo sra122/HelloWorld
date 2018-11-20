@@ -48,6 +48,8 @@ class GetOrderReferrer
             $settingsRepository->create('HelloWorld', 'property', $orderReferrer);
 
             return $orderReferrer;
+        } else {
+            return $pandaBlackReferrerID;
         }
 
     }
