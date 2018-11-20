@@ -62,13 +62,15 @@ class OrdersController extends Controller
                     'quantity' => 1,
                     'orderItemName' => 'Zweisitzer Paradise Now',
                     'amounts' => [
-                        'isSystemCurrency' => true,
-                        'isNet' => true,
-                        'exchangeRate' => 1,
-                        'netTotal' => 1350.00,
-                        'grossTotal' => 1350.00,
-                        'vatTotal' => 1350.00,
-                        'invoiceTotal' => 1350.00
+                        0 => [
+                            'isSystemCurrency' => true,
+                            'isNet' => true,
+                            'exchangeRate' => 1,
+                            'netTotal' => 1350.00,
+                            'grossTotal' => 1350.00,
+                            'vatTotal' => 1350.00,
+                            'invoiceTotal' => 1350.00
+                        ]
                     ]
                 ]
             ],
