@@ -72,19 +72,17 @@ class OrdersController extends Controller
                     ]
                 ]
             ],
-            'addresses' => [
-                0 => [
-                    'gender' => 'male', //'female'
-                    'name1' => 'iways',
-                    'name2' => 'Sravan',
-                    'name3' => 'Kumar',
-                    'companyName' => 'Iways',
-                    'address1' => 'Kurfürstendamm',
-                    'address2' => '125A',
-                    'postalCode' => '10711',
-                    'town' => 'Berlin',
-                    'countryId' => 1
-                ]
+            'deliveryAddress' => [
+                'gender' => 'male', //'female'
+                'name1' => 'iways',
+                'name2' => 'Sravan',
+                'name3' => 'Kumar',
+                'companyName' => 'Iways',
+                'address1' => 'Kurfürstendamm',
+                'address2' => '125A',
+                'postalCode' => '10711',
+                'town' => 'Berlin',
+                'countryId' => 1
             ]
         ];
         $response = $ordersRepo->createOrder($data);
@@ -102,7 +100,7 @@ class OrdersController extends Controller
             'ordersRepo' => $this->getOrders(),
             'order' => $this->createOrder(),
             'orderReferrer' => $this->getOrderReferrer(),
-            'deleteOrder' => ''
+            'deleteOrder' => $this->deleteOrder()
         ];
 
         return $test;
@@ -111,7 +109,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 163;
+        $orderId = 166;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
@@ -127,7 +125,7 @@ class OrdersController extends Controller
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
             if(trim($orderReferrerList->name) === 'PandaBlack') {
-                $pandaBlackReferrerID[$key] = $orderReferrerList->name;
+                $pandaBlackReferrerID[$key] = $orderReferrerList->id;
             }
         }
 
