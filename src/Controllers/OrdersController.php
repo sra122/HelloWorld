@@ -69,7 +69,8 @@ class OrdersController extends Controller
                             'netTotal' => 1350.00,
                             'grossTotal' => 1350.00,
                             'vatTotal' => 1350.00,
-                            'invoiceTotal' => 1350.00
+                            'invoiceTotal' => 1350.00,
+                            'currency' => 'EUR'
                         ]
                     ]
                 ]
@@ -92,6 +93,12 @@ class OrdersController extends Controller
         ];
 
         return $test;
+    }
+
+
+    public function getPlentyId()
+    {
+
     }
 
 
