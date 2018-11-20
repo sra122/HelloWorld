@@ -125,7 +125,7 @@ class OrdersController extends Controller
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
             if(trim($orderReferrerList->name) === 'PandaBlack') {
-                $pandaBlackReferrerID[$key] = $orderReferrerList->id;
+                $pandaBlackReferrerID[$key] = $orderReferrerList;
             }
         }
 

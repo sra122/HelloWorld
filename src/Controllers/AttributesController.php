@@ -72,7 +72,6 @@ class AttributesController extends Controller
             }
         }
 
-
         $response = $settingsRepo->create('HelloWorld', 'attribute', $data);
 
         return $response->id;
