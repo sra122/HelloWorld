@@ -58,18 +58,14 @@ class OrdersController extends Controller
             'orderItems' => [
                 0 => [
                     'typeId' => 1,
-                    'itemVariationId' => 1030,
+                    'itemVariationId' => 1031,
                     'quantity' => 1,
-                    'orderItemName' => 'Zweisitzer Paradise Now',
+                    'orderItemName' => 'Zweisitzer White Russian',
                     'amounts' => [
                         0 => [
                             'isSystemCurrency' => true,
                             'isNet' => true,
                             'exchangeRate' => 1,
-                            'netTotal' => 1350.00,
-                            'grossTotal' => 1350.00,
-                            'vatTotal' => 1350.00,
-                            'invoiceTotal' => 1350.00,
                             'currency' => 'EUR'
                         ]
                     ]
