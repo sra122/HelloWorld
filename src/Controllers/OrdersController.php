@@ -100,7 +100,7 @@ class OrdersController extends Controller
             'orderStatus' => $this->getOrderStatus(),
             'plentyPluginInfo' => $this->getPlentyPluginInfo(),
             'ordersRepo' => $this->getOrders(),
-            'order' => '',
+            'order' => $this->createOrder(),
             'orderReferrer' => $this->getOrderReferrer(),
             'deleteOrder' => ''
         ];
