@@ -212,35 +212,39 @@ class ContentController extends Controller
 
         foreach($properties as $key => $property) {
 
-            $productDetails = $this->productDetails();
+            if(isset($property->settings['Token'])) {
 
-            if(!empty($productDetails['exportData'])) {
+                $productDetails = $this->productDetails();
 
-                if(isset($property->settings['Token']) && ($property->settings['Token']['expires_in'] > time())) {
+                if(!empty($productDetails['exportData'])) {
 
-                    $this->saveCronTime();
+                    if($property->settings['Token']['expires_in'] > time()) {
 
-                    $response = $libCall->call(
-                        'HelloWorld::products_to_pandablack',
-                        [
-                            'token' => $property->settings['Token']['token'],
-                            'product_details' => $productDetails
-                        ]
-                    );
-                    return $response;
-                } else if(isset($property->settings['Token']) && ($property->settings['Token']['refresh_token_expires_in'] > time())) {
+                        $this->saveCronTime();
 
-                    $this->saveCronTime();
+                        $response = $libCall->call(
+                            'HelloWorld::products_to_pandablack',
+                            [
+                                'token' => $property->settings['Token']['token'],
+                                'product_details' => $productDetails
+                            ]
+                        );
+                        return $response;
+                    } else if($property->settings['Token']['refresh_token_expires_in'] > time()) {
 
-                    $response = $libCall->call(
-                        'HelloWorld::products_to_pandablack',
-                        [
-                            'token' => $property->settings['Token']['refresh_token'],
-                            'product_details' => $productDetails
-                        ]
-                    );
-                    return $response;
+                        $this->saveCronTime();
+
+                        $response = $libCall->call(
+                            'HelloWorld::products_to_pandablack',
+                            [
+                                'token' => $property->settings['Token']['refresh_token'],
+                                'product_details' => $productDetails
+                            ]
+                        );
+                        return $response;
+                    }
                 }
+                break;
             }
         }
     }
