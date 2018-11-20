@@ -72,6 +72,20 @@ class OrdersController extends Controller
                     ]
                 ]
             ],
+            'addresses' => [
+                0 => [
+                    'gender' => 'male', //'female'
+                    'name1' => 'iways',
+                    'name2' => 'Sravan',
+                    'name3' => 'Kumar',
+                    'companyName' => 'Iways',
+                    'address1' => 'Kurfürstendamm',
+                    'address2' => '125A',
+                    'postalCode' => '10711',
+                    'town' => 'Berlin',
+                    'countryId' => 1
+                ]
+            ]
         ];
         $response = $ordersRepo->createOrder($data);
 
@@ -88,7 +102,7 @@ class OrdersController extends Controller
             'ordersRepo' => $this->getOrders(),
             'order' => '',
             'orderReferrer' => $this->getOrderReferrer(),
-            'deleteOrder' => $this->deleteOrder()
+            'deleteOrder' => ''
         ];
 
         return $test;
@@ -97,7 +111,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 164;
+        $orderId = 163;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
