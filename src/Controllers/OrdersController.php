@@ -1,6 +1,6 @@
 <?php
 namespace HelloWorld\Controllers;
-use HelloWorld\Migrations\GetOrderReferrer;
+use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Plugin\Controller;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
@@ -105,7 +105,19 @@ class OrdersController extends Controller
 
     public function getOrderReferrer()
     {
-        $orderReferrer = new GetOrderReferrer();
-        return $orderReferrer->run();
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name']);
+
+        $pandaBlackReferrerID = [];
+
+        foreach($orderReferrerLists as $key => $orderReferrerList)
+        {
+            if(trim($orderReferrerList->name) === 'PandaBlack') {
+                array_push($pandaBlackReferrerID, $orderReferrerList);
+            }
+        }
+
+        return $pandaBlackReferrerID;
+
     }
 }
