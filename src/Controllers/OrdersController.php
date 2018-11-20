@@ -97,7 +97,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 165;
+        $orderId = 164;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
@@ -113,7 +113,7 @@ class OrdersController extends Controller
         foreach($orderReferrerLists as $key => $orderReferrerList)
         {
             if(trim($orderReferrerList->name) === 'PandaBlack') {
-                array_push($pandaBlackReferrerID, $orderReferrerList);
+                $pandaBlackReferrerID[$key] = $orderReferrerList->name;
             }
         }
 
