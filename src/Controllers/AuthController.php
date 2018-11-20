@@ -14,6 +14,15 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 class AuthController extends Controller
 {
 
+    public $properties;
+
+    public function getProperties()
+    {
+        $propertiesExtraction = new CategoryController();
+        $properties = $propertiesExtraction->getProperties();
+        $this->properties = $properties;
+    }
+
     /**
      * @param WebstoreHelper $webstoreHelper
      * @return array
@@ -39,6 +48,7 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, LibraryCallContract $libCall)
     {
         try {
+            $this->getProperties();
             $this->createReferrerId();
             $sessionCheck = $this->sessionCheck();
             if($sessionCheck) {
@@ -66,7 +76,7 @@ class AuthController extends Controller
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $properties = $settingsRepo->find('HelloWorld', 'property');
+        $properties = $this->properties;
 
         $tokenDetails = [];
 
@@ -114,7 +124,7 @@ class AuthController extends Controller
     public function sessionCreation()
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsRepo->find('HelloWorld', 'property');
+        $properties = $this->properties;
 
         $sessionValues = [];
 
@@ -159,8 +169,7 @@ class AuthController extends Controller
      */
     public function sessionCheck()
     {
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsRepo->find('HelloWorld', 'property');
+        $properties = $this->properties;
 
         $sessionValues = [];
 
@@ -190,9 +199,7 @@ class AuthController extends Controller
      */
     public function tokenExpireTime()
     {
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-
-        $properties = $settingsRepo->find('HelloWorld', 'property');
+        $properties = $this->properties;
 
         $tokenDetails = [];
 

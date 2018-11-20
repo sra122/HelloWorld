@@ -205,11 +205,10 @@ class ContentController extends Controller
      */
     public function sendProductDetails()
     {
-        $settingRepo = pluginApp(SettingsRepositoryContract::class);
         $libCall = pluginApp(LibraryCallContract::class);
 
-
-        $properties = $settingRepo->find('HelloWorld', 'property');
+        $propertiesExtraction = new CategoryController();
+        $properties = $propertiesExtraction->getProperties();
 
         foreach($properties as $key => $property) {
 
