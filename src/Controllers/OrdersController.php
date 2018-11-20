@@ -64,15 +64,13 @@ class OrdersController extends Controller
                 ]
             ],
             'amounts' => [
-                0 => [
-                    'isSystemCurrency' => true,
-                    'isNet' => true,
-                    'exchangeRate' => 1,
-                    'netTotal' => 1350.00,
-                    'grossTotal' => 1350.00,
-                    'vatTotal' => 1350.00,
-                    'invoiceTotal' => 1350.00
-                ]
+                'isSystemCurrency' => true,
+                'isNet' => true,
+                'exchangeRate' => 1,
+                'netTotal' => 1350.00,
+                'grossTotal' => 1350.00,
+                'vatTotal' => 1350.00,
+                'invoiceTotal' => 1350.00
             ]
         ];
         $response = $ordersRepo->createOrder($data);
