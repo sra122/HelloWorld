@@ -88,7 +88,7 @@ class OrdersController extends Controller
             'ordersRepo' => $this->getOrders(),
             'order' => '',
             'orderReferrer' => $this->getOrderReferrer(),
-
+            'deleteOrder' => $this->deleteOrder()
         ];
 
         return $test;
@@ -99,7 +99,7 @@ class OrdersController extends Controller
     {
         $orderId = 165;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
-        $orderRepo->deleteOrder($orderId);
+        return $orderRepo->deleteOrder($orderId);
     }
 
 
