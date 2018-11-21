@@ -158,6 +158,7 @@ class OrdersController extends Controller
 
     public function deleteProperties()
     {
+        $this->getProperties();
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $this->properties;
 
