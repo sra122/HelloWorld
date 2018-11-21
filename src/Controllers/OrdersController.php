@@ -122,9 +122,8 @@ class OrdersController extends Controller
             'orderStatus' => $this->getOrderStatus(),
             'plentyPluginInfo' => $this->getPlentyPluginInfo(),
             'ordersRepo' => $this->getOrders(),
-            'order' => $this->createOrder(),
+            'order' => '',//$this->createOrder(),
             'orderReferrer' => $this->getOrderReferrer(),
-            'deleteProperties' => $this->deleteProperties()
         ];
 
         return $test;
@@ -133,7 +132,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 168;
+        $orderId = 174;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
@@ -153,36 +152,5 @@ class OrdersController extends Controller
         }
 
         return $pandaBlackReferrerID;
-    }
-
-
-    public function deleteProperties()
-    {
-        $this->getProperties();
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $this->properties;
-
-        $sessionValues = [];
-
-        foreach($properties as $key => $property)
-        {
-            if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
-                $sessionValues[$property->id] = $property->settings['sessionTime'];
-            }
-        }
-
-        // Removing if any Extra Session Properties are created
-        if(count($sessionValues) > 1) {
-            $sessionCount = 0;
-            foreach($sessionValues as $key => $sessionValue)
-            {
-                $sessionCount++;
-                if($sessionCount > 1) {
-                    $settingsRepo->delete($key);
-                }
-            }
-        }
-
-        return $sessionValues;
     }
 }
