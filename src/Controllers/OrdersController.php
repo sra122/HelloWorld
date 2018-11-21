@@ -113,7 +113,6 @@ class OrdersController extends Controller
             'ordersRepo' => $this->getOrders(),
             'order' => $this->createOrder(),
             'orderReferrer' => $this->getOrderReferrer(),
-            'deleteOrder' => $this->deleteOrder(),
             'deleteProperties' => $this->deleteProperties()
         ];
 
@@ -151,15 +150,15 @@ class OrdersController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
+        $sessionTime = [];
+
         foreach($properties as $property)
         {
-            if(isset($property->settings['Token']) && $property->settings['Token'] === null) {
-                $settingsRepo->delete($property->id);
-            }
-
-            if(isset($property->settings['pbItemCron']) && $property->settings['pbItemCron']['pastCronTime'] === null) {
-                $settingsRepo->delete($property->id);
+            if(isset($property->settings['sessionTime'])) {
+                $sessionTime[$property->id] = $property->settings['sessionTime'];
             }
         }
+
+        return $sessionTime;
     }
 }

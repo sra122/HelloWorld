@@ -174,7 +174,7 @@ class AuthController extends Controller
 
         $sessionValues = [];
 
-        foreach($properties as $key => $property)
+        foreach($properties as $property)
         {
             if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
                 $sessionValues[$property->id] = $property->settings['sessionTime'];
