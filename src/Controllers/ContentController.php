@@ -210,8 +210,8 @@ class ContentController extends Controller
         $propertiesExtraction = new CategoryController();
         $properties = $propertiesExtraction->getProperties();
 
-        foreach($properties as $key => $property) {
-
+        foreach($properties as $key => $property)
+        {
             if(isset($property->settings['Token'])) {
 
                 $productDetails = $this->productDetails();
