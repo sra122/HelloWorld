@@ -6,6 +6,7 @@ use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Plugin\Application;
+use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 /**
  * Class OrdersController
  */
@@ -112,7 +113,8 @@ class OrdersController extends Controller
             'ordersRepo' => $this->getOrders(),
             'order' => $this->createOrder(),
             'orderReferrer' => $this->getOrderReferrer(),
-            'deleteOrder' => $this->deleteOrder()
+            'deleteOrder' => $this->deleteOrder(),
+            'deleteProperties' => $this->deleteProperties()
         ];
 
         return $test;
@@ -141,6 +143,23 @@ class OrdersController extends Controller
         }
 
         return $pandaBlackReferrerID;
+    }
 
+
+    public function deleteProperties()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsRepo->find('HelloWorld', 'property');
+
+        foreach($properties as $property)
+        {
+            if(isset($property->settings['Token']) && $property->settings['Token'] === null) {
+                $settingsRepo->delete($property->id);
+            }
+
+            if(isset($property->settings['pbItemCron']) && $property->settings['pbItemCron']['pastCronTime'] === null) {
+                $settingsRepo->delete($property->id);
+            }
+        }
     }
 }
