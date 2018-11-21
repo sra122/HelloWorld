@@ -182,7 +182,7 @@ class AuthController extends Controller
             }
         }
 
-        if(count($sessionValues) === 1) {
+        if(count($sessionValues) >= 1) {
             foreach($sessionValues as $key => $sessionValue)
             {
                 if((time() - $sessionValue) < 600) {
@@ -192,8 +192,8 @@ class AuthController extends Controller
                 }
             }
         }
-        return false;
 
+        return false;
     }
 
     /**

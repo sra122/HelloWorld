@@ -150,15 +150,27 @@ class OrdersController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $settingsRepo->find('HelloWorld', 'property');
 
-        $sessionTime = [];
+        $sessionValues = [];
 
         foreach($properties as $property)
         {
-            if(isset($property->settings['sessionTime'])) {
-                $sessionTime[$property->id] = $property->settings['sessionTime'];
+            if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
+                $sessionValues[$property->id] = $property->settings['sessionTime'];
+                break;
             }
         }
 
-        return $sessionTime;
+        if(count($sessionValues) === 1) {
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                if((time() - $sessionValue) < 600) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        return 'test';
     }
 }
