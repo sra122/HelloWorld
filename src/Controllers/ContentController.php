@@ -25,6 +25,7 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositoryContract;
 use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
 use Plenty\Modules\Item\Manufacturer\Contracts\ManufacturerRepositoryContract;
+use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -95,13 +96,15 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
-        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
+        $credentialRepo = pluginApp(CredentialsRepositoryContract::class);
+
+        $crons = $credentialRepo->all(['market' => 'HelloWorld']);
 
         $firstCron = true;
 
-        foreach($crons['entries'] as $cron)
+        foreach($crons as $cron)
         {
-            if(isset($cron['settings']['pbItemCron'])) {
+            if(isset($cron->data['pbItemCron'])) {
                 $firstCron = false;
                 break;
             }
@@ -209,37 +212,37 @@ class ContentController extends Controller
     {
         $libCall = pluginApp(LibraryCallContract::class);
 
-        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
+        $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
+        $credentials = $credentialsRepo->all(['market' => 'HelloWorld']);
 
-        foreach($properties as $key => $property)
+        foreach($credentials as $key => $credential)
         {
-            if(isset($property->settings['Token'])) {
+            if(isset($credential->data['pbToken'])) {
 
                 $productDetails = $this->productDetails();
 
                 if(!empty($productDetails['exportData'])) {
 
-                    if($property->settings['Token']['expires_in'] > time()) {
+                    if($credential->data['pbToken']['expires_in'] > time()) {
 
                         $this->saveCronTime();
 
                         $response = $libCall->call(
                             'HelloWorld::products_to_pandablack',
                             [
-                                'token' => $property->settings['Token']['token'],
+                                'token' => $credential->data['pbToken']['token'],
                                 'product_details' => $productDetails
                             ]
                         );
                         return $response;
-                    } else if($property->settings['Token']['refresh_token_expires_in'] > time()) {
+                    } else if($credential->data['pbToken']['refresh_token_expires_in'] > time()) {
 
                         $this->saveCronTime();
 
                         $response = $libCall->call(
                             'HelloWorld::products_to_pandablack',
                             [
-                                'token' => $property->settings['Token']['refresh_token'],
+                                'token' => $credential->data['pbToken']['refresh_token'],
                                 'product_details' => $productDetails
                             ]
                         );
@@ -256,19 +259,27 @@ class ContentController extends Controller
      */
     public function saveCronTime()
     {
-        $settingRepo = pluginApp(SettingsRepositoryContract::class);
+        $credentialRepo = pluginApp(CredentialsRepositoryContract::class);
 
-        $crons = $settingRepo->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
+        $crons = $credentialRepo->all(['market' => 'HelloWorld']);
 
-        foreach($crons['entries'] as $key => $cron) {
-            if(isset($cron['settings']['pbItemCron'])) {
+        foreach($crons as $key => $cron) {
+            if(isset($cron['data']['pbItemCron'])) {
                     $cronData = [
                         'pbItemCron' => [
                             'pastCronTime' => $cron['settings']['pbItemCron']['presentCronTime'],
                             'presentCronTime' => time()
                         ]
                     ];
-                    $response = $settingRepo->update($cronData, $key);
+
+                    $data = [
+                        'environment' => 'sandbox',
+                        'status' => 'active',
+                        'data' => $cronData,
+                        'market' => 'HelloWorld'
+                    ];
+
+                    $response = $credentialRepo->update($cron->id, $data);
                     return $response;
             }
         }
@@ -280,8 +291,25 @@ class ContentController extends Controller
             ]
         ];
 
-        $response = $settingRepo->create('HelloWorld', 'property', $cronData);
+        $data = [
+            'environment' => 'sandbox',
+            'status' => 'active',
+            'data' => $cronData,
+            'market' => 'HelloWorld'
+        ];
+
+        $response = $credentialRepo->create($data);
 
         return $response;
     }
+
+    public function getCredentials()
+    {
+        $credentialRepo = pluginApp(CredentialsRepositoryContract::class);
+
+        $crons = $credentialRepo->all(['market' => 'HelloWorld']);
+
+        return $crons;
+    }
+
 }

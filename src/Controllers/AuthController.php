@@ -10,18 +10,25 @@ use Plenty\Modules\System\Models\WebstoreConfiguration;
 use Plenty\Modules\Helper\Services\WebstoreHelper;
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
+use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 
 class AuthController extends Controller
 {
 
-    public $properties;
+    public $pluginCredentials;
 
-    public function getProperties()
+    /**
+     *
+     */
+    public function getCredentials()
     {
-        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
+        $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
 
-        $this->properties = $properties;
+        $pluginCredentials = $credentialsRepo->all([
+                                       'market' => 'HelloWorld'
+                                    ]);
+
+        $this->pluginCredentials = $pluginCredentials;
     }
 
     /**
@@ -49,7 +56,7 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, LibraryCallContract $libCall)
     {
         try {
-            $this->getProperties(); // To get the properties.
+            $this->getCredentials();
             $this->createReferrerId();
             $sessionCheck = $this->sessionCheck();
             if($sessionCheck) {
@@ -75,16 +82,16 @@ class AuthController extends Controller
      */
     public function tokenStorage($tokenInformation)
     {
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
 
-        $this->getProperties();
+        $this->getCredentials();
 
         $tokenDetails = [];
 
-        foreach($this->properties as $key => $property)
+        foreach($this->pluginCredentials as $key => $pluginCredential)
         {
-            if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
-                $tokenDetails[$property->id] = $property->settings['Token'];
+            if(isset($pluginCredential->data['pbToken']) && count($tokenDetails) === 0) {
+                $tokenDetails[$pluginCredential->id] = $pluginCredential->data['pbToken'];
             }
         }
 
@@ -95,7 +102,7 @@ class AuthController extends Controller
             {
                 $tokenCount++;
                 if($tokenCount > 1) {
-                    $settingsRepo->delete($key);
+                    $credentialsRepo->delete($key);
                 }
             }
         }
@@ -103,16 +110,24 @@ class AuthController extends Controller
         $tokenInformation['Response']['expires_in'] = time() + $tokenInformation['Response']['expires_in'];
         $tokenInformation['Response']['refresh_token_expires_in'] = time() + $tokenInformation['Response']['refresh_token_expires_in'];
 
-        $data = [
-            'Token' => $tokenInformation['Response']
+        $token = [
+            'pbToken' => $tokenInformation['Response']
         ];
 
+        $data = [
+            'environment' => 'sandbox',
+            'status' => 'active',
+            'data' => $token,
+            'market' => 'HelloWorld'
+        ];
+
+
         if(count($tokenDetails) === 0) {
-            $settingsRepo->create('HelloWorld', 'property', $data);
+            $credentialsRepo->create($data);
         } else {
             foreach($tokenDetails as $key => $tokenDetail)
             {
-                $settingsRepo->update($data, $key);
+                $credentialsRepo->update($key, $data);
             }
         }
     }
@@ -124,19 +139,26 @@ class AuthController extends Controller
      */
     public function sessionCreation()
     {
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
         $sessionValues = [];
         $this->getProperties();
 
-        foreach($this->properties as $key => $property)
+        foreach($this->pluginCredentials as $key => $pluginCredential)
         {
-           if(isset($property->settings['sessionTime'])) {
-               $sessionValues[$property->id] = $property->settings['sessionTime'];
+           if(isset($pluginCredential->data['sessionTime'])) {
+               $sessionValues[$pluginCredential->id] = $pluginCredential->data['sessionTime'];
            }
         }
 
         $time = [
             'sessionTime' => time()
+        ];
+
+        $data = [
+            'environment' => 'sandbox',
+            'status' => 'active',
+            'data' => $time,
+            'market' => 'HelloWorld'
         ];
 
         // Removing if any Extra Session Properties are created
@@ -146,7 +168,7 @@ class AuthController extends Controller
             {
                 $sessionCount++;
                 if($sessionCount > 1) {
-                    $settingsRepo->delete($key);
+                    $credentialsRepo->delete($key);
                 }
             }
         }
@@ -155,12 +177,13 @@ class AuthController extends Controller
             foreach($sessionValues as $key => $sessionValue)
             {
                 if((time() - $sessionValue) > 600) {
-                    $sessionUpdate = $settingsRepo->update($time, $key);
+
+                    $sessionUpdate = $credentialsRepo->update($key, $data);
                     return $sessionUpdate;
                 }
             }
         } else {
-            $response = $settingsRepo->create('HelloWorld', 'property', $time);
+            $response = $credentialsRepo->create($data);
             return $response;
         }
     }
@@ -170,14 +193,14 @@ class AuthController extends Controller
      */
     public function sessionCheck()
     {
-        $this->getProperties();
+        $this->getCredentials();
 
         $sessionValues = [];
 
-        foreach($this->properties as $property)
+        foreach($this->pluginCredentials as $pluginCredential)
         {
-            if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
-                $sessionValues[$property->id] = $property->settings['sessionTime'];
+            if(isset($pluginCredential->data['sessionTime']) && count($sessionValues) === 0) {
+                $sessionValues[$pluginCredential->id] = $pluginCredential->data['sessionTime'];
                 break;
             }
         }
@@ -201,14 +224,14 @@ class AuthController extends Controller
      */
     public function tokenExpireTime()
     {
-        $this->getProperties();
+        $this->getCredentials();
 
         $tokenDetails = [];
 
-        foreach($this->properties as $key => $property)
+        foreach($this->pluginCredentials as $key => $pluginCredential)
         {
-            if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
-                $tokenDetails[$property->id] = $property->settings['Token']['expires_in'];
+            if(isset($pluginCredential->data['pbToken']) && count($tokenDetails) === 0) {
+                $tokenDetails[$pluginCredential->id] = $pluginCredential->data['pbToken']['expires_in'];
             }
         }
 
@@ -222,7 +245,7 @@ class AuthController extends Controller
     public function createReferrerId()
     {
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
-        $orderReferrerLists = $orderReferrerRepo->getList(['name']);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name', 'id']);
 
         $pandaBlackReferrerID = [];
 
