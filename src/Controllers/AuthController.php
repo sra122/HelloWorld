@@ -139,19 +139,6 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
-
-        // Removing if any Extra Session Properties are created
-        if(count($sessionValues) > 1) {
-            $sessionCount = 0;
-            foreach($sessionValues as $key => $sessionValue)
-            {
-                $sessionCount++;
-                if($sessionCount > 1) {
-                    $settingsRepo->delete($key);
-                }
-            }
-        }
-
         return $sessionValues;
 
         /*if(count($sessionValues) > 0) {
