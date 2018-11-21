@@ -207,8 +207,8 @@ class ContentController extends Controller
     {
         $libCall = pluginApp(LibraryCallContract::class);
 
-        $propertiesExtraction = new CategoryController();
-        $properties = $propertiesExtraction->getProperties();
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
 
         foreach($properties as $key => $property)
         {

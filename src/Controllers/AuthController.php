@@ -18,8 +18,9 @@ class AuthController extends Controller
 
     public function getProperties()
     {
-        $propertiesExtraction = new CategoryController();
-        $properties = $propertiesExtraction->getProperties();
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
+
         $this->properties = $properties;
     }
 
