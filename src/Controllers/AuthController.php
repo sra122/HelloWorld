@@ -126,6 +126,7 @@ class AuthController extends Controller
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
+        $this->getProperties();
         $sessionValues = [];
 
         foreach($this->properties as $key => $property)
@@ -138,6 +139,19 @@ class AuthController extends Controller
         $time = [
             'sessionTime' => time()
         ];
+
+
+        // Removing if any Extra Session Properties are created
+        if(count($sessionValues) > 1) {
+            $sessionCount = 0;
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                $sessionCount++;
+                if($sessionCount > 1) {
+                    $settingsRepo->delete($key);
+                }
+            }
+        }
 
         return $sessionValues;
 
