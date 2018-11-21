@@ -140,9 +140,10 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
+        return count($sessionValues);
 
         // Removing if any Extra Session Properties are created
-        if(count($sessionValues) > 1) {
+        /*if(count($sessionValues) > 1) {
             $sessionCount = 0;
             foreach($sessionValues as $key => $sessionValue)
             {
@@ -153,7 +154,7 @@ class AuthController extends Controller
             }
         }
 
-        return count($sessionValues);
+
 
         /*if(count($sessionValues) > 0) {
             foreach($sessionValues as $key => $sessionValue)
