@@ -12,6 +12,17 @@ use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
  */
 class OrdersController extends Controller
 {
+
+    public $properties;
+
+    public function getProperties()
+    {
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
+
+        $this->properties = $properties;
+    }
+
     public function getAllPaymentMethods()
     {
         $paymentRepo = pluginApp(PaymentMethodRepositoryContract::class);
@@ -148,29 +159,43 @@ class OrdersController extends Controller
     public function deleteProperties()
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsRepo->find('HelloWorld', 'property');
+        $properties = $this->properties;
 
         $sessionValues = [];
 
-        foreach($properties as $property)
+        foreach($properties as $key => $property)
         {
             if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
                 $sessionValues[$property->id] = $property->settings['sessionTime'];
-                break;
             }
         }
 
-        if(count($sessionValues) === 1) {
+        $time = [
+            'sessionTime' => time()
+        ];
+
+        // Removing if any Extra Session Properties are created
+        if(count($sessionValues) > 1) {
+            $sessionCount = 0;
             foreach($sessionValues as $key => $sessionValue)
             {
-                if((time() - $sessionValue) < 600) {
-                    return true;
-                } else {
-                    return false;
+                $sessionCount++;
+                if($sessionCount > 1) {
+                    $settingsRepo->delete($key);
                 }
             }
         }
 
-        return 'test';
+        if(count($sessionValues) === 0) {
+            $response = $settingsRepo->create('HelloWorld', 'property', $time);
+            return $response;
+        } else {
+            foreach($sessionValues as $key => $sessionValue)
+            {
+                if((time() - $sessionValue) > 600) {
+                    $settingsRepo->update($time, $key);
+                }
+            }
+        }
     }
 }
