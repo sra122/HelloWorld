@@ -126,6 +126,7 @@ class AuthController extends Controller
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $sessionValues = [];
+        $this->getProperties();
 
         foreach($this->properties as $key => $property)
         {
