@@ -141,7 +141,7 @@ class AuthController extends Controller
     {
         $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
         $sessionValues = [];
-        $this->getProperties();
+        $this->getCredentials();
 
         foreach($this->pluginCredentials as $key => $pluginCredential)
         {
