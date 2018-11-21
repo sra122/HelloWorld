@@ -49,7 +49,7 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, LibraryCallContract $libCall)
     {
         try {
-            $this->getProperties();
+            //$this->getProperties();
             $this->createReferrerId();
             $sessionCheck = $this->sessionCheck();
             if($sessionCheck) {
