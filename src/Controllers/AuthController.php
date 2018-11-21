@@ -77,11 +77,11 @@ class AuthController extends Controller
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
 
-        $properties = $this->properties;
+        $this->getProperties();
 
         $tokenDetails = [];
 
-        foreach($properties as $key => $property)
+        foreach($this->properties as $key => $property)
         {
             if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
                 $tokenDetails[$property->id] = $property->settings['Token'];
@@ -170,11 +170,11 @@ class AuthController extends Controller
      */
     public function sessionCheck()
     {
-        $properties = $this->properties;
+        $this->getProperties();
 
         $sessionValues = [];
 
-        foreach($properties as $property)
+        foreach($this->properties as $property)
         {
             if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
                 $sessionValues[$property->id] = $property->settings['sessionTime'];
@@ -201,11 +201,11 @@ class AuthController extends Controller
      */
     public function tokenExpireTime()
     {
-        $properties = $this->properties;
+        $this->getProperties();
 
         $tokenDetails = [];
 
-        foreach($properties as $key => $property)
+        foreach($this->properties as $key => $property)
         {
             if(isset($property->settings['Token']) && count($tokenDetails) === 0) {
                 $tokenDetails[$property->id] = $property->settings['Token']['expires_in'];
