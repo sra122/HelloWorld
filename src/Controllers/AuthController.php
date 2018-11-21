@@ -125,11 +125,11 @@ class AuthController extends Controller
     public function sessionCreation()
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $this->properties;
+        $this->getProperties();
 
         $sessionValues = [];
 
-        foreach($properties as $key => $property)
+        foreach($this->properties as $key => $property)
         {
            if(isset($property->settings['sessionTime'])) {
                $sessionValues[$property->id] = $property->settings['sessionTime'];
@@ -140,8 +140,10 @@ class AuthController extends Controller
             'sessionTime' => time()
         ];
 
+        return $sessionValues;
+
         // Removing if any Extra Session Properties are created
-        if(count($sessionValues) > 1) {
+        /*if(count($sessionValues) > 1) {
             $sessionCount = 0;
             foreach($sessionValues as $key => $sessionValue)
             {
@@ -163,7 +165,7 @@ class AuthController extends Controller
         } else {
             $response = $settingsRepo->create('HelloWorld', 'property', $time);
             return $response;
-        }
+        }*/
     }
 
     /**

@@ -12,17 +12,6 @@ use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
  */
 class OrdersController extends Controller
 {
-
-    public $properties;
-
-    public function getProperties()
-    {
-        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
-        $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
-
-        $this->properties = $properties;
-    }
-
     public function getAllPaymentMethods()
     {
         $paymentRepo = pluginApp(PaymentMethodRepositoryContract::class);
@@ -132,7 +121,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 174;
+        $orderId = 173;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
