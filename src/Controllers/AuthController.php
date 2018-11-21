@@ -150,9 +150,9 @@ class AuthController extends Controller
                     $settingsRepo->delete($key);
                 }
             }
-
-            return $sessionValues;
         }
+
+        return count($sessionValues);
 
         /*if(count($sessionValues) > 0) {
             foreach($sessionValues as $key => $sessionValue)
