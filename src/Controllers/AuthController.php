@@ -178,6 +178,7 @@ class AuthController extends Controller
         {
             if(isset($property->settings['sessionTime']) && count($sessionValues) === 0) {
                 $sessionValues[$property->id] = $property->settings['sessionTime'];
+                break;
             }
         }
 

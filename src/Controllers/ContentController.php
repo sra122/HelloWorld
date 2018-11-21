@@ -95,7 +95,7 @@ class ContentController extends Controller
             $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
         }
 
-        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
+        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property']);
 
         $firstCron = true;
 
@@ -103,6 +103,7 @@ class ContentController extends Controller
         {
             if(isset($cron['settings']['pbItemCron'])) {
                 $firstCron = false;
+                break;
             }
         }
 
@@ -191,7 +192,8 @@ class ContentController extends Controller
 
         $templateData = array(
             'exportData' => $completeData,
-            'completeData' => $items
+            'completeData' => $items,
+            'crons' => $crons
         );
         return $templateData;
 

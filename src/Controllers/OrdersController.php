@@ -72,8 +72,20 @@ class OrdersController extends Controller
                     ]
                 ]
             ],
+            'billingAddress' => [
+                'gender' => 'male',
+                'name1' => 'iways',
+                'name2' => 'Sravan',
+                'name3' => 'Kumar',
+                'companyName' => 'Iways',
+                'address1' => 'Kurfürstendamm',
+                'address2' => '125A',
+                'postalCode' => '10711',
+                'town' => 'Berlin',
+                'countryId' => 1
+            ],
             'deliveryAddress' => [
-                'gender' => 'male', //'female'
+                'gender' => 'male',
                 'name1' => 'iways',
                 'name2' => 'Sravan',
                 'name3' => 'Kumar',
@@ -109,7 +121,7 @@ class OrdersController extends Controller
 
     public function deleteOrder()
     {
-        $orderId = 166;
+        $orderId = 168;
         $orderRepo = pluginApp(OrderRepositoryContract::class);
         return $orderRepo->deleteOrder($orderId);
     }
@@ -119,7 +131,6 @@ class OrdersController extends Controller
     {
         $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
         $orderReferrerLists = $orderReferrerRepo->getList(['name']);
-
         $pandaBlackReferrerID = [];
 
         foreach($orderReferrerLists as $key => $orderReferrerList)
