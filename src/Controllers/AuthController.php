@@ -152,7 +152,7 @@ class AuthController extends Controller
             }
         }
 
-        return count($sessionValues);
+        return $sessionValues;
 
         /*if(count($sessionValues) > 0) {
             foreach($sessionValues as $key => $sessionValue)
