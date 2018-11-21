@@ -171,10 +171,6 @@ class OrdersController extends Controller
             }
         }
 
-        $time = [
-            'sessionTime' => time()
-        ];
-
         // Removing if any Extra Session Properties are created
         if(count($sessionValues) > 1) {
             $sessionCount = 0;
@@ -187,16 +183,6 @@ class OrdersController extends Controller
             }
         }
 
-        if(count($sessionValues) === 0) {
-            $response = $settingsRepo->create('HelloWorld', 'property', $time);
-            return $response;
-        } else {
-            foreach($sessionValues as $key => $sessionValue)
-            {
-                if((time() - $sessionValue) > 600) {
-                    $settingsRepo->update($time, $key);
-                }
-            }
-        }
+        return $sessionValues;
     }
 }
