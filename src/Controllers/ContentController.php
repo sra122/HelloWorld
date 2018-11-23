@@ -306,7 +306,7 @@ class ContentController extends Controller
     public function getCredentials()
     {
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $settings = $settingsRepo->all(['market' => 'HelloWorld']);
+        $settings = $settingsRepo->find('HelloWorld', 'property');
 
         return $settings;
     }
