@@ -25,7 +25,6 @@ use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositoryContract;
 use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
 use Plenty\Modules\Item\Manufacturer\Contracts\ManufacturerRepositoryContract;
-use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -305,11 +304,10 @@ class ContentController extends Controller
 
     public function getCredentials()
     {
-        $credentialRepo = pluginApp(CredentialsRepositoryContract::class);
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $settings = $settingsRepo->all(['market' => 'HelloWorld']);
 
-        $crons = $credentialRepo->all(['market' => 'HelloWorld']);
-
-        return $crons;
+        return $settings;
     }
 
 }

@@ -17,6 +17,11 @@ class AuthController extends Controller
 
     public $pluginCredentials;
 
+    public function authenticate()
+    {
+
+    }
+
     /**
      *
      */
@@ -56,6 +61,7 @@ class AuthController extends Controller
     public function getAuthentication(Request $request, LibraryCallContract $libCall)
     {
         try {
+            $this->authenticate();
             $this->getCredentials();
             $this->createReferrerId();
             $sessionCheck = $this->sessionCheck();

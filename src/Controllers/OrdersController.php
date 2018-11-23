@@ -9,6 +9,7 @@ use Plenty\Plugin\Application;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
+use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 /**
  * Class OrdersController
  */
@@ -171,15 +172,9 @@ class OrdersController extends Controller
 
     public function getItems()
     {
-        $variationRepo = pluginApp(VariationSearchRepositoryContract::class);
+        $credentialsRepo = pluginApp(CredentialsRepositoryContract::class);
+        $credentials = $credentialsRepo->all(['market' => 'HelloWorld']);
 
-        $variationRepo->setSearchParams([
-            'with' => [
-                'VariationAttributeValues' => true,
-                ]
-        ]);
-        $items = $variationRepo->search();
-
-        return $items->getResult();
+        return $credentials;
     }
 }
