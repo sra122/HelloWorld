@@ -7,11 +7,18 @@ use Plenty\Modules\Order\Status\Contracts\OrderStatusRepositoryContract;
 use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
+use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
+use Plenty\Modules\Item\Item\Contracts\ItemRepositoryContract;
 /**
  * Class OrdersController
  */
 class OrdersController extends Controller
 {
+    // OrderAddressRepositoryContract
+
+    const BILLING_ADDRESS = 1;
+    const DELIVERY_ADDRESS = 2;
+
     public function getAllPaymentMethods()
     {
         $paymentRepo = pluginApp(PaymentMethodRepositoryContract::class);
@@ -45,6 +52,45 @@ class OrdersController extends Controller
         return $orderDetails;
     }
 
+    public function createBillingAddress()
+    {
+        $addressRepo = pluginApp(AddressRepositoryContract::class);
+        $billingAddress = [
+            'gender' => 'male',
+            'name1' => 'iways',
+            'name2' => 'Sravan',
+            'name3' => 'Kumar',
+            'companyName' => 'Iways',
+            'address1' => 'Kurfürstendamm',
+            'address2' => '125A',
+            'postalCode' => '10711',
+            'town' => 'Berlin',
+            'countryId' => 1
+        ];
+
+        return $addressRepo->createAddress($billingAddress);
+    }
+
+
+    public function createDeliveryAddress()
+    {
+        $addressRepo = pluginApp(AddressRepositoryContract::class);
+        $deliveryAddress = [
+            'gender' => 'male',
+            'name1' => 'iways',
+            'name2' => 'Sravan',
+            'name3' => 'Kumar',
+            'companyName' => 'Iways',
+            'address1' => 'Kurfürstendamm',
+            'address2' => '125A',
+            'postalCode' => '10711',
+            'town' => 'Berlin',
+            'countryId' => 1
+        ];
+
+        return $addressRepo->createAddress($deliveryAddress);
+    }
+
     public function createOrder()
     {
         $ordersRepo = pluginApp(OrderRepositoryContract::class);
@@ -73,33 +119,18 @@ class OrdersController extends Controller
                     ]
                 ]
             ],
-            'billingAddress' => [
-                'gender' => 'male',
-                'name1' => 'iways',
-                'name2' => 'Sravan',
-                'name3' => 'Kumar',
-                'companyName' => 'Iways',
-                'address1' => 'Kurfürstendamm',
-                'address2' => '125A',
-                'postalCode' => '10711',
-                'town' => 'Berlin',
-                'countryId' => 1
-            ],
-            'deliveryAddress' => [
-                'gender' => 'male',
-                'name1' => 'iways',
-                'name2' => 'Sravan',
-                'name3' => 'Kumar',
-                'companyName' => 'Iways',
-                'address1' => 'Kurfürstendamm',
-                'address2' => '125A',
-                'postalCode' => '10711',
-                'town' => 'Berlin',
-                'countryId' => 1
+            'addressRelations' => [
+                [
+                    'typeId' => self::BILLING_ADDRESS,
+                    'addressId' => $this->createBillingAddress()->id
+                ],
+                [
+                    'typeId' => self::DELIVERY_ADDRESS,
+                    'addressId' => $this->createDeliveryAddress()->id
+                ]
             ]
         ];
         $response = $ordersRepo->createOrder($data);
-
 
         return $response;
     }
@@ -107,18 +138,12 @@ class OrdersController extends Controller
     public function getData()
     {
         $test = [
-            'paymentMethods' => $this->getAllPaymentMethods(),
-            'orderStatus' => $this->getOrderStatus(),
-            'plentyPluginInfo' => $this->getPlentyPluginInfo(),
-            'ordersRepo' => $this->getOrders(),
-            'order' => '',//$this->createOrder(),
-            'orderReferrer' => $this->getOrderReferrer(),
+            'items' => $this->getItems()
         ];
 
         return $test;
     }
-
-
+    
     public function deleteOrder()
     {
         $orderId = 173;
@@ -141,5 +166,14 @@ class OrdersController extends Controller
         }
 
         return $pandaBlackReferrerID;
+    }
+
+
+    public function getItems()
+    {
+        $itemsRepo = pluginApp(ItemRepositoryContract::class);
+        $items = $itemsRepo->search([], [], 1, 100, []);
+
+        return $items;
     }
 }
