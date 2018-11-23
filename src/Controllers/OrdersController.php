@@ -172,6 +172,12 @@ class OrdersController extends Controller
     public function getItems()
     {
         $variationRepo = pluginApp(VariationSearchRepositoryContract::class);
+
+        $variationRepo->setSearchParams([
+            'with' => [
+                'VariationAttributeValues' => true,
+                ]
+        ]);
         $items = $variationRepo->search();
 
         return $items->getResult();
