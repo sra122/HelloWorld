@@ -8,7 +8,7 @@ use Plenty\Modules\Order\Contracts\OrderRepositoryContract;
 use Plenty\Plugin\Application;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
-use Plenty\Modules\Item\Item\Contracts\ItemRepositoryContract;
+use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 /**
  * Class OrdersController
  */
@@ -171,9 +171,9 @@ class OrdersController extends Controller
 
     public function getItems()
     {
-        $itemsRepo = pluginApp(ItemRepositoryContract::class);
-        $items = $itemsRepo->search([], [], 1, 100, []);
+        $variationRepo = pluginApp(VariationSearchRepositoryContract::class);
+        $items = $variationRepo->search();
 
-        return $items;
+        return $items->getResult();
     }
 }
