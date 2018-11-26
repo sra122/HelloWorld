@@ -13,6 +13,12 @@
       "menu": "system/markets/PandaBlack",
       "urlKey": "stats-view",
       "entryPoint": "index.html?action=stats-view"
+    },
+    {
+      "label": "Item Status",
+      "menu": "system/markets/PandaBlack",
+      "urlKey": "stats-view",
+      "entryPoint": "index.html?action=item-status"
     }
   ]
 }
