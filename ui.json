@@ -17,7 +17,7 @@
     {
       "label": "Item Status",
       "menu": "system/markets/PandaBlack",
-      "urlKey": "stats-view",
+      "urlKey": "item-status",
       "entryPoint": "index.html?action=item-status"
     }
   ]
