@@ -187,9 +187,9 @@ class AuthController extends Controller
      */
     public function tokenExpireTime()
     {
-        $properties = $this->properties;
+        $this->getProperties();
         $tokenDetails = [];
-        foreach($properties as $key => $property)
+        foreach($this->properties as $key => $property)
         {
             if(isset($property->settings['pbToken']) && count($tokenDetails) === 0) {
                 $tokenDetails[$property->id] = $property->settings['pbToken']['expires_in'];
