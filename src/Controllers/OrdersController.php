@@ -139,7 +139,8 @@ class OrdersController extends Controller
     public function getData()
     {
         $test = [
-            'items' => $this->getItems()
+            'items' => $this->getItems(),
+            'attributes' => $this->getAttributes()
         ];
 
         return $test;
@@ -222,5 +223,13 @@ class OrdersController extends Controller
         $resultItems = $itemRepository->search();
 
         return $resultItems;
+    }
+
+
+    private function getAttributes()
+    {
+        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
+        $attributes = $settingsRepo->find('HelloWorld', 'attribute');
+        return $attributes;
     }
 }
