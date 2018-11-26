@@ -140,7 +140,8 @@ class OrdersController extends Controller
     {
         $test = [
             'items' => $this->getItems(),
-            'attributes' => $this->getAttributes()
+            'attributes' => $this->getAttributes(),
+            'correlations' => $this->getCorrelations()
         ];
 
         return $test;
@@ -231,5 +232,20 @@ class OrdersController extends Controller
         $settingsRepo = pluginApp(SettingsRepositoryContract::class);
         $attributes = $settingsRepo->find('HelloWorld', 'attribute');
         return $attributes;
+    }
+
+
+    private function getCorrelations()
+    {
+        $filters = [
+            'marketplaceId' => 'HelloWorld',
+            'type' => 'category'
+        ];
+
+        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
+
+        $correlationsData = $settingsCorrelationFactory->search($filters, 1, 50);
+
+        return $correlationsData;
     }
 }
