@@ -199,7 +199,6 @@ class OrdersController extends Controller
                 ],
                 'stock' => true,
                 'images' => true,
-                'main' => false
             ]
         ]);
 
@@ -217,7 +216,8 @@ class OrdersController extends Controller
 
         foreach($pandaBlackReferrerID as $pandaBlackId) {
             $itemRepository->setFilters([
-                'referrerId' => (int)$pandaBlackId['id']
+                'referrerId' => (int)$pandaBlackId['id'],
+                'isMain' => false
             ]);
         }
 
