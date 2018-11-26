@@ -16,13 +16,11 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
     public function map(Router $router, ApiRouter $api)
     {
         $router->get('hello', 'HelloWorld\Controllers\ContentController@productDetails');
-        $router->get('credentials', 'HelloWorld\Controllers\ContentController@getCredentials');
         //Authentication route
         $router->get('markets/panda-black/auth/authentication', 'HelloWorld\Controllers\AuthController@getAuthentication');
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('test', 'HelloWorld\Controllers\OrdersController@getData');
-            $router->get('authenticate', 'HelloWorld\Controllers\AuthController@authenticate');
             $router->get('markets/panda-black/parent-categories', 'HelloWorld\Controllers\CategoryController@all');
             $router->get('markets/panda-black/parent-categories/{id}', 'HelloWorld\Controllers\CategoryController@get');
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\JdCategoriesController@listOfCategories');
