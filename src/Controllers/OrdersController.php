@@ -199,6 +199,7 @@ class OrdersController extends Controller
                 ],
                 'stock' => true,
                 'images' => true,
+                'isMain' => false
             ]
         ]);
 
