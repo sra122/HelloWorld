@@ -98,13 +98,16 @@ class ContentController extends Controller
 
         $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
-        $firstCron = true;
+        /*$firstCron = true;
         foreach($crons['entries'] as $cron)
         {
             if(isset($cron['settings']['pbItemCron'])) {
                 $firstCron = false;
             }
-        }
+        }*/
+
+        //Testing
+        $firstCron = true;
 
         foreach($resultItems->getResult() as $key => $variation) {
 
