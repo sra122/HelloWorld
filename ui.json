@@ -15,10 +15,10 @@
       "entryPoint": "index.html?action=stats-view"
     },
     {
-      "label": "Item Status",
+      "label": "Items Status",
       "menu": "system/markets/PandaBlack",
-      "urlKey": "item-status",
-      "entryPoint": "index.html?action=item-status"
+      "urlKey": "items-status",
+      "entryPoint": "index.html?action=items-status"
     }
   ]
 }
