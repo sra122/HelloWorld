@@ -1,5 +1,7 @@
 <?php
 namespace HelloWorld\Controllers;
+
+use Plenty\Plugin\Controller;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Order\Referrer\Contracts\OrderReferrerRepositoryContract;
 class ItemsStatusController extends Controller
