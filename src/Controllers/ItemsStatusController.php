@@ -42,7 +42,7 @@ class ItemsStatusController extends Controller
         return $resultItems;
     }
 
-    public function getStatus()
+    public function itemsStatus()
     {
         return $this->getItems();
     }
