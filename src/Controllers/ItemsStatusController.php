@@ -62,7 +62,7 @@ class ItemsStatusController extends Controller
             {
                 array_push($currentAttributes, $itemVariation['attribute']['backendName']);
             }
-            $itemsStatus[$item['itemId']] = array_diff($requiredAttributes, $currentAttributes);
+            $itemsStatus[$item['id']] = array_diff($requiredAttributes, $currentAttributes);
         }
 
         return $itemsStatus;
