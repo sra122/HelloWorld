@@ -42,9 +42,30 @@ class ItemsStatusController extends Controller
         return $resultItems;
     }
 
-    public function itemsStatus()
+    public function getStatus()
     {
         return $this->getItems();
+    }
+
+    public function status()
+    {
+        $items = $this->getItems();
+
+        $requiredAttributes = ['brand', 'color'];
+
+        $itemsStatus = [];
+
+        foreach($items->getResult() as $item)
+        {
+            $currentAttributes = [];
+            foreach($item['VariationAttributeValues'] as $itemVariation)
+            {
+                array_push($currentAttributes, $itemVariation['attribute']['backendName']);
+            }
+            $itemsStatus[$item['itemId']] = array_diff($requiredAttributes, $currentAttributes);
+        }
+
+        return $itemsStatus;
     }
 
 }
