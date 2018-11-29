@@ -214,12 +214,12 @@ class OrdersController extends Controller
             }
         }
 
-        foreach($pandaBlackReferrerID as $pandaBlackId) {
+        /*foreach($pandaBlackReferrerID as $pandaBlackId) {
             $itemRepository->setFilters([
                 'referrerId' => (int)$pandaBlackId['id'],
                 'isMain' => false
             ]);
-        }
+        }*/
 
 
         $resultItems = $itemRepository->search();
