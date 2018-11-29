@@ -36,6 +36,24 @@ class ItemsStatusController extends Controller
             ]
         ]);
 
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name', 'id']);
+
+        $pandaBlackReferrerID = [];
+
+        foreach($orderReferrerLists as $key => $orderReferrerList)
+        {
+            if(trim($orderReferrerList->name) === 'PandaBlack' && count($pandaBlackReferrerID) === 0) {
+                array_push($pandaBlackReferrerID, $orderReferrerList);
+            }
+        }
+
+        foreach($pandaBlackReferrerID as $pandaBlackId) {
+            $itemRepository->setFilters([
+                'referrerId' => (int)$pandaBlackId['id']
+            ]);
+        }
+
 
         $resultItems = $itemRepository->search();
 
