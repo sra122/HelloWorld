@@ -290,4 +290,12 @@ class ContentController extends Controller
         return $response;
     }
 
+
+    public function getAsin()
+    {
+        $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
+        $asin = $variationMarketIdentNumber->findByVariationId(1027);
+
+        return $asin;
+    }
 }

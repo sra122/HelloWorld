@@ -19,6 +19,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
 
         $api->version(['v1'], ['middleware' => ['oauth']], function ($router) {
             $router->get('test', 'HelloWorld\Controllers\OrdersController@getData');
+            $router->get('asin', 'HelloWorld\Controllers\OrdersController@getAsin');
             $router->get('items-status', 'HelloWorld\Controllers\ItemsStatusController@itemsStatus');
             $router->get('attribute-mapping', 'HelloWorld\Controllers\ItemsStatusController@attributeMapping');
             $router->get('status', 'HelloWorld\Controllers\ItemsStatusController@status');
