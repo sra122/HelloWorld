@@ -26,6 +26,7 @@ use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositor
 use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
 use Plenty\Modules\Item\Manufacturer\Contracts\ManufacturerRepositoryContract;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
+use Plenty\Modules\Item\VariationMarketIdentNumber\Contracts\VariationMarketIdentNumber;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -109,6 +110,7 @@ class ContentController extends Controller
         //Testing
         $firstCron = true;
 
+
         foreach($resultItems->getResult() as $key => $variation) {
 
             // Update only if products are updated in last 1 hour.
@@ -121,6 +123,9 @@ class ContentController extends Controller
 
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
                     $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
+
+                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumber::class);
+                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
@@ -187,6 +192,7 @@ class ContentController extends Controller
                         'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
                         'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                         'last_update_at' => $variation['updatedAt'],
+                        'asin' => $asin
                     );
                 }
             }
