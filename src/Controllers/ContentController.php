@@ -192,7 +192,7 @@ class ContentController extends Controller
                         'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
                         'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                         'last_update_at' => $variation['updatedAt'],
-                        'asin' => $asin
+                        'asin' => $asin['id']
                     );
                 }
             }
