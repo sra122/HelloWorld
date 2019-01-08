@@ -26,7 +26,7 @@ use Plenty\Modules\Item\VariationWarehouse\Contracts\VariationWarehouseRepositor
 use Plenty\Modules\Market\Helper\Contracts\MarketAttributeHelperRepositoryContract;
 use Plenty\Modules\Item\Manufacturer\Contracts\ManufacturerRepositoryContract;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
-use Plenty\Modules\Item\VariationMarketIdentNumber\Contracts\VariationMarketIdentNumber;
+use Plenty\Modules\Item\VariationMarketIdentNumber\Contracts\VariationMarketIdentNumberRepositoryContract;
 use Plenty\Plugin\Http\Request;
 class ContentController extends Controller
 {
@@ -124,7 +124,7 @@ class ContentController extends Controller
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
                     $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
 
-                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumber::class);
+                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
                     $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);
 
                     $textArray = $variation['item']->texts;
