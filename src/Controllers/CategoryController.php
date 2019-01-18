@@ -238,7 +238,7 @@ class CategoryController extends Controller
             }
         }
 
-        return $pbCategoryTree;
+        return json_encode($pbCategoryTree);
     }
 
     private function getPBChildCategories($pbCategories, $parentId)
@@ -254,7 +254,7 @@ class CategoryController extends Controller
             }
         }
 
-        return json_encode($pbChildCategoryTree);
+        return $pbChildCategoryTree;
     }
 
     public function getPBAttributes()
