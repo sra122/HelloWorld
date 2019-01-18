@@ -11,6 +11,7 @@ use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Market\Settings\Factories\SettingsCorrelationFactory;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 use Plenty\Modules\Category\Contracts\CategoryRepositoryContract;
+use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 /**
  * Class CategoryController
  * @package HelloWorld\Controllers
@@ -155,5 +156,104 @@ class CategoryController extends Controller
         $properties = $settingsCorrelationFactory->find('HelloWorld', 'property');
 
         return $properties;
+    }
+
+    /*public function getPBCategories()
+    {
+        $libCall = pluginApp(LibraryCallContract::class);
+        $request = pluginApp(Request::class);
+
+        $pbCategories = $libCall->call(
+            'HelloWorld::pandaBlack_categories', ['auth_code' => $request->get('autorize_code')]
+        );
+
+        $pbCategoryTree = [];
+        foreach($pbCategories as $pbCategory)
+        {
+            if($pbCategory->parent_id === 0) {
+                $pbCategoryTree[] = [
+                    'id' => $pbCategory->id,
+                    'name' => $pbCategory->name,
+                    'children' => ''
+                ];
+            }
+        }
+    }
+
+    private function getPBChildCategories($pbCategories, $parentId)
+    {
+        $pbChildCategoryTree = [];
+        foreach($pbCategories as $pbCategory)
+        {
+            if($pbCategory->id === $parentId) {
+                $pbChildCategoryTree[] = [
+                  'id' => $pbCategory->id,
+                  'name' => $pbCategory->id,
+                  'children' => ''
+                ];
+            }
+        }
+    }*/
+
+
+    public function getPBCategories()
+    {
+        $pbCategories = [
+            '0' => [
+                'id' => 1,
+                'name' => 'First',
+                'parent_id' => 0
+            ],
+            '1' => [
+                'id' => 2,
+                'name' => 'Child1',
+                'parent_id' => 1
+            ],
+            '2' => [
+                'id' => 3,
+                'name' => 'Child2',
+                'parent_id' => 2
+            ],
+            '3' => [
+                'id' => 4,
+                'name' => 'Child3',
+                'parent_id' => 3
+            ],
+            '4' => [
+                'id' => 5,
+                'name' => 'Child4',
+                'parent_id' => 0
+            ]
+        ];
+
+        $pbCategoryTree = [];
+        foreach ($pbCategories as $pbCategory) {
+            if ($pbCategory['parent_id'] === 0) {
+                $pbCategoryTree[] = [
+                    'id' => $pbCategory['id'],
+                    'name' => $pbCategory['name'],
+                    'parentId' => $pbCategory['parent_id'],
+                    'children' => $this->getPBChildCategories($pbCategories, $pbCategory['id']),
+                ];
+            }
+        }
+
+        return $pbCategoryTree;
+    }
+
+    private function getPBChildCategories($pbCategories, $parentId)
+    {
+        $pbChildCategoryTree = [];
+        foreach ($pbCategories as $pbCategory) {
+            if ($pbCategory['parent_id'] === $parentId) {
+                $pbChildCategoryTree[] = [
+                    'id' => $pbCategory['id'],
+                    'name' => $pbCategory['name'],
+                    'children' => $this->getPBChildCategories($pbCategories, $pbCategory['id'])
+                ];
+            }
+        }
+
+        return $pbChildCategoryTree;
     }
 }
