@@ -27,7 +27,7 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/parent-categories/{id}', 'HelloWorld\Controllers\CategoryController@get');
 
             $router->get('markets/panda-black/vendor-categories', 'HelloWorld\Controllers\CategoryController@getPBCategories');
-
+            $router->get('markets/panda-black/vendor-attribute', 'HelloWorld\Controllers\CategoryController@getPBAttributes');
 
 
             $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelations');

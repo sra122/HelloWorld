@@ -256,4 +256,24 @@ class CategoryController extends Controller
 
         return $pbChildCategoryTree;
     }
+
+    public function getPBAttributes()
+    {
+        $attributeValueSet = [
+            '0' => [
+                'attributeId' => 12,
+                'name' => 'weight',
+                'required' => true,
+                'values' => ['gm', 'kg']
+            ],
+            '1' => [
+                'attributeId' => 13,
+                'name' => 'Brand',
+                'required' => false,
+                'values' => ['Test']
+            ]
+        ];
+
+        return $attributeValueSet;
+    }
 }
