@@ -118,4 +118,35 @@ class AttributesController extends Controller
             }
         }
     }
+
+    public function updatePBAttributes()
+    {
+        $attributeValueSets = [
+            0 => [
+                'attributeId' => 12,
+                'name' => 'Weight',
+                'required' => true,
+                'category' => 'Computer',
+                'values' => [300 => 'gm', 301 => 'kg']
+            ],
+            1 => [
+                'attributeId' => 13,
+                'name' => 'Marke',
+                'required' => false,
+                'category' => 'Computer',
+                'values' => [303 => 'Apple', 304 => 'Samsung', 305 => 'LG']
+            ]
+        ];
+
+        $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+        $plentyMarketsAttributes = $attributeRepo->all(['backendName', 'values'], 100, 1);
+
+        foreach($attributeValueSets as $attributeValueSet) {
+            foreach($plentyMarketsAttributes->entries as $plentyMarketAttribute) {
+                if(($plentyMarketAttribute[0]['values'][0] === $attributeValueSet['attributeId']) && ($plentyMarketAttribute[0]['backendName'] !== $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category'])) {
+                    $attributeRepo->update(['backendName' => $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category']], $plentyMarketAttribute[0]['id']);
+                }
+            }
+        }
+    }
 }
