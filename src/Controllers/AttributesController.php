@@ -139,7 +139,7 @@ class AttributesController extends Controller
         ];
 
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
-        $plentyMarketsAttributes = $attributeRepo->all(['backendName', 'values'], 100, 1);
+        $plentyMarketsAttributes = $attributeRepo->all([], 100, 1);
 
         return $plentyMarketsAttributes;
 
