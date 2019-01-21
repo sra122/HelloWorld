@@ -99,17 +99,22 @@ class AttributesController extends Controller
         foreach($attributeValueSets as $attributeValueSet)
         {
             $attributeRepo = pluginApp(AttributeRepositoryContract::class);
-
-            $attributeValueMap = [
-                'backendName' => $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category']
-            ];
-
-            $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
-
             $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
 
-            foreach($attributeValueSet['values'] as $key => $attributeValue) {
-                $attributeValueRepository->create(['backendName' => trim($attributeValue), 'comment' => (string)$key], $attributeInfo['id']);
+            $attributeCheck = $attributeRepo->findByBackendName($attributeValueSet['name'] . '-PB-' . $attributeValueSet['category']);
+
+            if(empty($attributeCheck)) {
+
+                $attributeValueMap = [
+                    'backendName' => $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category'],
+                    'values' => [$attributeValueSet['attributeId']]
+                ];
+
+                $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
+
+                foreach($attributeValueSet['values'] as $key => $attributeValue) {
+                    $attributeValueRepository->create(['backendName' => trim($attributeValue), 'attributeId' => $attributeInfo['id'], 'values' => [$key]]);
+                }
             }
         }
     }
