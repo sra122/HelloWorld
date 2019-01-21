@@ -92,7 +92,7 @@ class AttributesController extends Controller
                 'name' => 'Brand',
                 'required' => false,
                 'category' => 'Computer',
-                'values' => ['Test']
+                'values' => [303 => 'Apple', 304 => 'Samsung', 305 => 'LG']
             ]
         ];
 
