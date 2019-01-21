@@ -113,7 +113,7 @@ class AttributesController extends Controller
                 $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
 
                 foreach($attributeValueSet['values'] as $key => $attributeValue) {
-                    $attributeValueRepository->create(['backendName' => trim($attributeValue), 'attributeId' => $attributeInfo['id'], 'values' => [$key]]);
+                    $attributeValueRepository->create(['backendName' => trim($attributeValue), 'valueNames' => [$key]], $attributeInfo['id']);
                 }
             }
         }
