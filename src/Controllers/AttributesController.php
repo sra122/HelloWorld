@@ -109,7 +109,7 @@ class AttributesController extends Controller
             $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
 
             foreach($attributeValueSet['values'] as $key => $attributeValue) {
-                $attributeValueRepository->create(['backendName' => trim($attributeValue), 'comment' => $key], $attributeInfo['id']);
+                $attributeValueRepository->create(['backendName' => trim($attributeValue), 'comment' => (string)$key], $attributeInfo['id']);
             }
         }
     }
