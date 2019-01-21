@@ -76,4 +76,41 @@ class AttributesController extends Controller
 
         return $response->id;
     }
+
+    public function createPBAttributes()
+    {
+        $attributeValueSets = [
+            0 => [
+                'attributeId' => 12,
+                'name' => 'Weight',
+                'required' => true,
+                'category' => 'Computer',
+                'values' => [300 => 'gm', 301 => 'kg']
+            ],
+            1 => [
+                'attributeId' => 13,
+                'name' => 'Brand',
+                'required' => false,
+                'category' => 'Computer',
+                'values' => ['Test']
+            ]
+        ];
+
+        foreach($attributeValueSets as $attributeValueSet)
+        {
+            $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+
+            $attributeValueMap = [
+                'backendName' => $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category']
+            ];
+
+            $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
+
+            $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+
+            foreach($attributeValueSet['values'] as $key => $attributeValue) {
+                $attributeValueRepository->create(['backendName' => trim($attributeValue), 'comment' => $key], $attributeInfo['id']);
+            }
+        }
+    }
 }
