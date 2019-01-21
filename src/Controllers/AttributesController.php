@@ -141,12 +141,14 @@ class AttributesController extends Controller
         $attributeRepo = pluginApp(AttributeRepositoryContract::class);
         $plentyMarketsAttributes = $attributeRepo->all(['backendName', 'values'], 100, 1);
 
-        foreach($attributeValueSets as $attributeValueSet) {
+        return $plentyMarketsAttributes;
+
+        /*foreach($attributeValueSets as $attributeValueSet) {
             foreach($plentyMarketsAttributes->entries as $plentyMarketAttribute) {
                 if(($plentyMarketAttribute[0]['values'][0] === $attributeValueSet['attributeId']) && ($plentyMarketAttribute[0]['backendName'] !== $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category'])) {
                     $attributeRepo->update(['backendName' => $attributeValueSet['name'] . '-PB-' . $attributeValueSet['category']], $plentyMarketAttribute[0]['id']);
                 }
             }
-        }
+        }*/
     }
 }
