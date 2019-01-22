@@ -116,7 +116,7 @@ class ContentController extends Controller
             // Update only if products are updated in last 1 hour.
             if((time() - strtotime($variation['updatedAt'])) < 3600 || $firstCron) {
 
-                if(isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+                if(/*!$variation['isMain'] &&*/ isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                     $variationStock = pluginApp(VariationStockRepositoryContract::class);
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
@@ -198,11 +198,16 @@ class ContentController extends Controller
             }
         }
 
-        $templateData = array(
+        /*$templateData = array(
             'exportData' => $completeData,
             'completeData' => $items,
             'crons' => $crons
+        );*/
+
+        $templateData = array(
+            'data' => $resultItems->getResult()
         );
+
         return $templateData;
 
     }
