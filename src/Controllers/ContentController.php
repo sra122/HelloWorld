@@ -116,7 +116,7 @@ class ContentController extends Controller
             // Update only if products are updated in last 1 hour.
             if((time() - strtotime($variation['updatedAt'])) < 3600 || $firstCron) {
 
-                if(/*!$variation['isMain'] &&*/ isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+                if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                     $variationStock = pluginApp(VariationStockRepositoryContract::class);
                     $stockData = $variationStock->listStockByWarehouse($variation['id']);
@@ -124,8 +124,8 @@ class ContentController extends Controller
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
                     $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
 
-                    /*$variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
-                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);*/
+                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
+                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
@@ -192,7 +192,7 @@ class ContentController extends Controller
                         'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
                         'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                         'last_update_at' => $variation['updatedAt'],
-                        //'asin' => $asin['id']
+                        'asin' => $asin['id']
                     );
                 }
             }
@@ -299,4 +299,66 @@ class ContentController extends Controller
 
         return $asin;
     }
+
+    public function extractItemInfo()
+    {
+        $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
+
+        $itemRepository->setSearchParams([
+            'with' => [
+                'item' => null,
+                'lang' => 'de',
+                'variationSalesPrices' => true,
+                'variationCategories' => true,
+                'variationClients' => true,
+                'VariationAttributeValues' => true,
+                'variationSkus' => true,
+                'variationMarkets' => true,
+                'variationSuppliers' => true,
+                'variationWarehouses' => true,
+                'variationDefaultCategory' => true,
+                'unit' => true,
+                'variationStock' => [
+                    'params' => [
+                        'type' => 'virtual'
+                    ],
+                    'fields' => [
+                        'stockNet'
+                    ]
+                ],
+                'stock' => true,
+                'images' => true,
+            ]
+        ]);
+
+        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
+        $orderReferrerLists = $orderReferrerRepo->getList(['name', 'id']);
+
+        $pandaBlackReferrerID = [];
+
+        foreach($orderReferrerLists as $key => $orderReferrerList)
+        {
+            if(trim($orderReferrerList->name) === 'PandaBlack' && count($pandaBlackReferrerID) === 0) {
+                array_push($pandaBlackReferrerID, $orderReferrerList);
+            }
+        }
+
+        foreach($pandaBlackReferrerID as $pandaBlackId) {
+            $itemRepository->setFilters([
+                'referrerId' => (int)$pandaBlackId['id']
+            ]);
+        }
+
+
+        $resultItems = $itemRepository->search();
+
+        $completeData = [];
+
+        foreach($resultItems->getResult() as $key => $variation) {
+            $completeData[$key] = $variation;
+        }
+
+        return $completeData;
+    }
+
 }
