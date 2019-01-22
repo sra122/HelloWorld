@@ -365,7 +365,7 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if($variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
                 $stockData = $variationStock->listStockByWarehouse($variation['id']);
