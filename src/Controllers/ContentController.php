@@ -365,7 +365,7 @@ class ContentController extends Controller
 
         foreach($resultItems->getResult() as $key => $variation) {
 
-            if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if($variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
                 $stockData = $variationStock->listStockByWarehouse($variation['id']);
@@ -381,7 +381,7 @@ class ContentController extends Controller
 
                 $completeData[$key] = $variation;
 
-                $completeData[$key] = array(
+                /*$completeData[$key] = array(
                     'parent_product_id' => $variation['mainVariationId'],
                     'product_id' => $variation['id'],
                     'item_id' => $variation['itemId'],
@@ -440,7 +440,7 @@ class ContentController extends Controller
                     'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
                     'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                     'last_update_at' => $variation['updatedAt']
-                );
+                );*/
             }
         }
 
