@@ -124,8 +124,8 @@ class ContentController extends Controller
                     $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
                     $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
 
-                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
-                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);
+                    /*$variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
+                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);*/
 
                     $textArray = $variation['item']->texts;
                     $variation['texts'] = $textArray->toArray();
@@ -192,7 +192,7 @@ class ContentController extends Controller
                         'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
                         'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                         'last_update_at' => $variation['updatedAt'],
-                        'asin' => $asin['id']
+                        //'asin' => $asin['id']
                     );
                 }
             }
