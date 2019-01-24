@@ -21,7 +21,7 @@ class OrdersController extends Controller
         $ordersRepo = pluginApp(OrderRepositoryContract::class);
 
         $data = [
-            'typeId' => 1,
+            'typeId' => 1, // sales order
             'methodOfPaymentId' => 1,
             'shippingProfileId' => 1,
             'paymentStatus' => 1,
@@ -40,12 +40,18 @@ class OrdersController extends Controller
                             'isSystemCurrency' => true,
                             'isNet' => true,
                             'exchangeRate' => 1,
-                            'currency' => 'EUR'
+                            'currency' => 'EUR',
+                            'priceOriginalGross' => 2300
                         ]
                     ]
                 ]
             ],
-            'orderReferences' => 'ef12ge62gf',
+            'properties' => [
+                [
+                    'typeId' => 16,
+                    'value' => 'ef42kpo52df'
+                ]
+            ],
             'addressRelations' => [
                 [
                     'typeId' => self::BILLING_ADDRESS,
