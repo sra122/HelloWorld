@@ -308,7 +308,7 @@ class OrdersController extends Controller
     }
 
 
-    private function getShippingInformation()
+    public function getShippingInformation()
     {
         $shippingInfo = pluginApp(OrderShippingPackageRepositoryContract::class);
 
