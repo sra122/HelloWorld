@@ -10,6 +10,7 @@ use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
+use Plenty\Modules\Order\Shipping\Package\Contracts\OrderShippingPackageRepositoryContract;
 /**
  * Class OrdersController
  */
@@ -304,5 +305,15 @@ class OrdersController extends Controller
         $correlationsData = $settingsCorrelationFactory->search($filters, 1, 50);
 
         return $correlationsData;
+    }
+
+
+    private function getShippingInformation()
+    {
+        $shippingInfo = pluginApp(OrderShippingPackageRepositoryContract::class);
+
+        $shippingDetails = $shippingInfo->listOrderShippingPackages(176, [], []);
+
+        return $shippingDetails;
     }
 }
