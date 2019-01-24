@@ -74,6 +74,20 @@ class OrdersController extends Controller
     }
 
 
+    public function createOrderProperties()
+    {
+        $orderProperties = pluginApp(OrderPropertyRepositoryContract::class);
+
+        $data = [
+            'orderId' => 176,
+            'typeId' => 16,
+            'value' => 'ef42kpo52df'
+        ];
+
+        $orderProperties->create($data);
+    }
+
+
     public function getOrderProperties()
     {
         $orderProperties = pluginApp(OrderPropertyRepositoryContract::class);
