@@ -11,6 +11,7 @@ use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 use Plenty\Modules\Order\Shipping\Package\Contracts\OrderShippingPackageRepositoryContract;
+use Plenty\Modules\Order\Property\Contracts\OrderPropertyRepositoryContract;
 /**
  * Class OrdersController
  */
@@ -70,6 +71,16 @@ class OrdersController extends Controller
 
         return $response;
 
+    }
+
+
+    public function getOrderProperties()
+    {
+        $orderProperties = pluginApp(OrderPropertyRepositoryContract::class);
+
+        $response = $orderProperties->findByOrderId(176);
+
+        return $response;
     }
 
 
