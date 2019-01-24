@@ -15,6 +15,57 @@ use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
  */
 class OrdersController extends Controller
 {
+
+    public function createOrder()
+    {
+        $ordersRepo = pluginApp(OrderRepositoryContract::class);
+
+        $data = [
+            'typeId' => 1,
+            'methodOfPaymentId' => 1,
+            'shippingProfileId' => 1,
+            'paymentStatus' => 1,
+            'statusId' => 1,
+            'statusName' => '',
+            'ownerId' => '',
+            'plentyId' => $this->getPlentyPluginInfo(),
+            'orderItems' => [
+                0 => [
+                    'typeId' => 1,
+                    'itemVariationId' => 1031,
+                    'quantity' => 1,
+                    'orderItemName' => 'Zweisitzer White Russian',
+                    'amounts' => [
+                        0 => [
+                            'isSystemCurrency' => true,
+                            'isNet' => true,
+                            'exchangeRate' => 1,
+                            'currency' => 'EUR'
+                        ]
+                    ]
+                ]
+            ],
+            'orderReferences' => 'ef12ge62gf',
+            'addressRelations' => [
+                [
+                    'typeId' => self::BILLING_ADDRESS,
+                    'addressId' => $this->createBillingAddress()->id
+                ],
+                [
+                    'typeId' => self::DELIVERY_ADDRESS,
+                    'addressId' => $this->createDeliveryAddress()->id
+                ]
+            ]
+        ];
+
+
+        $response = $ordersRepo->createOrder($data);
+
+        return $response;
+
+    }
+
+
     // OrderAddressRepositoryContract
 
     const BILLING_ADDRESS = 1;
@@ -92,7 +143,7 @@ class OrdersController extends Controller
         return $addressRepo->createAddress($deliveryAddress);
     }
 
-    public function createOrder()
+    public function createOrder1()
     {
         $ordersRepo = pluginApp(OrderRepositoryContract::class);
         $data = [
