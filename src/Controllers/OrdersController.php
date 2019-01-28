@@ -220,7 +220,5 @@ class OrdersController extends Controller
         $shippingInfo = pluginApp(ShippingInformationRepositoryContract::class);
 
         $shippingDetails = $shippingInfo->getShippingInformationByOrderId(176);
-
-        return $shippingDetails;
     }
 }
