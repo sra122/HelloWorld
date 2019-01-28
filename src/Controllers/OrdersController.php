@@ -81,7 +81,9 @@ class OrdersController extends Controller
         $data = [
             'orderId' => 176,
             'typeId' => 16,
-            'value' => 'ef42kpo52df'
+            'value' => 'ef42kpo52df',
+            'createdAt' => time(),
+            'updatedAt' => time()
         ];
 
         $orderProperties->create($data);
