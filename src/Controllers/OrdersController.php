@@ -14,6 +14,7 @@ use Plenty\Modules\Order\Shipping\Package\Contracts\OrderShippingPackageReposito
 use Plenty\Modules\Order\Property\Contracts\OrderPropertyRepositoryContract;
 use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 use Plenty\Modules\Order\Shipping\Information\Contracts;
+use Plenty\Modules\Order\Shipping\Information\Contracts\ShippingInformationRepositoryContract;
 /**
  * Class OrdersController
  */
