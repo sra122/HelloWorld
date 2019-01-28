@@ -30,9 +30,8 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->get('markets/panda-black/vendor-attribute', 'HelloWorld\Controllers\CategoryController@getPBAttributes');
             $router->get('markets/panda-black/create-pb-attributes', 'HelloWorld\Controllers\AttributesController@createPBAttributes');
             $router->get('markets/panda-black/update-pb-attributes', 'HelloWorld\Controllers\AttributesController@updatePBAttributes');
-            $router->get('markets/panda-black/create-order', 'HelloWorld\Controllers\OrdersController@getOrderProperties');
+            $router->get('markets/panda-black/create-order', 'HelloWorld\Controllers\OrdersController@getShippingInformation');
             $router->get('markets/panda-black/create-order-properties', 'HelloWorld\Controllers\OrdersController@createOrderProperties');
-
 
             $router->get('markets/panda-black/correlations', 'HelloWorld\Controllers\CategoryController@getCorrelations');
             $router->post('markets/panda-black/edit-correlations', 'HelloWorld\Controllers\CategoryController@updateCorrelation');

@@ -12,81 +12,105 @@ use Plenty\Modules\Item\Variation\Contracts\VariationSearchRepositoryContract;
 use Plenty\Modules\Market\Credentials\Contracts\CredentialsRepositoryContract;
 use Plenty\Modules\Order\Shipping\Package\Contracts\OrderShippingPackageRepositoryContract;
 use Plenty\Modules\Order\Property\Contracts\OrderPropertyRepositoryContract;
+use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
+use Plenty\Modules\Order\Shipping\Information\Contracts;
 /**
  * Class OrdersController
  */
 class OrdersController extends Controller
 {
 
-    public function createOrder()
+    public function fetchOrders()
     {
-        $ordersRepo = pluginApp(OrderRepositoryContract::class);
+        $libCall = pluginApp(LibraryCallContract::class);
 
-        $data = [
-            'typeId' => 1, // sales order
-            'methodOfPaymentId' => 1,
-            'shippingProfileId' => 1,
-            'paymentStatus' => 1,
-            'statusId' => 1,
-            'statusName' => '',
-            'ownerId' => '',
-            'plentyId' => $this->getPlentyPluginInfo(),
-            'orderItems' => [
-                0 => [
-                    'typeId' => 1,
-                    'itemVariationId' => 1031,
-                    'quantity' => 1,
-                    'orderItemName' => 'Zweisitzer White Russian',
-                    'amounts' => [
-                        0 => [
-                            'isSystemCurrency' => true,
-                            'isNet' => true,
-                            'exchangeRate' => 1,
-                            'currency' => 'EUR',
-                            'priceOriginalGross' => 2300
-                        ]
+        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $propertiesRepo->find('HelloWorld', 'property');
+
+        foreach($properties as $key => $property) {
+            if (isset($property->settings['pbToken'])) {
+                $response = $libCall->call(
+                    'HelloWorld::products_to_pandablack',
+                    [
+                        'token' => $property->settings['pbToken']['token'],
                     ]
-                ]
-            ],
-            'properties' => [
-                [
-                    'typeId' => 16,
-                    'value' => 'ef42kpo52df'
-                ]
-            ],
-            'addressRelations' => [
-                [
-                    'typeId' => self::BILLING_ADDRESS,
-                    'addressId' => $this->createBillingAddress()->id
-                ],
-                [
-                    'typeId' => self::DELIVERY_ADDRESS,
-                    'addressId' => $this->createDeliveryAddress()->id
-                ]
-            ]
-        ];
-
-
-        $response = $ordersRepo->createOrder($data);
-
-        return $response;
+                );
+                $this->createOrder($response);
+            }
+        }
 
     }
 
-
-    public function createOrderProperties()
+    public function createOrder($orderDetails)
     {
-        $orderProperties = pluginApp(OrderPropertyRepositoryContract::class);
+        if(!empty($orderDetails)) {
 
-        $data = [
-            'orderId' => 176,
-            'typeId' => 16,
-            'value' => 'ef42kpo52df',
-            'createdAt' => time(),
-            'updatedAt' => time()
-        ];
+            foreach($orderDetails as $orderDetail)
+            {
+                $ordersRepo = pluginApp(OrderRepositoryContract::class);
 
-        $orderProperties->create($data);
+                $data = [
+                    'typeId' => 1, // sales order
+                    'methodOfPaymentId' => 1,
+                    'shippingProfileId' => 1,
+                    'paymentStatus' => 1,
+                    'statusId' => 1,
+                    'statusName' => '',
+                    'ownerId' => '',
+                    'plentyId' => $this->getPlentyPluginInfo(),
+                    'orderItems' => [
+                        0 => [
+                            'typeId' => 1,
+                            'itemVariationId' => 1031,
+                            'quantity' => 1,
+                            'orderItemName' => 'Zweisitzer White Russian',
+                            'amounts' => [
+                                0 => [
+                                    'isSystemCurrency' => true,
+                                    'isNet' => true,
+                                    'exchangeRate' => 1,
+                                    'currency' => 'EUR',
+                                    'priceOriginalGross' => 2300
+                                ]
+                            ]
+                        ]
+                    ],
+                    'addressRelations' => [
+                        [
+                            'typeId' => self::BILLING_ADDRESS,
+                            'addressId' => $this->createBillingAddress($orderDetail['reference_key'])->id
+                        ],
+                        [
+                            'typeId' => self::DELIVERY_ADDRESS,
+                            'addressId' => $this->createDeliveryAddress($orderDetail['reference_key'])->id
+                        ]
+                    ]
+                ];
+
+
+                $response = $ordersRepo->createOrder($data);
+
+                $this->createOrderProperties($response, $orderDetail['reference_key']);
+            }
+        }
+    }
+
+
+    public function createOrderProperties($orderInfo, $referenceKey)
+    {
+        if(!empty($orderInfo)) {
+            $orderProperties = pluginApp(OrderPropertyRepositoryContract::class);
+
+            $data = [
+                'orderId' => $orderInfo->id,
+                'typeId' => 16,
+                'value' => $referenceKey,
+                'createdAt' => time(),
+                'updatedAt' => time()
+            ];
+
+            $orderProperties->create($data);
+        }
     }
 
 
@@ -138,17 +162,15 @@ class OrdersController extends Controller
         return $orderDetails;
     }
 
-    public function createBillingAddress()
+    public function createBillingAddress($referenceKey)
     {
         $addressRepo = pluginApp(AddressRepositoryContract::class);
         $billingAddress = [
             'gender' => 'male',
-            'name1' => 'iways',
-            'name2' => 'Sravan',
-            'name3' => 'Kumar',
-            'companyName' => 'Iways',
-            'address1' => 'Kurfürstendamm',
-            'address2' => '125A',
+            'name1' => 'PANDA.BLACK GmbH',
+            'address1' => 'Friedrichstraße',
+            'address2' => '123',
+            'address3' => 'Bestellung Id ' .$referenceKey,
             'postalCode' => '10711',
             'town' => 'Berlin',
             'countryId' => 1
@@ -158,85 +180,21 @@ class OrdersController extends Controller
     }
 
 
-    public function createDeliveryAddress()
+    public function createDeliveryAddress($referenceKey)
     {
         $addressRepo = pluginApp(AddressRepositoryContract::class);
         $deliveryAddress = [
             'gender' => 'male',
-            'name1' => 'iways',
-            'name2' => 'Sravan',
-            'name3' => 'Kumar',
-            'companyName' => 'Iways',
-            'address1' => 'Kurfürstendamm',
-            'address2' => '125A',
+            'name1' => 'PANDA.BLACK GmbH',
+            'address1' => 'Friedrichstraße',
+            'address2' => '123',
+            'address3' => 'Order Id ' .$referenceKey,
             'postalCode' => '10711',
             'town' => 'Berlin',
             'countryId' => 1
         ];
 
         return $addressRepo->createAddress($deliveryAddress);
-    }
-
-    public function createOrder1()
-    {
-        $ordersRepo = pluginApp(OrderRepositoryContract::class);
-        $data = [
-            'typeId' => 1,
-            'methodOfPaymentId' => 1,
-            'shippingProfileId' => 1,
-            'paymentStatus' => 1,
-            'statusId' => 1,
-            'statusName' => '',
-            'ownerId' => '',
-            'plentyId' => $this->getPlentyPluginInfo(),
-            'orderItems' => [
-                0 => [
-                    'typeId' => 1,
-                    'itemVariationId' => 1031,
-                    'quantity' => 1,
-                    'orderItemName' => 'Zweisitzer White Russian',
-                    'amounts' => [
-                        0 => [
-                            'isSystemCurrency' => true,
-                            'isNet' => true,
-                            'exchangeRate' => 1,
-                            'currency' => 'EUR'
-                        ]
-                    ]
-                ]
-            ],
-            'addressRelations' => [
-                [
-                    'typeId' => self::BILLING_ADDRESS,
-                    'addressId' => $this->createBillingAddress()->id
-                ],
-                [
-                    'typeId' => self::DELIVERY_ADDRESS,
-                    'addressId' => $this->createDeliveryAddress()->id
-                ]
-            ]
-        ];
-        $response = $ordersRepo->createOrder($data);
-
-        return $response;
-    }
-
-    public function getData()
-    {
-        $test = [
-            'items' => $this->getItems(),
-            'attributes' => $this->getAttributes(),
-            'correlations' => $this->getCorrelations()
-        ];
-
-        return $test;
-    }
-    
-    public function deleteOrder()
-    {
-        $orderId = 173;
-        $orderRepo = pluginApp(OrderRepositoryContract::class);
-        return $orderRepo->deleteOrder($orderId);
     }
 
 
@@ -256,90 +214,11 @@ class OrdersController extends Controller
         return $pandaBlackReferrerID;
     }
 
-
-    public function getItems()
-    {
-        $itemRepository = pluginApp(VariationSearchRepositoryContract::class);
-        $itemRepository->setSearchParams([
-            'with' => [
-                'item' => null,
-                'lang' => 'de',
-                'variationSalesPrices' => true,
-                'variationCategories' => true,
-                'variationClients' => true,
-                'VariationAttributeValues' => true,
-                'variationSkus' => true,
-                'variationMarkets' => true,
-                'variationSuppliers' => true,
-                'variationWarehouses' => true,
-                'variationDefaultCategory' => true,
-                'unit' => true,
-                'variationStock' => [
-                    'params' => [
-                        'type' => 'virtual'
-                    ],
-                    'fields' => [
-                        'stockNet'
-                    ]
-                ],
-                'stock' => true,
-                'images' => true,
-            ]
-        ]);
-
-        $orderReferrerRepo = pluginApp(OrderReferrerRepositoryContract::class);
-        $orderReferrerLists = $orderReferrerRepo->getList(['name', 'id']);
-
-        $pandaBlackReferrerID = [];
-
-        foreach($orderReferrerLists as $key => $orderReferrerList)
-        {
-            if(trim($orderReferrerList->name) === 'PandaBlack' && count($pandaBlackReferrerID) === 0) {
-                array_push($pandaBlackReferrerID, $orderReferrerList);
-            }
-        }
-
-        foreach($pandaBlackReferrerID as $pandaBlackId) {
-            $itemRepository->setFilters([
-                'referrerId' => (int)$pandaBlackId['id']
-            ]);
-        }
-
-
-        $resultItems = $itemRepository->search();
-
-        return $resultItems;
-    }
-
-
-    private function getAttributes()
-    {
-        $settingsRepo = pluginApp(SettingsRepositoryContract::class);
-        $attributes = $settingsRepo->find('HelloWorld', 'attribute');
-        return $attributes;
-    }
-
-
-    private function getCorrelations()
-    {
-        $filters = [
-            'marketplaceId' => 'HelloWorld',
-            'type' => 'category'
-        ];
-
-        $settingsCorrelationFactory = pluginApp(SettingsRepositoryContract::class);
-
-        $correlationsData = $settingsCorrelationFactory->search($filters, 1, 50);
-
-        return $correlationsData;
-    }
-
-
     public function getShippingInformation()
     {
-        $shippingInfo = pluginApp(OrderShippingPackageRepositoryContract::class);
+        $shippingInfo = pluginApp(ShippingInformationRepositoryContract::class);
 
-        $shippingDetails = $shippingInfo->listOrderShippingPackages(176, [], []);
+        $shippingDetails = $shippingInfo->getShippingInformationByOrderId(176);
 
         return $shippingDetails;
     }
