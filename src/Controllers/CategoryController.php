@@ -198,7 +198,44 @@ class CategoryController extends Controller
 
     public function getPBCategories()
     {
-        $pbCategories = [
+        $libCall = pluginApp(LibraryCallContract::class);
+
+        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $propertiesRepo->find('HelloWorld', 'property');
+
+        $pbCategories = '';
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['pbToken'])) {
+
+                if(!empty($productDetails['exportData'])) {
+
+                    if($property->settings['pbToken']['expires_in'] > time()) {
+
+                        $response = $libCall->call(
+                            'HelloWorld::pandaBlack_categories',
+                            [
+                                'token' => $property->settings['pbToken']['token'],
+                            ]
+                        );
+                        $pbCategories = $response;
+                    } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
+
+                        $response = $libCall->call(
+                            'HelloWorld::pandaBlack_categories',
+                            [
+                                'token' => $property->settings['pbToken']['refresh_token'],
+                            ]
+                        );
+                        $pbCategories = $response;
+                    }
+                }
+                break;
+            }
+        }
+
+        /*$pbCategories = [
             '0' => [
                 'id' => 1,
                 'name' => 'First',
@@ -224,16 +261,16 @@ class CategoryController extends Controller
                 'name' => 'Child4',
                 'parent_id' => 0
             ]
-        ];
+        ];*/
 
         $pbCategoryTree = [];
-        foreach ($pbCategories as $pbCategory) {
+        foreach ($pbCategories as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === 0) {
                 $pbCategoryTree[] = [
-                    'id' => $pbCategory['id'],
+                    'id' => (int)$key,
                     'name' => $pbCategory['name'],
                     'parentId' => $pbCategory['parent_id'],
-                    'children' => $this->getPBChildCategories($pbCategories, $pbCategory['id']),
+                    'children' => $this->getPBChildCategories($pbCategories, (int)$key),
                 ];
             }
         }
@@ -244,12 +281,12 @@ class CategoryController extends Controller
     private function getPBChildCategories($pbCategories, $parentId)
     {
         $pbChildCategoryTree = [];
-        foreach ($pbCategories as $pbCategory) {
+        foreach ($pbCategories as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === $parentId) {
                 $pbChildCategoryTree[] = [
-                    'id' => $pbCategory['id'],
+                    'id' => (int)$key,
                     'name' => $pbCategory['name'],
-                    'children' => $this->getPBChildCategories($pbCategories, $pbCategory['id'])
+                    'children' => $this->getPBChildCategories($pbCategories, (int)$key)
                 ];
             }
         }
@@ -275,5 +312,33 @@ class CategoryController extends Controller
         ];
 
         return json_encode($attributeValueSet);
+    }
+
+    public function saveCronTime()
+    {
+        $settingRepo = pluginApp(SettingsRepositoryContract::class);
+
+        $crons = $settingRepo->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
+
+        foreach($crons['entries'] as $key => $cron) {
+            if(isset($cron['settings']['pbItemCron'])) {
+                $cronData = [
+                    'pbItemCron' => [
+                        'pastCronTime' => $cron['settings']['pbItemCron']['presentCronTime'],
+                        'presentCronTime' => time()
+                    ]
+                ];
+                $response = $settingRepo->update($cronData, $key);
+                return $response;
+            }
+        }
+        $cronData = [
+            'pbItemCron' => [
+                'pastCronTime' => null,
+                'presentCronTime' => time()
+            ]
+        ];
+        $response = $settingRepo->create('HelloWorld', 'property', $cronData);
+        return $response;
     }
 }
