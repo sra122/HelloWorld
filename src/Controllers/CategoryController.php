@@ -201,10 +201,9 @@ class CategoryController extends Controller
     {
         $libCall = pluginApp(LibraryCallContract::class);
 
-        /*$propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        $pbCategories = [];
 
         foreach($properties as $key => $property)
         {
@@ -218,7 +217,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['token'],
                         ]
                     );
-                    array_push($pbCategories, $response['Response']);
+                    $pbCategories = $response['Response'];
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -227,14 +226,14 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['refresh_token'],
                         ]
                     );
-                    array_push($pbCategories, $response['Response']);
+                    $pbCategories = $response['Response'];
                 }
 
                 break;
             }
-        }*/
+        }
 
-        $pbCategories = [
+        /*$pbCategories = [
             '0' => [
                 'id' => 1,
                 'name' => 'First',
@@ -260,21 +259,22 @@ class CategoryController extends Controller
                 'name' => 'Child4',
                 'parent_id' => 0
             ]
-        ];
+        ];*/
 
-        $pbCategoryTree = [];
-        foreach ($pbCategories as $key => $pbCategory) {
-            if ($pbCategory['parent_id'] === 0) {
-                $pbCategoryTree[] = [
-                    'id' => (int)$key,
-                    'name' => $pbCategory['name'],
-                    'parentId' => 0,
-                    'children' => $this->getPBChildCategories($pbCategories, (int)$key),
-                ];
+        if(isset($pbCategories)) {
+            $pbCategoryTree = [];
+            foreach ($pbCategories as $key => $pbCategory) {
+                if ($pbCategory['parent_id'] === 0) {
+                    $pbCategoryTree[] = [
+                        'id' => (int)$key,
+                        'name' => $pbCategory['name'],
+                        'parentId' => 0,
+                        'children' => $this->getPBChildCategories($pbCategories, (int)$key),
+                    ];
+                }
             }
+            return json_encode($pbCategoryTree);
         }
-
-        return json_encode($pbCategoryTree);
     }
 
     private function getPBChildCategories($pbCategories, $parentId)
