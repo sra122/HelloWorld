@@ -25,7 +25,7 @@ class CategoryController extends Controller
      *
      * @return Category[]
      */
-    public $categoriesResponse = '';
+    public $categoriesResponse = [];
 
     public function all(Request $request)
     {
@@ -220,7 +220,7 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['token'],
                             ]
                         );
-                        $this->categoriesResponse = $response;
+                        array_push($this->categoriesResponse, $response);
                         //$pbCategories = $response;
                     } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
@@ -230,6 +230,7 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['refresh_token'],
                             ]
                         );
+                        array_push($this->categoriesResponse, $response);
                         //$pbCategories = $response;
                     }
                 }
