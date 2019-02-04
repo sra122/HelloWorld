@@ -346,16 +346,39 @@ class CategoryController extends Controller
 
     public function getCategories()
     {
+        $libCall = pluginApp(LibraryCallContract::class);
+
         $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        $savedProperties = [];
-
         foreach($properties as $key => $property)
         {
-            array_push($savedProperties, $property);
-        }
+            if(isset($property->settings['pbToken'])) {
 
-        return $savedProperties;
+                if(!empty($productDetails['exportData'])) {
+
+                    if($property->settings['pbToken']['expires_in'] > time()) {
+
+                        $response = $libCall->call(
+                            'HelloWorld::pandaBlack_categories',
+                            [
+                                'token' => $property->settings['pbToken']['token'],
+                            ]
+                        );
+                        return $response;
+                    } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
+
+                        $response = $libCall->call(
+                            'HelloWorld::pandaBlack_categories',
+                            [
+                                'token' => $property->settings['pbToken']['refresh_token'],
+                            ]
+                        );
+                        return $response;
+                    }
+                }
+                break;
+            }
+        }
     }
 }
