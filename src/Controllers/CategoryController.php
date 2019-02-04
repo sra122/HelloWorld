@@ -218,7 +218,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['token'],
                         ]
                     );
-                    $pbCategories = $response;
+                    $pbCategories = $response->Response;
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -227,7 +227,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['refresh_token'],
                         ]
                     );
-                    $pbCategories = $response;
+                    $pbCategories = $response->Response;
                 }
 
                 break;
@@ -362,8 +362,8 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['token'],
                         ]
                     );
-                    //return $response['Response'];
-                    $pbCategories = $response;
+                    //return $response->Response;
+                    $pbCategories = $response->Response;
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -372,8 +372,8 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['refresh_token'],
                         ]
                     );
-                    //return $response['Response'];
-                    $pbCategories = $response;
+                    //return $response->Response;
+                    $pbCategories = $response->Response;
                 }
 
                 break;
