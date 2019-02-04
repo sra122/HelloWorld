@@ -380,7 +380,7 @@ class CategoryController extends Controller
 
         if(isset($pbCategories)) {
 
-            return $pbCategories[1];
+            return $pbCategories[1]['name'];
         }
     }
 }
