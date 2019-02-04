@@ -218,7 +218,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['token'],
                         ]
                     );
-                    array_push($pbCategories, $response->Response);
+                    array_push($pbCategories, $response['Response']);
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -227,7 +227,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['refresh_token'],
                         ]
                     );
-                    array_push($pbCategories, $response->Response);
+                    array_push($pbCategories, $response['Response']);
                 }
 
                 break;
@@ -263,7 +263,7 @@ class CategoryController extends Controller
         ];*/
 
         $pbCategoryTree = [];
-        foreach ($pbCategories as $key => $pbCategory) {
+        foreach ($pbCategories[0] as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === 0) {
                 $pbCategoryTree[] = [
                     'id' => (int)$key,
@@ -349,8 +349,6 @@ class CategoryController extends Controller
         $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        $pbCategories = [];
-
         foreach($properties as $key => $property)
         {
             if(isset($property->settings['pbToken'])) {
@@ -363,7 +361,7 @@ class CategoryController extends Controller
                         ]
                     );
                     //return $response->Response;
-                    array_push($pbCategories, $response['Response']);
+                    $pbCategories = $response['Response'];
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -373,13 +371,15 @@ class CategoryController extends Controller
                         ]
                     );
                     //return $response->Response;
-                    array_push($pbCategories, $response['Response']);
+                    $pbCategories = $response['Response'];
                 }
 
                 break;
             }
         }
 
-        return $pbCategories;
+        if(isset($pbCategories)) {
+            return $pbCategories;
+        }
     }
 }
