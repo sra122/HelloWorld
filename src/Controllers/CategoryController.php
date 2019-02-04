@@ -268,7 +268,7 @@ class CategoryController extends Controller
                 $pbCategoryTree[] = [
                     'id' => (int)$key,
                     'name' => $pbCategory['name'],
-                    'parentId' => $pbCategory['parent_id'],
+                    'parentId' => 0,
                     'children' => $this->getPBChildCategories($pbCategories, (int)$key),
                 ];
             }
@@ -386,7 +386,7 @@ class CategoryController extends Controller
                     $pbCategoryTree[] = [
                         'id' => (int)$key,
                         'name' => $pbCategory['name'],
-                        'parentId' => $pbCategory['parent_id'],
+                        'parentId' => 0,
                         'children' => $this->getPBChildCategories($pbCategories, (int)$key),
                     ];
                 }
