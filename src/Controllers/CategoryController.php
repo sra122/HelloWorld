@@ -25,6 +25,7 @@ class CategoryController extends Controller
      *
      * @return Category[]
      */
+    public $categoriesResponse = '';
 
     public function all(Request $request)
     {
@@ -219,7 +220,8 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['token'],
                             ]
                         );
-                        $pbCategories = $response;
+                        $this->categoriesResponse = $response;
+                        //$pbCategories = $response;
                     } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                         $response = $libCall->call(
@@ -228,7 +230,7 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['refresh_token'],
                             ]
                         );
-                        $pbCategories = $response;
+                        //$pbCategories = $response;
                     }
                 }
                 break;
@@ -263,7 +265,7 @@ class CategoryController extends Controller
             ]
         ];*/
 
-        $pbCategoryTree = [];
+        /*$pbCategoryTree = [];
         foreach ($pbCategories as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === 0) {
                 $pbCategoryTree[] = [
@@ -275,7 +277,7 @@ class CategoryController extends Controller
             }
         }
 
-        return json_encode($pbCategoryTree);
+        return json_encode($pbCategoryTree);*/
     }
 
     private function getPBChildCategories($pbCategories, $parentId)
@@ -340,5 +342,13 @@ class CategoryController extends Controller
         ];
         $response = $settingRepo->create('HelloWorld', 'property', $cronData);
         return $response;
+    }
+
+
+    public function getCategories()
+    {
+        $this->getPBCategories();
+
+        return $this->categoriesResponse;
     }
 }
