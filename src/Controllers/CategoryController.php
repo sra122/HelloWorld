@@ -204,7 +204,7 @@ class CategoryController extends Controller
         $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        $pbCategories = '';
+        $pbCategories = [];
 
         foreach($properties as $key => $property)
         {
@@ -218,7 +218,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['token'],
                         ]
                     );
-                    $pbCategories = $response->Response;
+                    array_push($pbCategories, $response->Response);
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -227,7 +227,7 @@ class CategoryController extends Controller
                             'token' => $property->settings['pbToken']['refresh_token'],
                         ]
                     );
-                    $pbCategories = $response->Response;
+                    array_push($pbCategories, $response->Response);
                 }
 
                 break;
