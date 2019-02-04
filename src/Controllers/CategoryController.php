@@ -199,39 +199,7 @@ class CategoryController extends Controller
 
     public function getPBCategories()
     {
-        $libCall = pluginApp(LibraryCallContract::class);
-
-        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
-        $properties = $propertiesRepo->find('HelloWorld', 'property');
-
-
-        foreach($properties as $key => $property)
-        {
-            if(isset($property->settings['pbToken'])) {
-
-                if($property->settings['pbToken']['expires_in'] > time()) {
-
-                    $response = $libCall->call(
-                        'HelloWorld::pandaBlack_categories',
-                        [
-                            'token' => $property->settings['pbToken']['token'],
-                        ]
-                    );
-                    $pbCategories = $response['Response'];
-                } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
-
-                    $response = $libCall->call(
-                        'HelloWorld::pandaBlack_categories',
-                        [
-                            'token' => $property->settings['pbToken']['refresh_token'],
-                        ]
-                    );
-                    $pbCategories = $response['Response'];
-                }
-
-                break;
-            }
-        }
+        $pbCategories = $this->authenticate('pandaBlack_categories');
 
         /*$pbCategories = [
             '0' => [
@@ -293,9 +261,15 @@ class CategoryController extends Controller
         return $pbChildCategoryTree;
     }
 
-    public function getPBAttributes()
+    public function getPBAttributes($categoryId)
     {
-        $attributeValueSet = [
+        $attributeValueSet = $this->authenticate('pandaBlack_attributes', $categoryId);
+
+        if(isset($attributeValueSet)) {
+            return $attributeValueSet;
+        }
+
+        /*$attributeValueSet = [
             '0' => [
                 'attributeId' => 12,
                 'name' => 'weight',
@@ -308,9 +282,7 @@ class CategoryController extends Controller
                 'required' => false,
                 'values' => ['Test']
             ]
-        ];
-
-        return json_encode($attributeValueSet);
+        ];*/
     }
 
     public function saveCronTime()
@@ -342,7 +314,7 @@ class CategoryController extends Controller
     }
 
 
-    public function getCategories()
+    public function authenticate($apiCall, $params = null)
     {
         $libCall = pluginApp(LibraryCallContract::class);
 
@@ -352,47 +324,42 @@ class CategoryController extends Controller
         foreach($properties as $key => $property)
         {
             if(isset($property->settings['pbToken'])) {
+
                 if($property->settings['pbToken']['expires_in'] > time()) {
 
                     $response = $libCall->call(
-                        'HelloWorld::pandaBlack_categories',
+                        'HelloWorld::'. $apiCall,
                         [
                             'token' => $property->settings['pbToken']['token'],
+                            'category_id' => $params
                         ]
                     );
-                    //return $response->Response;
-                    $pbCategories = $response['Response'];
+                    $apiResponse = $response['Response'];
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
                         'HelloWorld::pandaBlack_categories',
                         [
                             'token' => $property->settings['pbToken']['refresh_token'],
+                            'category_id' => $params
                         ]
                     );
-                    //return $response->Response;
-                    $pbCategories = $response['Response'];
+                    $apiResponse = $response['Response'];
                 }
 
                 break;
             }
         }
 
-        if(isset($pbCategories)) {
-
-            $pbCategoryTree = [];
-            foreach ($pbCategories as $key => $pbCategory) {
-                if ($pbCategory['parent_id'] === null) {
-                    $pbCategoryTree[] = [
-                        'id' => (int)$key,
-                        'name' => $pbCategory['name'],
-                        'parentId' => 0,
-                        'children' => $this->getPBChildCategories($pbCategories, (int)$key),
-                    ];
-                }
-            }
-
-            return $pbCategoryTree;
+        if(isset($apiResponse)) {
+            return $apiResponse;
         }
+    }
+
+
+    public function getAttributesTest()
+    {
+        $attributeSets = $this->authenticate('pandaBlack_attributes', 120);
+        return $attributeSets;
     }
 }
