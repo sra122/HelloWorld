@@ -220,8 +220,7 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['token'],
                             ]
                         );
-                        array_push($this->categoriesResponse, $response);
-                        //$pbCategories = $response;
+                        $pbCategories = $response;
                     } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                         $response = $libCall->call(
@@ -230,8 +229,7 @@ class CategoryController extends Controller
                                 'token' => $property->settings['pbToken']['refresh_token'],
                             ]
                         );
-                        array_push($this->categoriesResponse, $response);
-                        //$pbCategories = $response;
+                        $pbCategories = $response;
                     }
                 }
                 break;
@@ -266,7 +264,7 @@ class CategoryController extends Controller
             ]
         ];*/
 
-        /*$pbCategoryTree = [];
+        $pbCategoryTree = [];
         foreach ($pbCategories as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === 0) {
                 $pbCategoryTree[] = [
@@ -278,7 +276,7 @@ class CategoryController extends Controller
             }
         }
 
-        return json_encode($pbCategoryTree);*/
+        return json_encode($pbCategoryTree);
     }
 
     private function getPBChildCategories($pbCategories, $parentId)
@@ -349,11 +347,15 @@ class CategoryController extends Controller
     public function getCategories()
     {
         $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        $propertiesRepo->delete(331);
-        $propertiesRepo->delete(327);
-        $propertiesRepo->delete(328);
-        $propertiesRepo->delete(330);
-        $propertiesRepo->delete(329);
+        $savedProperties = [];
+
+        foreach($properties as $key => $property)
+        {
+            array_push($savedProperties, $property);
+        }
+
+        return $savedProperties;
     }
 }
