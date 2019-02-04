@@ -210,28 +210,26 @@ class CategoryController extends Controller
         {
             if(isset($property->settings['pbToken'])) {
 
-                if(!empty($productDetails['exportData'])) {
+                if($property->settings['pbToken']['expires_in'] > time()) {
 
-                    if($property->settings['pbToken']['expires_in'] > time()) {
+                    $response = $libCall->call(
+                        'HelloWorld::pandaBlack_categories',
+                        [
+                            'token' => $property->settings['pbToken']['token'],
+                        ]
+                    );
+                    $pbCategories = $response;
+                } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
-                        $response = $libCall->call(
-                            'HelloWorld::pandaBlack_categories',
-                            [
-                                'token' => $property->settings['pbToken']['token'],
-                            ]
-                        );
-                        $pbCategories = $response;
-                    } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
-
-                        $response = $libCall->call(
-                            'HelloWorld::pandaBlack_categories',
-                            [
-                                'token' => $property->settings['pbToken']['refresh_token'],
-                            ]
-                        );
-                        $pbCategories = $response;
-                    }
+                    $response = $libCall->call(
+                        'HelloWorld::pandaBlack_categories',
+                        [
+                            'token' => $property->settings['pbToken']['refresh_token'],
+                        ]
+                    );
+                    $pbCategories = $response;
                 }
+
                 break;
             }
         }
@@ -354,29 +352,26 @@ class CategoryController extends Controller
         foreach($properties as $key => $property)
         {
             if(isset($property->settings['pbToken'])) {
+                if($property->settings['pbToken']['expires_in'] > time()) {
 
-                if(!empty($productDetails['exportData'])) {
+                    $response = $libCall->call(
+                        'HelloWorld::pandaBlack_categories',
+                        [
+                            'token' => $property->settings['pbToken']['token'],
+                        ]
+                    );
+                    return $response;
+                } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
-                    if($property->settings['pbToken']['expires_in'] > time()) {
-
-                        $response = $libCall->call(
-                            'HelloWorld::pandaBlack_categories',
-                            [
-                                'token' => $property->settings['pbToken']['token'],
-                            ]
-                        );
-                        return $response;
-                    } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
-
-                        $response = $libCall->call(
-                            'HelloWorld::pandaBlack_categories',
-                            [
-                                'token' => $property->settings['pbToken']['refresh_token'],
-                            ]
-                        );
-                        return $response;
-                    }
+                    $response = $libCall->call(
+                        'HelloWorld::pandaBlack_categories',
+                        [
+                            'token' => $property->settings['pbToken']['refresh_token'],
+                        ]
+                    );
+                    return $response;
                 }
+
                 break;
             }
         }
