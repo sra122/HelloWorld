@@ -264,7 +264,7 @@ class CategoryController extends Controller
         if(isset($pbCategories)) {
             $pbCategoryTree = [];
             foreach ($pbCategories as $key => $pbCategory) {
-                if ($pbCategory['parent_id'] === 0) {
+                if ($pbCategory['parent_id'] === null) {
                     $pbCategoryTree[] = [
                         'id' => (int)$key,
                         'name' => $pbCategory['name'],
