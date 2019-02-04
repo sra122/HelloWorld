@@ -379,19 +379,8 @@ class CategoryController extends Controller
         }
 
         if(isset($pbCategories)) {
-            $pbCategoryTree = [];
-            foreach ($pbCategories as $key => $pbCategory) {
-                if ($pbCategory->parent_id === 0) {
-                    $pbCategoryTree[] = [
-                        'id' => (int)$key,
-                        'name' => $pbCategory->name,
-                        'parentId' => $pbCategory->parent_id,
-                        'children' => $this->getPBChildCategories($pbCategories, (int)$key),
-                    ];
-                }
-            }
 
-            return $pbCategoryTree;
+            return $pbCategories[1];
         }
     }
 }
