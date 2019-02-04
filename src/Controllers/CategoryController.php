@@ -201,7 +201,7 @@ class CategoryController extends Controller
     {
         $libCall = pluginApp(LibraryCallContract::class);
 
-        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        /*$propertiesRepo = pluginApp(SettingsRepositoryContract::class);
         $properties = $propertiesRepo->find('HelloWorld', 'property');
 
         $pbCategories = [];
@@ -232,9 +232,9 @@ class CategoryController extends Controller
 
                 break;
             }
-        }
+        }*/
 
-        /*$pbCategories = [
+        $pbCategories = [
             '0' => [
                 'id' => 1,
                 'name' => 'First',
@@ -260,10 +260,10 @@ class CategoryController extends Controller
                 'name' => 'Child4',
                 'parent_id' => 0
             ]
-        ];*/
+        ];
 
         $pbCategoryTree = [];
-        foreach ($pbCategories[0] as $key => $pbCategory) {
+        foreach ($pbCategories as $key => $pbCategory) {
             if ($pbCategory['parent_id'] === null) {
                 $pbCategoryTree[] = [
                     'id' => (int)$key,
