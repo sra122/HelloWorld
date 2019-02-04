@@ -363,7 +363,7 @@ class CategoryController extends Controller
                         ]
                     );
                     //return $response->Response;
-                    array_push($pbCategories, $response);
+                    array_push($pbCategories, json_decode($response));
                 } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
 
                     $response = $libCall->call(
@@ -373,7 +373,7 @@ class CategoryController extends Controller
                         ]
                     );
                     //return $response->Response;
-                    array_push($pbCategories, $response);
+                    array_push($pbCategories, json_decode($response));
                 }
 
                 break;
