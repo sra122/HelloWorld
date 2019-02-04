@@ -264,11 +264,11 @@ class CategoryController extends Controller
 
         $pbCategoryTree = [];
         foreach ($pbCategories[0] as $key => $pbCategory) {
-            if ($pbCategory['parent_id'] === 0) {
+            if ($pbCategory['parent_id'] === null) {
                 $pbCategoryTree[] = [
                     'id' => (int)$key,
-                    'name' => $pbCategory->name,
-                    'parentId' => $pbCategory->parent_id,
+                    'name' => $pbCategory['name'],
+                    'parentId' => $pbCategory['parent_id'],
                     'children' => $this->getPBChildCategories($pbCategories, (int)$key),
                 ];
             }
@@ -281,10 +281,10 @@ class CategoryController extends Controller
     {
         $pbChildCategoryTree = [];
         foreach ($pbCategories as $key => $pbCategory) {
-            if ($pbCategory->parent_id === $parentId) {
+            if ($pbCategory['parent_id'] === $parentId) {
                 $pbChildCategoryTree[] = [
                     'id' => (int)$key,
-                    'name' => $pbCategory->name,
+                    'name' => $pbCategory['name'],
                     'children' => $this->getPBChildCategories($pbCategories, (int)$key)
                 ];
             }
@@ -380,7 +380,19 @@ class CategoryController extends Controller
 
         if(isset($pbCategories)) {
 
-            return $pbCategories[1]['name'];
+            $pbCategoryTree = [];
+            foreach ($pbCategories[0] as $key => $pbCategory) {
+                if ($pbCategory['parent_id'] === null) {
+                    $pbCategoryTree[] = [
+                        'id' => (int)$key,
+                        'name' => $pbCategory['name'],
+                        'parentId' => $pbCategory['parent_id'],
+                        'children' => $this->getPBChildCategories($pbCategories, (int)$key),
+                    ];
+                }
+            }
+
+            return $pbCategoryTree;
         }
     }
 }
