@@ -348,8 +348,15 @@ class CategoryController extends Controller
 
     public function getCategories()
     {
-        $this->getPBCategories();
+        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $propertiesRepo->find('HelloWorld', 'property');
 
-        return $this->categoriesResponse;
+        $test = [];
+
+        foreach($properties as $key => $property) {
+            array_push($test, $property);
+        }
+
+        return $test;
     }
 }
