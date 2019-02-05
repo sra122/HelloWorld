@@ -366,7 +366,7 @@ class ContentController extends Controller
         $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
         foreach($resultItems->getResult() as $key => $variation) {
-            if((time() - strtotime($variation['updatedAt'])) < 7200 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if((time() - strtotime($variation['updatedAt'])) < 86400 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
                 $stockData = $variationStock->listStockByWarehouse($variation['id']);
@@ -446,7 +446,7 @@ class ContentController extends Controller
             }
         }
 
-        return $completeData;
+        return $resultItems;
     }
 
 }
