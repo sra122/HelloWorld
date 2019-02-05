@@ -7,7 +7,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Modules\Market\Settings\Contracts\SettingsRepositoryContract;
 use Plenty\Modules\Item\Attribute\Contracts\AttributeValueRepositoryContract;
-
+use Plenty\Modules\Plugin\Libs\Contracts\LibraryCallContract;
 class AttributesController extends Controller
 {
     public function getAttributes()
@@ -121,27 +121,28 @@ class AttributesController extends Controller
 
         $attributeValueSets = $this->authenticate('pandaBlack_attributes', $categoryId);
 
-        foreach($attributeValueSets as $key => $attributeValueSet)
-        {
-            $attributeRepo = pluginApp(AttributeRepositoryContract::class);
-            $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+        if(!empty($attributeValueSets)) {
+            foreach($attributeValueSets as $key => $attributeValueSet)
+            {
+                $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+                $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
 
-            $attributeCheck = $attributeRepo->findByBackendName($attributeValueSet['name'] . '-PB-' . $key);
+                $attributeCheck = $attributeRepo->findByBackendName($attributeValueSet['name'] . '-PB-' . $key);
 
-            if(empty($attributeCheck) && !empty($attributeValueSet['values']) && $attributeValueSet['required']) {
+                if(empty($attributeCheck) && !empty($attributeValueSet['values']) && $attributeValueSet['required']) {
 
-                $attributeValueMap = [
-                    'backendName' => $attributeValueSet['name'] . '-PB-' . $key,
-                ];
+                    $attributeValueMap = [
+                        'backendName' => $attributeValueSet['name'] . '-PB-' . $key,
+                    ];
 
-                $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
+                    $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
 
-                foreach($attributeValueSet['values'] as $attributeKey => $attributeValue) {
-                    $attributeValueRepository->create(['backendName' => trim($attributeValue . '-PB-' . $attributeKey)], $attributeInfo['id']);
+                    foreach($attributeValueSet['values'] as $attributeKey => $attributeValue) {
+                        $attributeValueRepository->create(['backendName' => trim($attributeValue . '-PB-' . $attributeKey)], $attributeInfo['id']);
+                    }
                 }
             }
         }
-
     }
 
     public function updatePBAttributes()
