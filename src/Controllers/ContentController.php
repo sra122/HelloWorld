@@ -444,12 +444,8 @@ class ContentController extends Controller
             }
         }
 
-        $itemData = array(
-          'completeData' => $completeData,
-          'categoryInfo' =>  $categoryId
-        );
 
-        return $itemData;
+        return $pandaBlackReferrerID;
     }
 
 }
