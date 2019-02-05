@@ -448,6 +448,8 @@ class ContentController extends Controller
           'completeData' => $completeData,
           'categoryInfo' =>  $categoryId
         );
+
+        return $itemData;
     }
 
 }
