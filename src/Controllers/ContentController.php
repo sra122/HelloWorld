@@ -366,12 +366,12 @@ class ContentController extends Controller
         $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
 
         foreach($resultItems->getResult() as $key => $variation) {
-            if((time() - strtotime($variation['updatedAt'])) < 3600 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if((time() - strtotime($variation['updatedAt'])) < 7200 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
                 $completeData[$variation['id']] = $variation;
             }
         }
 
-        return $completeData;
+        return $categoryId;
     }
 
 }
