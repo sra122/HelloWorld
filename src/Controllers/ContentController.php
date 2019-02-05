@@ -401,52 +401,22 @@ class ContentController extends Controller
                     'store_name' => '',
                     'status' => $variation['isActive'],
                     'brand' => $manufacturer['name'],
-                    'variant_attribute_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attribute']['backendName'] : '',
-                    'variant_attribute_value_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attributeValue']['backendName'] : '',
-                    'variant_attribute_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attribute']['backendName'] : '',
-                    'variant_attribute_value_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attributeValue']['backendName'] : '',
-                    'variant_attribute_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attribute']['backendName'] : '',
-                    'variant_attribute_value_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attributeValue']['backendName'] : '',
-                    'variant_attribute_4' => isset($variation['VariationAttributeValues'][3]) ? $variation['VariationAttributeValues'][3]['attribute']['backendName'] : '',
-                    'variant_attribute_value_4' => isset($variation['VariationAttributeValues'][3]) ? $variation['VariationAttributeValues'][3]['attributeValue']['backendName'] : '',
-                    'variant_attribute_5' => isset($variation['VariationAttributeValues'][4]) ? $variation['VariationAttributeValues'][4]['attribute']['backendName'] : '',
-                    'variant_attribute_value_5' => isset($variation['VariationAttributeValues'][4]) ? $variation['VariationAttributeValues'][4]['attributeValue']['backendName'] : '',
-                    'variant_attribute_6' => isset($variation['VariationAttributeValues'][5]) ? $variation['VariationAttributeValues'][5]['attribute']['backendName'] : '',
-                    'variant_attribute_value_6' => isset($variation['VariationAttributeValues'][5]) ? $variation['VariationAttributeValues'][5]['attributeValue']['backendName'] : '',
-                    'variant_attribute_7' => isset($variation['VariationAttributeValues'][6]) ? $variation['VariationAttributeValues'][6]['attribute']['backendName'] : '',
-                    'variant_attribute_value_7' => isset($variation['VariationAttributeValues'][6]) ? $variation['VariationAttributeValues'][6]['attributeValue']['backendName'] : '',
-                    'variant_attribute_8' => isset($variation['VariationAttributeValues'][7]) ? $variation['VariationAttributeValues'][7]['attribute']['backendName'] : '',
-                    'variant_attribute_value_8' => isset($variation['VariationAttributeValues'][7]) ? $variation['VariationAttributeValues'][7]['attributeValue']['backendName'] : '',
-                    'variant_attribute_9' => isset($variation['VariationAttributeValues'][8]) ? $variation['VariationAttributeValues'][8]['attribute']['backendName'] : '',
-                    'variant_attribute_value_9' => isset($variation['VariationAttributeValues'][8]) ? $variation['VariationAttributeValues'][8]['attributeValue']['backendName'] : '',
-                    'variant_attribute_10' => isset($variation['VariationAttributeValues'][9]) ? $variation['VariationAttributeValues'][9]['attribute']['backendName'] : '',
-                    'variant_attribute_value_10' => isset($variation['VariationAttributeValues'][9]) ? $variation['VariationAttributeValues'][9]['attributeValue']['backendName'] : '',
-                    'variant_attribute_11' => isset($variation['VariationAttributeValues'][10]) ? $variation['VariationAttributeValues'][10]['attribute']['backendName'] : '',
-                    'variant_attribute_value_11' => isset($variation['VariationAttributeValues'][10]) ? $variation['VariationAttributeValues'][10]['attributeValue']['backendName'] : '',
-                    'variant_attribute_12' => isset($variation['VariationAttributeValues'][11]) ? $variation['VariationAttributeValues'][11]['attribute']['backendName'] : '',
-                    'variant_attribute_value_12' => isset($variation['VariationAttributeValues'][11]) ? $variation['VariationAttributeValues'][11]['attributeValue']['backendName'] : '',
-                    'variant_attribute_13' => isset($variation['VariationAttributeValues'][12]) ? $variation['VariationAttributeValues'][12]['attribute']['backendName'] : '',
-                    'variant_attribute_value_13' => isset($variation['VariationAttributeValues'][12]) ? $variation['VariationAttributeValues'][12]['attributeValue']['backendName'] : '',
-                    'variant_attribute_14' => isset($variation['VariationAttributeValues'][13]) ? $variation['VariationAttributeValues'][13]['attribute']['backendName'] : '',
-                    'variant_attribute_value_14' => isset($variation['VariationAttributeValues'][13]) ? $variation['VariationAttributeValues'][13]['attributeValue']['backendName'] : '',
-                    'variant_attribute_15' => isset($variation['VariationAttributeValues'][14]) ? $variation['VariationAttributeValues'][14]['attribute']['backendName'] : '',
-                    'variant_attribute_value_15' => isset($variation['VariationAttributeValues'][14]) ? $variation['VariationAttributeValues'][14]['attributeValue']['backendName'] : '',
-                    'variant_attribute_16' => isset($variation['VariationAttributeValues'][15]) ? $variation['VariationAttributeValues'][15]['attribute']['backendName'] : '',
-                    'variant_attribute_value_16' => isset($variation['VariationAttributeValues'][15]) ? $variation['VariationAttributeValues'][15]['attributeValue']['backendName'] : '',
-                    'variant_attribute_17' => isset($variation['VariationAttributeValues'][16]) ? $variation['VariationAttributeValues'][16]['attribute']['backendName'] : '',
-                    'variant_attribute_value_17' => isset($variation['VariationAttributeValues'][16]) ? $variation['VariationAttributeValues'][16]['attributeValue']['backendName'] : '',
-                    'variant_attribute_18' => isset($variation['VariationAttributeValues'][17]) ? $variation['VariationAttributeValues'][17]['attribute']['backendName'] : '',
-                    'variant_attribute_value_18' => isset($variation['VariationAttributeValues'][17]) ? $variation['VariationAttributeValues'][17]['attributeValue']['backendName'] : '',
-                    'variant_attribute_19' => isset($variation['VariationAttributeValues'][18]) ? $variation['VariationAttributeValues'][18]['attribute']['backendName'] : '',
-                    'variant_attribute_value_19' => isset($variation['VariationAttributeValues'][18]) ? $variation['VariationAttributeValues'][18]['attributeValue']['backendName'] : '',
-                    'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
-                    'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
                     'last_update_at' => $variation['updatedAt']
                 );
+
+                $attributeSets = [];
+                foreach($variation['variationAttributeValues'] as $attribute) {
+
+                    $attributeId = array_reverse(explode('-', $attribute['attribute']['backendName']))[0];
+                    $attributeValue = array_reverse(explode('-', $attribute['attributeValue']['backendName']))[0];
+                    $attributeSets[$attributeId] = $attributeValue;
+                }
+
+                $completeData[$key]['attributes'] = $attributeSets;
             }
         }
 
-        return $resultItems;
+        return $completeData;
     }
 
 }
