@@ -371,7 +371,7 @@ class ContentController extends Controller
             }
         }
 
-        return $categoryId;
+        return $completeData;
     }
 
 }
