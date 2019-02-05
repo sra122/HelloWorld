@@ -349,7 +349,23 @@ class ContentController extends Controller
             ]);
         }
 
-        return $itemRepository->search();
+        $resultItems = $itemRepository->search();
+
+        $items = [];
+        $completeData = [];
+
+        $settingsRepositoryContract = pluginApp(SettingsRepositoryContract::class);
+        $categoryMapping = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'category'], 1, 100)->toArray();
+
+        $categoryId = [];
+
+        foreach($categoryMapping['entries'] as $category) {
+            $categoryId[$category->settings[0]['category'][0]['id']] = $category->settings;
+        }
+
+        $crons = $settingsRepositoryContract->search(['marketplaceId' => 'HelloWorld', 'type' => 'property'], 1, 100)->toArray();
+
+        return $crons;
     }
 
 }
