@@ -349,8 +349,7 @@ class ContentController extends Controller
             ]);
         }
 
-
-        return $pandaBlackReferrerID;
+        return $itemRepository->search();
     }
 
 }
