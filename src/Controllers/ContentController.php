@@ -409,7 +409,7 @@ class ContentController extends Controller
 
                     $attributeId = array_reverse(explode('-', $attribute['attribute']['backendName']))[0];
                     $attributeValue = array_reverse(explode('-', $attribute['attributeValue']['backendName']))[0];
-                    $attributeSets[$attributeId] = $attributeValue;
+                    $attributeSets[(int)$attributeId] = (int)$attributeValue;
                 }
 
                 $completeData[$key]['attributes'] = $attributeSets;
