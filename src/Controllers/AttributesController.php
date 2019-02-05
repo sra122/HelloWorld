@@ -77,9 +77,9 @@ class AttributesController extends Controller
         return $response->id;
     }
 
-    public function createPBAttributes()
+    public function createPBAttributes($categoryId)
     {
-        $attributeValueSets = [
+        /*$attributeValueSets = [
             0 => [
                 'attributeId' => 12,
                 'name' => 'Weight',
@@ -116,7 +116,32 @@ class AttributesController extends Controller
                     $attributeValueRepository->create(['backendName' => trim($attributeValue), 'valueNames' => [$key]], $attributeInfo['id']);
                 }
             }
+        }*/
+
+
+        $attributeValueSets = $this->authenticate('pandaBlack_attributes', $categoryId);
+
+        foreach($attributeValueSets as $key => $attributeValueSet)
+        {
+            $attributeRepo = pluginApp(AttributeRepositoryContract::class);
+            $attributeValueRepository = pluginApp(AttributeValueRepositoryContract::class);
+
+            $attributeCheck = $attributeRepo->findByBackendName($attributeValueSet['name'] . '-PB-' . $key);
+
+            if(empty($attributeCheck) && !empty($attributeValueSet['values']) && $attributeValueSet['required']) {
+
+                $attributeValueMap = [
+                    'backendName' => $attributeValueSet['name'] . '-PB-' . $key,
+                ];
+
+                $attributeInfo = $attributeRepo->create($attributeValueMap)->toArray();
+
+                foreach($attributeValueSet['values'] as $attributeKey => $attributeValue) {
+                    $attributeValueRepository->create(['backendName' => trim($attributeValue . '-PB-' . $attributeKey)], $attributeInfo['id']);
+                }
+            }
         }
+
     }
 
     public function updatePBAttributes()
@@ -150,5 +175,48 @@ class AttributesController extends Controller
                 }
             }
         }*/
+    }
+
+
+    public function authenticate($apiCall, $params = null)
+    {
+        $libCall = pluginApp(LibraryCallContract::class);
+
+        $propertiesRepo = pluginApp(SettingsRepositoryContract::class);
+        $properties = $propertiesRepo->find('HelloWorld', 'property');
+
+        foreach($properties as $key => $property)
+        {
+            if(isset($property->settings['pbToken'])) {
+
+                if($property->settings['pbToken']['expires_in'] > time()) {
+
+                    $response = $libCall->call(
+                        'HelloWorld::'. $apiCall,
+                        [
+                            'token' => $property->settings['pbToken']['token'],
+                            'category_id' => $params
+                        ]
+                    );
+                    $apiResponse = $response['Response'];
+                } else if($property->settings['pbToken']['refresh_token_expires_in'] > time()) {
+
+                    $response = $libCall->call(
+                        'HelloWorld::pandaBlack_categories',
+                        [
+                            'token' => $property->settings['pbToken']['refresh_token'],
+                            'category_id' => $params
+                        ]
+                    );
+                    $apiResponse = $response['Response'];
+                }
+
+                break;
+            }
+        }
+
+        if(isset($apiResponse)) {
+            return $apiResponse;
+        }
     }
 }

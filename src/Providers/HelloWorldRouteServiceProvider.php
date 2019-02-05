@@ -40,6 +40,9 @@ class HelloWorldRouteServiceProvider extends RouteServiceProvider
             $router->delete('markets/panda-black/correlation/delete/{id}', 'HelloWorld\Controllers\CategoryController@deleteCorrelation');
             $router->get('markets/panda-black/attributes', 'HelloWorld\Controllers\AttributesController@getAttributes');
             $router->post('markets/panda-black/attribute', 'HelloWorld\Controllers\AttributesController@createAttribute');
+
+            $router->post('markets/panda-black/create-attribute/{id}', 'HelloWorld\Controllers\AttributesController@createPBAttributes');
+
             $router->post('markets/panda-black/attribute-mapping', 'HelloWorld\Controllers\AttributesController@attributeMapping');
             $router->get('markets/panda-black/attribute-mapping/{id}', 'HelloWorld\Controllers\AttributesController@getMappedAttributeDetails');
             $router->get('markets/panda-black/login-url', 'HelloWorld\Controllers\AuthController@getLoginUrl');
