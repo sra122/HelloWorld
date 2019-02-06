@@ -380,7 +380,12 @@ class ContentController extends Controller
             }
         }
 
-        return $completeData;
+        $test = array(
+            'complete' => $resultItems,
+            'pb' => $completeData
+        );
+
+        return $test;
     }
 
 }
