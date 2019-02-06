@@ -112,7 +112,7 @@ class ContentController extends Controller
 
 
         foreach($resultItems->getResult() as $key => $variation) {
-            if((time() - strtotime($variation['updatedAt'])) < 86400 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+            if((time() - strtotime($variation['updatedAt'])) < 604800 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
                 $variationStock = pluginApp(VariationStockRepositoryContract::class);
                 $stockData = $variationStock->listStockByWarehouse($variation['id']);
