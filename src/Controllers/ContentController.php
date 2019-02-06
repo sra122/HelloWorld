@@ -112,89 +112,53 @@ class ContentController extends Controller
 
 
         foreach($resultItems->getResult() as $key => $variation) {
+            if((time() - strtotime($variation['updatedAt'])) < 86400 && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
 
-            // Update only if products are updated in last 1 hour.
-            if((time() - strtotime($variation['updatedAt'])) < 3600 || $firstCron) {
+                $variationStock = pluginApp(VariationStockRepositoryContract::class);
+                $stockData = $variationStock->listStockByWarehouse($variation['id']);
 
-                if(!$variation['isMain'] && isset($categoryId[$variation['variationCategories'][0]['categoryId']])) {
+                $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
+                $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
 
-                    $variationStock = pluginApp(VariationStockRepositoryContract::class);
-                    $stockData = $variationStock->listStockByWarehouse($variation['id']);
+                /*$variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
+                $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);*/
 
-                    $manufacturerRepository = pluginApp(ManufacturerRepositoryContract::class);
-                    $manufacturer = $manufacturerRepository->findById($variation['item']['manufacturerId'], ['*'])->toArray();
+                $textArray = $variation['item']->texts;
+                $variation['texts'] = $textArray->toArray();
 
-                    $variationMarketIdentNumber = pluginApp(VariationMarketIdentNumberRepositoryContract::class);
-                    $asin = $variationMarketIdentNumber->findByVariationId($variation['id']);
+                $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
+                $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $manufacturer];
 
-                    $textArray = $variation['item']->texts;
-                    $variation['texts'] = $textArray->toArray();
+                $completeData[$key] = array(
+                    'parent_product_id' => $variation['mainVariationId'],
+                    'product_id' => $variation['id'],
+                    'item_id' => $variation['itemId'],
+                    'name' => $variation['item']['texts'][0]['name1'],
+                    'price' => $variation['variationSalesPrices'][0]['price'],
+                    'currency' => $variation['variationSalesPrices'][0]['price'],
+                    'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
+                    'short_description' => $variation['item']['texts'][0]['description'],
+                    'image_url' => $variation['images'][0]['url'],
+                    'color' => '',
+                    'size' => '',
+                    'content_supplier' => 'PlentyMarkets',
+                    'product_type' => '',
+                    'quantity' => $stockData[0]['netStock'],
+                    'store_name' => '',
+                    'status' => $variation['isActive'],
+                    'brand' => $manufacturer['name'],
+                    'last_update_at' => $variation['updatedAt']
+                );
 
-                    $categoryMappingInfo = $categoryId[$variation['variationCategories'][0]['categoryId']];
-                    $items[$key] = [$variation, $categoryId[$variation['variationCategories'][0]['categoryId']], $manufacturer];
+                $attributeSets = [];
+                foreach($variation['variationAttributeValues'] as $attribute) {
 
-                    $completeData[$key] = array(
-                        'parent_product_id' => $variation['mainVariationId'],
-                        'product_id' => $variation['id'],
-                        'item_id' => $variation['itemId'],
-                        'name' => $variation['item']['texts'][0]['name1'],
-                        'price' => $variation['variationSalesPrices'][0]['price'],
-                        'currency' => $variation['variationSalesPrices'][0]['price'],
-                        'category' => $categoryMappingInfo[0]['vendorCategory'][0]['name'],
-                        'short_description' => $variation['item']['texts'][0]['description'],
-                        'image_url' => $variation['images'][0]['url'],
-                        'color' => '',
-                        'size' => '',
-                        'content_supplier' => 'PlentyMarkets',
-                        'product_type' => '',
-                        'quantity' => $stockData[0]['netStock'],
-                        'store_name' => '',
-                        'status' => $variation['isActive'],
-                        'brand' => $manufacturer['name'],
-                        'variant_attribute_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attribute']['backendName'] : '',
-                        'variant_attribute_value_1' => isset($variation['VariationAttributeValues'][0]) ? $variation['VariationAttributeValues'][0]['attributeValue']['backendName'] : '',
-                        'variant_attribute_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attribute']['backendName'] : '',
-                        'variant_attribute_value_2' => isset($variation['VariationAttributeValues'][1]) ? $variation['VariationAttributeValues'][1]['attributeValue']['backendName'] : '',
-                        'variant_attribute_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attribute']['backendName'] : '',
-                        'variant_attribute_value_3' => isset($variation['VariationAttributeValues'][2]) ? $variation['VariationAttributeValues'][2]['attributeValue']['backendName'] : '',
-                        'variant_attribute_4' => isset($variation['VariationAttributeValues'][3]) ? $variation['VariationAttributeValues'][3]['attribute']['backendName'] : '',
-                        'variant_attribute_value_4' => isset($variation['VariationAttributeValues'][3]) ? $variation['VariationAttributeValues'][3]['attributeValue']['backendName'] : '',
-                        'variant_attribute_5' => isset($variation['VariationAttributeValues'][4]) ? $variation['VariationAttributeValues'][4]['attribute']['backendName'] : '',
-                        'variant_attribute_value_5' => isset($variation['VariationAttributeValues'][4]) ? $variation['VariationAttributeValues'][4]['attributeValue']['backendName'] : '',
-                        'variant_attribute_6' => isset($variation['VariationAttributeValues'][5]) ? $variation['VariationAttributeValues'][5]['attribute']['backendName'] : '',
-                        'variant_attribute_value_6' => isset($variation['VariationAttributeValues'][5]) ? $variation['VariationAttributeValues'][5]['attributeValue']['backendName'] : '',
-                        'variant_attribute_7' => isset($variation['VariationAttributeValues'][6]) ? $variation['VariationAttributeValues'][6]['attribute']['backendName'] : '',
-                        'variant_attribute_value_7' => isset($variation['VariationAttributeValues'][6]) ? $variation['VariationAttributeValues'][6]['attributeValue']['backendName'] : '',
-                        'variant_attribute_8' => isset($variation['VariationAttributeValues'][7]) ? $variation['VariationAttributeValues'][7]['attribute']['backendName'] : '',
-                        'variant_attribute_value_8' => isset($variation['VariationAttributeValues'][7]) ? $variation['VariationAttributeValues'][7]['attributeValue']['backendName'] : '',
-                        'variant_attribute_9' => isset($variation['VariationAttributeValues'][8]) ? $variation['VariationAttributeValues'][8]['attribute']['backendName'] : '',
-                        'variant_attribute_value_9' => isset($variation['VariationAttributeValues'][8]) ? $variation['VariationAttributeValues'][8]['attributeValue']['backendName'] : '',
-                        'variant_attribute_10' => isset($variation['VariationAttributeValues'][9]) ? $variation['VariationAttributeValues'][9]['attribute']['backendName'] : '',
-                        'variant_attribute_value_10' => isset($variation['VariationAttributeValues'][9]) ? $variation['VariationAttributeValues'][9]['attributeValue']['backendName'] : '',
-                        'variant_attribute_11' => isset($variation['VariationAttributeValues'][10]) ? $variation['VariationAttributeValues'][10]['attribute']['backendName'] : '',
-                        'variant_attribute_value_11' => isset($variation['VariationAttributeValues'][10]) ? $variation['VariationAttributeValues'][10]['attributeValue']['backendName'] : '',
-                        'variant_attribute_12' => isset($variation['VariationAttributeValues'][11]) ? $variation['VariationAttributeValues'][11]['attribute']['backendName'] : '',
-                        'variant_attribute_value_12' => isset($variation['VariationAttributeValues'][11]) ? $variation['VariationAttributeValues'][11]['attributeValue']['backendName'] : '',
-                        'variant_attribute_13' => isset($variation['VariationAttributeValues'][12]) ? $variation['VariationAttributeValues'][12]['attribute']['backendName'] : '',
-                        'variant_attribute_value_13' => isset($variation['VariationAttributeValues'][12]) ? $variation['VariationAttributeValues'][12]['attributeValue']['backendName'] : '',
-                        'variant_attribute_14' => isset($variation['VariationAttributeValues'][13]) ? $variation['VariationAttributeValues'][13]['attribute']['backendName'] : '',
-                        'variant_attribute_value_14' => isset($variation['VariationAttributeValues'][13]) ? $variation['VariationAttributeValues'][13]['attributeValue']['backendName'] : '',
-                        'variant_attribute_15' => isset($variation['VariationAttributeValues'][14]) ? $variation['VariationAttributeValues'][14]['attribute']['backendName'] : '',
-                        'variant_attribute_value_15' => isset($variation['VariationAttributeValues'][14]) ? $variation['VariationAttributeValues'][14]['attributeValue']['backendName'] : '',
-                        'variant_attribute_16' => isset($variation['VariationAttributeValues'][15]) ? $variation['VariationAttributeValues'][15]['attribute']['backendName'] : '',
-                        'variant_attribute_value_16' => isset($variation['VariationAttributeValues'][15]) ? $variation['VariationAttributeValues'][15]['attributeValue']['backendName'] : '',
-                        'variant_attribute_17' => isset($variation['VariationAttributeValues'][16]) ? $variation['VariationAttributeValues'][16]['attribute']['backendName'] : '',
-                        'variant_attribute_value_17' => isset($variation['VariationAttributeValues'][16]) ? $variation['VariationAttributeValues'][16]['attributeValue']['backendName'] : '',
-                        'variant_attribute_18' => isset($variation['VariationAttributeValues'][17]) ? $variation['VariationAttributeValues'][17]['attribute']['backendName'] : '',
-                        'variant_attribute_value_18' => isset($variation['VariationAttributeValues'][17]) ? $variation['VariationAttributeValues'][17]['attributeValue']['backendName'] : '',
-                        'variant_attribute_19' => isset($variation['VariationAttributeValues'][18]) ? $variation['VariationAttributeValues'][18]['attribute']['backendName'] : '',
-                        'variant_attribute_value_19' => isset($variation['VariationAttributeValues'][18]) ? $variation['VariationAttributeValues'][18]['attributeValue']['backendName'] : '',
-                        'variant_attribute_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attribute']['backendName'] : '',
-                        'variant_attribute_value_20' => isset($variation['VariationAttributeValues'][19]) ? $variation['VariationAttributeValues'][19]['attributeValue']['backendName'] : '',
-                        'last_update_at' => $variation['updatedAt'],
-                        'asin' => $asin['id']
-                    );
+                    $attributeId = array_reverse(explode('-', $attribute['attribute']['backendName']))[0];
+                    $attributeValue = array_reverse(explode('-', $attribute['attributeValue']['backendName']))[0];
+                    $attributeSets[(int)$attributeId] = (int)$attributeValue;
                 }
+
+                $completeData[$key]['attributes'] = $attributeSets;
             }
         }
 
