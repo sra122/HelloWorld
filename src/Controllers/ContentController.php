@@ -44,7 +44,7 @@ class ContentController extends Controller
                 'variationSalesPrices' => true,
                 'variationCategories' => true,
                 'variationClients' => true,
-                'VariationAttributeValues' => true,
+                'variationAttributeValues' => true,
                 'variationSkus' => true,
                 'variationMarkets' => true,
                 'variationSuppliers' => true,
